@@ -21,7 +21,5 @@ public interface Particle {
     void setDy(float dy);
     
     void setChanged(boolean changed);
-    
-    boolean collidesWith(Particle p);
 
 }

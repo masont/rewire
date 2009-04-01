@@ -1,9 +1,7 @@
 package edu.mit.rewire.view;
 
-import java.awt.Point;
-
-import edu.mit.rewire.model.Item;
 import processing.core.PGraphics;
+import edu.mit.rewire.model.Item;
 
 public class Bubble implements Drawable, Particle {
     
@@ -29,8 +27,8 @@ public class Bubble implements Drawable, Particle {
         this.y = y;
         this.r = r;
         
-        this.dx = (float) ((0.5 - Math.random()) * 1);
-        this.dy = (float) ((0.5 - Math.random()) * 1);
+        this.dx = (float) ((0.5 - Math.random()) * 10);
+        this.dy = (float) ((0.5 - Math.random()) * 10);
         
         this.changed = true;
     }
@@ -40,15 +38,7 @@ public class Bubble implements Drawable, Particle {
         graphics.noStroke();
         graphics.fill(150);
         graphics.ellipse(x, y, 2 * r, 2 * r);
-        this.x += dx;
-        this.y += dy;
     }
-    
-    @Override
-    public boolean collidesWith(Particle p) {
-        float d = (float) Point.distance(this.x, this.y, p.getX(), p.getY());
-        return d <= (this.r + p.getR());
-    };
 
     @Override
     public boolean isChanged() {
