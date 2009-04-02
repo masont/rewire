@@ -6,6 +6,8 @@ public interface Drawable {
     
     boolean isChanged();
     
+    void setChanged(boolean changed);
+    
     void draw(PGraphics graphics);
 
 }

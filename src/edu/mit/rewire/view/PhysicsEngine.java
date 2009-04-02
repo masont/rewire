@@ -49,6 +49,7 @@ public class PhysicsEngine {
             p.setX(p.getX() + p.getDx());
             p.setY(p.getY() + p.getDy());
             handleWalls(p);
+            p.setChanged(true);
         }
     }
 

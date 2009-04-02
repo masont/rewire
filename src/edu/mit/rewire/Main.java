@@ -44,6 +44,7 @@ public class Main extends PApplet {
         for (Drawable element : elements) {
             if (element.isChanged()) {
                 element.draw(this.g);
+                element.setChanged(false);
             }
         }
     }
