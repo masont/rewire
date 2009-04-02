@@ -27,8 +27,8 @@ public class Bubble implements Drawable, Particle {
         this.y = y;
         this.r = r;
         
-        this.dx = (float) ((0.5 - Math.random()) * 10);
-        this.dy = (float) ((0.5 - Math.random()) * 10);
+        this.dx = (float) ((0.5 - Math.random()) * 1);
+        this.dy = (float) ((0.5 - Math.random()) * 1);
         
         this.changed = true;
     }
@@ -36,7 +36,7 @@ public class Bubble implements Drawable, Particle {
     @Override
     public void draw(PGraphics graphics) {
         graphics.noStroke();
-        graphics.fill(150);
+        graphics.fill(150, 200);
         graphics.ellipse(x, y, 2 * r, 2 * r);
     }
 
