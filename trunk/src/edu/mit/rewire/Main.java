@@ -38,6 +38,23 @@ public class Main extends PApplet {
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
         }
+
+// EPILEPSY MODE        
+//        
+//        this.animations.add(new Animation() {
+//
+//			@Override
+//			public boolean step() {
+//				if (Math.random() > 0.5) {
+//					background(255);
+//				} else {
+//					background(0);
+//				}
+//				return false;
+//			}
+//        	
+//        });
+        
         this.physicsEngine.init();
     }
     
