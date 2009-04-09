@@ -125,4 +125,9 @@ public class Bubble implements Drawable, Particle, Clickable {
         return Point2D.distance(x, y, this.x, this.y) <= this.r;
     }
     
+    @Override
+    public int getZ() {
+        return 0;
+    }
+    
 }
