@@ -1,14 +1,15 @@
-package edu.mit.rewire.view;
+package edu.mit.rewire.view.animation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.model.MockItem;
+import edu.mit.rewire.view.Particle;
 
 import processing.core.PVector;
 
-public class PhysicsEngine {
+public class PhysicsAnimation implements Animation {
 
 	List<Particle> particles;
 
@@ -20,13 +21,13 @@ public class PhysicsEngine {
 
 	private final float frictionConstant = -0.9f;
 
-	public PhysicsEngine(float width, float height) {
+	public PhysicsAnimation(float width, float height) {
 		this.particles = new ArrayList<Particle>();
 		this.width = width;
 		this.height = height;
 	}
 
-	public PhysicsEngine(float width, float height, List<Particle> particles) {
+	public PhysicsAnimation(float width, float height, List<Particle> particles) {
 		this(height, width);
 		this.particles.addAll(particles);
 	}
@@ -39,8 +40,7 @@ public class PhysicsEngine {
 
 	}
 
-	public void step() {
-
+	public boolean step() {
 		for (int i = 0; i < particles.size(); i++) {
 			for (int j = i + 1; j < particles.size(); j++) {
 				handleRepulsion(particles.get(i), particles.get(j));
@@ -54,6 +54,8 @@ public class PhysicsEngine {
 			handleWalls(p);
 			p.setChanged(true);
 		}
+		
+		return false;
 	}
 
 	protected void handleWalls(Particle p) {

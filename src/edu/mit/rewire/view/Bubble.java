@@ -1,12 +1,24 @@
 package edu.mit.rewire.view;
 
+import java.awt.geom.Point2D;
+
 import processing.core.PGraphics;
+import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
-public class Bubble implements Drawable, Particle {
+public class Bubble implements Drawable, Particle, Clickable {
+    
+    public enum State {
+        SMALL,
+        MEDIUM,
+        EXPANDED
+    }
     
     /** Model instance that this bubble represents */
     private final Item item;
+    
+    /** State of this bubble */
+    private State state;
     
     /** Position in pixels */
     private float x, y;
@@ -103,5 +115,14 @@ public class Bubble implements Drawable, Particle {
         this.dy = dy;
     }
 
+    @Override
+    public void dispatchClick(Controller controller) {
+        controller.handleBubbleClick(this);        
+    }
+
+    @Override
+    public boolean isClicked(int x, int y) {
+        return Point2D.distance(x, y, this.x, this.y) <= this.r;
+    }
     
 }
