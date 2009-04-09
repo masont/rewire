@@ -25,6 +25,8 @@ public class ProcessingView extends PApplet {
     
     @Override
     public void setup() {
+        this.controller = new Controller(this);
+        
         size(screen.width, screen.height);
         background(0);
         smooth();
@@ -38,6 +40,7 @@ public class ProcessingView extends PApplet {
             Bubble bubble = new Bubble(item, x, y, r);
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
+            this.controller.add(bubble);
         }
         
         this.physicsEngine.init();
@@ -61,12 +64,16 @@ public class ProcessingView extends PApplet {
         }
     }
     
+    public void add(Animation animation) {
+        this.animations.add(animation);
+    }
+    
     @Override
     public void mouseClicked() {
         int x = mouseX;
         int y = mouseY;
         
-        
+        this.controller.doClick(x, y);
     }
 
 }
