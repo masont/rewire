@@ -7,6 +7,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.model.MockItem;
@@ -25,12 +26,16 @@ public class ProcessingView extends PApplet {
     private Controller controller;
     
     private PImage bluebubble;
+    private PFont titleFont;
+    private PFont bodyFont;
     
     @Override
     public void setup() {
         this.controller = new Controller(this, screen.width, screen.height);
         
         bluebubble = loadImage("bluebubble.png");
+        titleFont = loadFont("HelveticaNeue-Light-36.vlw");
+        bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
         
         size(screen.width, screen.height);
         background(0);
@@ -43,7 +48,7 @@ public class ProcessingView extends PApplet {
         
         ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
         
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 15; i++) {
         	       	
         	float r = (float) ((Math.random() * 50) + 50);
         	float x = (float) ((Math.random() * (screen.width - r)) + r);
@@ -79,7 +84,7 @@ public class ProcessingView extends PApplet {
 //        		}
 //        	}
         	            
-            Bubble bubble = new Bubble(item, x, y, r, bluebubble);
+            Bubble bubble = new Bubble(item, x, y, r, bluebubble, titleFont, bodyFont);
             bubbles.add(bubble);
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
@@ -100,11 +105,8 @@ public class ProcessingView extends PApplet {
         }
         
         for (Drawable element : elements) {
-            if (element.isChanged()) {
-                element.draw(this.g);
-                element.setChanged(false);
-            }
-        }
+        	element.draw(this.g);
+        }	
         
     }
     
