@@ -120,8 +120,8 @@ public class PhysicsAnimation implements Animation {
 			
 			// bTemps will hold rotated ball positions. 
 			Item item = new MockItem();
-			Bubble bTemp1 = new Bubble(item, 0, 0, 0);
-			Bubble bTemp2 = new Bubble(item, 0, 0, 0);
+			Bubble bTemp1 = new Bubble(item, 0, 0, 0, null);
+			Bubble bTemp2 = new Bubble(item, 0, 0, 0, null);
 			
 			/* Bubble 2's position is relative to Bubble 1's
 			 * so you can use the vector between them (bVect) as the
@@ -168,8 +168,8 @@ public class PhysicsAnimation implements Animation {
 			 * Reverse signs in trig expressions to rotate
 			 * in the opposite direction */
 			// rotate balls
-			Bubble bFinal1 = new Bubble(item, 0, 0, 0);
-			Bubble bFinal2 = new Bubble(item, 0, 0, 0);
+			Bubble bFinal1 = new Bubble(item, 0, 0, 0, null);
+			Bubble bFinal2 = new Bubble(item, 0, 0, 0, null);
 			
 			bFinal1.setX(cosine * bTemp1.getX() - sine * bTemp1.getY());
 			bFinal1.setY(cosine * bTemp1.getY() + sine * bTemp1.getX());

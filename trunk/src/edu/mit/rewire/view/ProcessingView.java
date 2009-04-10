@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.model.MockItem;
@@ -23,9 +24,13 @@ public class ProcessingView extends PApplet {
     
     private Controller controller;
     
+    private PImage bluebubble;
+    
     @Override
     public void setup() {
         this.controller = new Controller(this);
+        
+        bluebubble = loadImage("bluebubble.png");
         
         size(screen.width, screen.height);
         background(0);
@@ -74,7 +79,7 @@ public class ProcessingView extends PApplet {
 //        		}
 //        	}
         	            
-            Bubble bubble = new Bubble(item, x, y, r);
+            Bubble bubble = new Bubble(item, x, y, r, bluebubble);
             bubbles.add(bubble);
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
