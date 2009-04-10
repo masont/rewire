@@ -28,11 +28,11 @@ public class ProcessingView extends PApplet {
     
     @Override
     public void setup() {
-        this.controller = new Controller(this);
+        this.controller = new Controller(this, screen.width, screen.height);
         
         bluebubble = loadImage("bluebubble.png");
         
-        size(screen.width, screen.height, OPENGL);
+        size(screen.width, screen.height);
         background(0);
         smooth();
         frameRate(30);
