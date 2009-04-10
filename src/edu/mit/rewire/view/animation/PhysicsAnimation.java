@@ -18,7 +18,7 @@ public class PhysicsAnimation implements Animation {
 
 	private final float springConstant = 0.05f;
 
-	private final float repulsionConstant = 10f;
+	private final float repulsionConstant = 200f;
 
 	private final float frictionConstant = -0.9f;
 

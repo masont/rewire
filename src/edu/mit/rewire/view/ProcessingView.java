@@ -32,7 +32,7 @@ public class ProcessingView extends PApplet {
         
         bluebubble = loadImage("bluebubble.png");
         
-        size(screen.width, screen.height);
+        size(screen.width, screen.height, OPENGL);
         background(0);
         smooth();
         frameRate(30);
@@ -119,14 +119,14 @@ public class ProcessingView extends PApplet {
         
         this.controller.doClick(x, y);
     }
-    
-    @Override
-    public void mouseMoved() {
-        int x = mouseX;
-        int y = mouseY;
-        
-        this.controller.doMove(x, y);
-    }
+//    
+//    @Override
+//    public void mouseMoved() {
+//        int x = mouseX;
+//        int y = mouseY;
+//        
+//        this.controller.doMove(x, y);
+//    }
 
 
 }
