@@ -77,7 +77,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.trashButton = trashButton;
     }
 
-    @Override
+    //@Override
     public void draw(PGraphics graphics) {
         graphics.image(backimage, x - r, y - r, 2 * r, 2 * r);
         graphics.fill(136);
@@ -112,7 +112,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         return item;
     }
 
-    @Override
+    //@Override
     public float getR() {
         return r;
     }
@@ -121,47 +121,47 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.r = r;
     }
 
-    @Override
+    //@Override
     public float getX() {
         return x;
     }
 
-    @Override
+    //@Override
     public void setX(float x) {
         this.x = x;
     }
 
-    @Override
+    //@Override
     public float getY() {
         return y;
     }
 
-    @Override
+    //@Override
     public void setY(float y) {
         this.y = y;
     }
 
-    @Override
+    //@Override
     public float getDx() {
         return dx;
     }
 
-    @Override
+    //@Override
     public void setDx(float dx) {
         this.dx = dx;
     }
 
-    @Override
+    //@Override
     public float getDy() {
         return dy;
     }
 
-    @Override
+    //@Override
     public void setDy(float dy) {
         this.dy = dy;
     }
-
-    @Override
+     
+    //@Override
     public void dispatchClick(Controller controller, int x, int y) {
         if (this.state == State.EXPANDED) {
             if (x >= this.x + this.r * 1 / 5 && x <= this.x + this.r * 1 / 5 + 100) {
@@ -180,17 +180,17 @@ public class Bubble implements Drawable, Particle, MouseAware {
         }
     }
 
-    @Override
+    //@Override
     public void dispatchOver(Controller controller, int x, int y) {
 
     }
 
-    @Override
+    //@Override
     public boolean hits(int x, int y) {
         return Point2D.distance(x, y, this.x, this.y) <= this.r;
     }
 
-    @Override
+    //@Override
     public int getZ() {
         return 0;
     }

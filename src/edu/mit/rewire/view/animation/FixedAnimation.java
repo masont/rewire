@@ -14,7 +14,7 @@ public class FixedAnimation implements Animation {
 		this.bubble = bubble;
 	}
 	
-	@Override
+	//@Override
 	public boolean step() {
 	    if (first) {
 	        this.x = bubble.getX();

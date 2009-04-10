@@ -28,7 +28,7 @@ public class ExpandBubbleAnimation implements Animation {
 		this.yDistance = this.bubble.getY() - height/2;
 	}
 
-	@Override
+	//@Override
 	public boolean step() {
 
 		// Expand bubble

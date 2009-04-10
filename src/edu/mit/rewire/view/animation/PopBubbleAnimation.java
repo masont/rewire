@@ -21,7 +21,7 @@ public class PopBubbleAnimation implements Animation {
         }
     }
 
-    @Override
+    //@Override
 	public boolean step() {
         if (frames == 0) return true;
 		view.image(popImage, bubble.getX() - bubble.getR() + 100, bubble.getY() - bubble.getR() + 100);
