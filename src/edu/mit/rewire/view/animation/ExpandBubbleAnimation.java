@@ -45,7 +45,7 @@ public class ExpandBubbleAnimation implements Animation {
 		// Move bubble to center horizontally
 				
 		if (this.bubble.getX() < width/2) {
-			if (this.bubble.getX() - width/2 > xDistance/2) {
+			if (this.bubble.getX() - width/2 < xDistance/2) {
 				this.bubble.setX(this.bubble.getX() + adjustX);
 				adjustX += 10;
 			} else {
@@ -70,7 +70,7 @@ public class ExpandBubbleAnimation implements Animation {
 		
 		// Move bubble to center vertically		
 		if (this.bubble.getY() < height/2) {
-			if (this.bubble.getY() - height/2 > yDistance/2) {
+			if (this.bubble.getY() - height/2 < yDistance/2) {
 				this.bubble.setY(this.bubble.getY() + adjustY);
 				adjustY += 10;
 			} else {
