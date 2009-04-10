@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import processing.core.PGraphics;
+import processing.core.PImage;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
@@ -36,7 +37,10 @@ public class Bubble implements Drawable, Particle, MouseAware {
     /** Flag for whether or not this bubble needs to be redrawn */
     private boolean changed;
     
-    public Bubble(Item item, float x, float y, float r) {
+    /** Background image for the bubble */
+    private PImage backimage;
+    
+    public Bubble(Item item, float x, float y, float r, PImage backimage) {
         this.item = item;
         
         this.x = x;
@@ -46,16 +50,17 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.dx = (float) ((0.5 - Math.random()) * 1);
         this.dy = (float) ((0.5 - Math.random()) * 1);
         
+        this.backimage = backimage;
         this.background = Color.GRAY;
-        
         this.changed = true;
     }
 
     @Override
     public void draw(PGraphics graphics) {
-        graphics.noStroke();
+    	graphics.image(backimage, x, y, 2 * r, 2 * r);
+        /*graphics.noStroke();
         graphics.fill(background.getRed(), background.getGreen(), background.getBlue(), background.getAlpha());
-        graphics.ellipse(x, y, 2 * r, 2 * r);
+        graphics.ellipse(x, y, 2 * r, 2 * r);*/
     }
 
     @Override
@@ -125,6 +130,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         return this.background;
     }
 
+    @Override
     public void setBackground(Color background) {
         this.background = background;
     }
