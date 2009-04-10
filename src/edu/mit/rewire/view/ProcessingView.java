@@ -9,6 +9,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
+import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.model.MockItem;
 import edu.mit.rewire.view.animation.Animation;
@@ -26,6 +27,19 @@ public class ProcessingView extends PApplet {
     private Controller controller;
     
     private PImage bluebubble;
+    private PImage lavenderbubble;
+    private PImage pinkbubble;
+    private PImage seafoambubble;
+    private PImage yellowbubble;
+    private PImage orangebubble;
+    
+    private PImage blueicon;
+    private PImage lavendericon;
+    private PImage pinkicon;
+    private PImage seafoamicon;
+    private PImage yellowicon;
+    private PImage orangeicon;
+    
     private PFont titleFont;
     private PFont bodyFont;
     
@@ -33,7 +47,20 @@ public class ProcessingView extends PApplet {
     public void setup() {
         this.controller = new Controller(this, screen.width, screen.height);
         
-        bluebubble = loadImage("bluebubble.png");
+        bluebubble = loadImage("blue.png");
+        lavenderbubble = loadImage("lavender.png");
+        pinkbubble = loadImage("pink.png");
+        seafoambubble = loadImage("seafoam.png");
+        yellowbubble = loadImage("yellow.png");
+        orangebubble = loadImage("bluebubble.png");
+        
+        blueicon = loadImage("facebook-rounded.png");
+        lavendericon = loadImage("twitter.png");
+        pinkicon = loadImage("times.png");
+        seafoamicon = loadImage("todo.png");
+        yellowicon = loadImage("weather.png");
+        orangeicon = loadImage("gmail.png");
+        
         titleFont = loadFont("HelveticaNeue-Light-36.vlw");
         bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
         
@@ -43,12 +70,17 @@ public class ProcessingView extends PApplet {
         frameRate(30);
         
         physicsEngine = new PhysicsAnimation(this.width, this.height);
-        Item item = new MockItem();
+
+        DataSource dataSource = new DataSource();
+        dataSource.addItem(new MockItem());
+        dataSource.addItem(new MockItem());
+        dataSource.addItem(new MockItem());
+        dataSource.addItem(new MockItem());
+        dataSource.addItem(new MockItem());
         
+        List<Item> items = dataSource.getItems();
         
-        ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-        
-        for (int i = 0; i < 15; i++) {
+        for (Item item : items) {
         	       	
         	float r = (float) ((Math.random() * 50) + 50);
         	float x = (float) ((Math.random() * (screen.width - r)) + r);
@@ -83,9 +115,25 @@ public class ProcessingView extends PApplet {
 //                    }
 //        		}
 //        	}
-        	            
-            Bubble bubble = new Bubble(item, x, y, r, bluebubble, titleFont, bodyFont);
-            bubbles.add(bubble);
+        	  
+        	// ugly if-else statement
+        	Bubble bubble;
+        	if (item.getType() == "blue") {
+                bubble = new Bubble(item, x, y, r, bluebubble, titleFont, bodyFont, blueicon);
+        	} else if (item.getType() == "lavender") {
+                bubble = new Bubble(item, x, y, r, lavenderbubble, titleFont, bodyFont, lavendericon);
+        	} else if (item.getType() == "pink") {
+                bubble = new Bubble(item, x, y, r, pinkbubble, titleFont, bodyFont, pinkicon);
+        	} else if (item.getType() == "seafoam") {
+                bubble = new Bubble(item, x, y, r, seafoambubble, titleFont, bodyFont, seafoamicon);
+        	} else if (item.getType() == "yellow") {
+                bubble = new Bubble(item, x, y, r, yellowbubble, titleFont, bodyFont, yellowicon);
+        	} else if (item.getType() == "orange") {
+                bubble = new Bubble(item, x, y, r, orangebubble, titleFont, bodyFont, orangeicon);
+        	} else {
+                bubble = new Bubble(item, x, y, r, orangebubble, titleFont, bodyFont, orangeicon);
+        	}
+        	
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
             this.controller.add(bubble);
