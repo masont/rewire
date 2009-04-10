@@ -78,7 +78,7 @@ public class ProcessingView extends PApplet {
         titleFont = loadFont("HelveticaNeue-Light-36.vlw");
         bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
 
-        size(screen.width, screen.height);
+        size(screen.width, screen.height, OPENGL);
         background(0);
         smooth();
         frameRate(30);
@@ -298,6 +298,10 @@ public class ProcessingView extends PApplet {
 
     public void add(Animation animation) {
         this.animations.add(animation);
+    }
+    
+    public void add(Bubble bubble) {
+        this.elements.add(bubble);
     }
     
     public void remove(Bubble bubble) {
