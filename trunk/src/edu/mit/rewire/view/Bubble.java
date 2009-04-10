@@ -1,10 +1,10 @@
 package edu.mit.rewire.view;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
@@ -22,6 +22,9 @@ public class Bubble implements Drawable, Particle, MouseAware {
     /** State of this bubble */
     private State state;
     
+	/** Default state of the bubble */
+    private State defaultState;
+    
     /** Position in pixels */
     private float x, y;
 
@@ -31,46 +34,49 @@ public class Bubble implements Drawable, Particle, MouseAware {
     /** Velocity in pixels / second */
     private float dx = 0, dy = 0;
     
-    /** Background color */
-    private Color background;
-    
-    /** Flag for whether or not this bubble needs to be redrawn */
-    private boolean changed;
-    
     /** Background image for the bubble */
     private PImage backimage;
     
-    public Bubble(Item item, float x, float y, float r, PImage backimage) {
+    /** Fonts for the title and body */
+    private PFont titleFont;
+    private PFont bodyFont;
+    
+    public Bubble(Item item, float x, float y, float r, PImage backimage,
+    		PFont titleFont, PFont bodyFont) {
         this.item = item;
         
         this.x = x;
         this.y = y;
-        this.r = r;
         
         this.dx = (float) ((0.5 - Math.random()) * 1);
         this.dy = (float) ((0.5 - Math.random()) * 1);
         
         this.backimage = backimage;
-        this.background = Color.GRAY;
-        this.changed = true;
+        this.titleFont = titleFont;
+        this.bodyFont = bodyFont;
+        this.state = Math.random() > .5 ? State.SMALL : State.MEDIUM;
+        this.defaultState = state;
+        this.r = state == State.SMALL ? 75 : 150;
     }
 
     @Override
     public void draw(PGraphics graphics) {
     	graphics.image(backimage, x - r, y - r, 2 * r, 2 * r);
-        /*graphics.noStroke();
-        graphics.fill(background.getRed(), background.getGreen(), background.getBlue(), background.getAlpha());
-        graphics.ellipse(x, y, 2 * r, 2 * r);*/
-    }
-
-    @Override
-    public boolean isChanged() {
-        return changed;
-    }
-    
-    @Override
-    public void setChanged(boolean changed) {
-        this.changed = changed;
+    	graphics.fill(136);
+    	switch (state) {
+    		case SMALL:
+    	    	graphics.textFont(bodyFont);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    	    	break;
+    		case MEDIUM:
+    	    	graphics.textFont(bodyFont);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    	    	break;
+    		case EXPANDED:
+    	    	graphics.textFont(titleFont);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    	    	break;
+    	}
     }
 
     public Item getItem() {
@@ -125,7 +131,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
     public void setDy(float dy) {
         this.dy = dy;
     }
-    
+
     @Override
     public void dispatchClick(Controller controller) {
         controller.handleBubbleClick(this);        
@@ -133,7 +139,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
     
     @Override
     public void dispatchOver(Controller controller) {
-        this.background = Color.DARK_GRAY;
+    	
     }
 
     @Override
@@ -145,5 +151,17 @@ public class Bubble implements Drawable, Particle, MouseAware {
     public int getZ() {
         return 0;
     }
+
+    public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public void clearState() {
+		this.state = defaultState;
+	}
     
 }
