@@ -19,7 +19,5 @@ public interface Particle {
     float getDy();
     
     void setDy(float dy);
-    
-    void setChanged(boolean changed);
 
 }
