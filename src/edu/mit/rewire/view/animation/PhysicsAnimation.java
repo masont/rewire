@@ -45,7 +45,7 @@ public class PhysicsAnimation implements Animation {
 		for (int i = 0; i < particles.size(); i++) {
 			for (int j = i + 1; j < particles.size(); j++) {
 				handleRepulsion(particles.get(i), particles.get(j));
-				handleCollision(particles.get(i), particles.get(j));
+//				handleCollision(particles.get(i), particles.get(j));
 			}
 		}
 
