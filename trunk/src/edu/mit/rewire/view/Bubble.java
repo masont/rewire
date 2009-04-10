@@ -41,8 +41,11 @@ public class Bubble implements Drawable, Particle, MouseAware {
     private PFont titleFont;
     private PFont bodyFont;
     
+    /** Icon representing the type of item */
+    private PImage icon;
+    
     public Bubble(Item item, float x, float y, float r, PImage backimage,
-    		PFont titleFont, PFont bodyFont) {
+    		PFont titleFont, PFont bodyFont, PImage icon) {
         this.item = item;
         
         this.x = x;
@@ -54,6 +57,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.backimage = backimage;
         this.titleFont = titleFont;
         this.bodyFont = bodyFont;
+        this.icon = icon;
         this.state = Math.random() > .5 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
@@ -65,16 +69,18 @@ public class Bubble implements Drawable, Particle, MouseAware {
     	graphics.fill(136);
     	switch (state) {
     		case SMALL:
+    			graphics.image(icon,x-r*2/5,y-r*3/5,r*4/5,r*4/5);
     	    	graphics.textFont(bodyFont);
-    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y + r * 2 / 5);
     	    	break;
     		case MEDIUM:
-    	    	graphics.textFont(bodyFont);
-    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    			graphics.image(icon,x-r*1/4,y-r*3/5,r*1/2,r*1/2);
+    	    	graphics.textFont(titleFont);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y + r * 1 / 5);
     	    	break;
     		case EXPANDED:
     	    	graphics.textFont(titleFont);
-    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y - r / 5);
+    	    	graphics.text(item.getTitle(), x - r * 3 / 5, y + r / 2);
     	    	break;
     	}
     }
