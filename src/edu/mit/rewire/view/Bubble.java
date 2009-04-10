@@ -67,7 +67,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.titleFont = titleFont;
         this.bodyFont = bodyFont;
         this.icon = icon;
-        this.state = Math.random() > .5 ? State.SMALL : State.MEDIUM;
+        this.state = Math.random() > .5 ? State.MEDIUM : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
         
@@ -83,26 +83,37 @@ public class Bubble implements Drawable, Particle, MouseAware {
         graphics.fill(136);
         switch (state) {
         case SMALL:
-            graphics.image(icon, x - r * 2 / 5, y - r * 3 / 5, r * 4 / 5,
-                    r * 4 / 5);
-            graphics.textFont(bodyFont);
-            graphics.text(item.getTitle(), x - r * 3 / 5, y + r * 2 / 5);
+            graphics.image(icon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
+                    r * 3 / 5);
+            graphics.textFont(bodyFont,10);
+            graphics.text(item.getTitle(), x - r * 4 / 5, y,
+            		2*r,2*r);
             break;
         case MEDIUM:
-            graphics.image(icon, x - r * 1 / 4, y - r * 3 / 5, r * 1 / 2,
+            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
-            graphics.textFont(titleFont);
-            graphics.text(item.getTitle(), x - r * 3 / 5, y + r * 1 / 5);
+            graphics.textFont(titleFont,20);
+            graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
+            	r * 9/5,2*r);
+            graphics.textFont(bodyFont);
+            graphics.text(item.getHeader(), x - r * 3 / 5, y + r * 1 / 2);
             break;
         case EXPANDED:
-            graphics.textFont(titleFont);
-            graphics.text(item.getTitle(), x - r * 3 / 5, y + r / 2);
+            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
+                    r * 1 / 2);
+            graphics.textFont(titleFont,20);
+            graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
+            	r,2*r);
+            graphics.textFont(bodyFont);
+            graphics.text(item.getHeader(), x - r * 4 / 5, y + r * 1 / 20);
+            graphics.textFont(bodyFont);
+            graphics.text(item.getBody(), x - r * 3 / 5, y + r * 1 / 10, r, r);
             
             final float BUTTON_WIDTH = 54f;
-            graphics.image(markReadButton, x + r * 1 / 5, y - r / 2);
-            graphics.image(starButton, x + r * 1 / 5, y - r / 2 + 100);
-            graphics.image(openButton, x + r * 1 / 5, y - r / 2 + 165);
-            graphics.image(trashButton, x + r * 1 / 5, y - r / 2 + 230);
+            graphics.image(markReadButton, x + r * 2 / 5, y - r / 2);
+            graphics.image(starButton, x + r * 2 / 5, y - r / 2 + 100);
+            graphics.image(openButton, x + r * 2 / 5, y - r / 2 + 165);
+            graphics.image(trashButton, x + r * 2 / 5, y - r / 2 + 230);
 
             break;
         }
