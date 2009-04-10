@@ -27,7 +27,7 @@ public class ProcessingView extends PApplet {
     public void setup() {
         this.controller = new Controller(this);
         
-        size(screen.width, screen.height, OPENGL);
+        size(screen.width, screen.height);
         background(0);
         smooth();
         frameRate(30);
@@ -41,38 +41,38 @@ public class ProcessingView extends PApplet {
         for (int i = 0; i < 30; i++) {
         	       	
         	float r = (float) ((Math.random() * 50) + 50);
-        	float x = 0;
-        	float y = 0;
+        	float x = (float) ((Math.random() * (screen.width - r)) + r);
+        	float y = (float) ((Math.random() * (screen.height - r)) + r);
         	
         	// Choose x and y in such a way so that no overlap occurs
         	
-        	// Set checker to be equal to the number of existing bubbles on the screen
-        	int checker = bubbles.size();
-        	
-        	/* while loop checks for any overlap with existing bubbles,
-        	 * if it finds one it will reassign x and y and try again until
-        	 * it finds acceptable values
-        	 */
-        	while (checker != 0) {
-        		checker = bubbles.size();
-        		
-        		x = (float) ((Math.random() * (screen.width - r)) + r);
-                y = (float) ((Math.random() * (screen.height - r)) + r);
-                
-        		for (Bubble b : bubbles) {
-        			                  
-                    float xTest = x - b.getX();
-                	float yTest = y - b.getY();
-                    
-                    float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
-                    
-                    if (mag > (b.getR() + r)) {
-                    	checker -= 1;
-                    } else {
-                    	break;
-                    }
-        		}
-        	}
+//        	// Set checker to be equal to the number of existing bubbles on the screen
+//        	int checker = bubbles.size();
+//        	
+//        	/* while loop checks for any overlap with existing bubbles,
+//        	 * if it finds one it will reassign x and y and try again until
+//        	 * it finds acceptable values
+//        	 */
+//        	while (checker != 0) {
+//        		checker = bubbles.size();
+//        		
+//        		x = (float) ((Math.random() * (screen.width - r)) + r);
+//                y = (float) ((Math.random() * (screen.height - r)) + r);
+//                
+//        		for (Bubble b : bubbles) {
+//        			                  
+//                    float xTest = x - b.getX();
+//                	float yTest = y - b.getY();
+//                    
+//                    float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
+//                    
+//                    if (mag > (b.getR() + r)) {
+//                    	checker -= 1;
+//                    } else {
+//                    	break;
+//                    }
+//        		}
+//        	}
         	            
             Bubble bubble = new Bubble(item, x, y, r);
             bubbles.add(bubble);
