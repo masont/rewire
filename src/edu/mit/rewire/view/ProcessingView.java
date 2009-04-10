@@ -34,31 +34,48 @@ public class ProcessingView extends PApplet {
         
         physicsEngine = new PhysicsAnimation(this.width, this.height);
         Item item = new MockItem();
-//      ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-        for (int i = 0; i < 20; i++) {
-            float x = (float) (Math.random() * screen.width);
-            float y = (float) (Math.random() * screen.height);
-            float r = (float) ((Math.random() * 50) + 50);
-
-// Sad attempt to get bubbles to NOT place over other existing bubbles
-//            for (Bubble b : bubbles) {
-//            	float xTest = Math.abs(x - b.getX());
-//            	float yTest = Math.abs(y - b.getY());
-//            	float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
-//            	                     	
-//            	while (mag < (b.getR() + r)) {
-//            		            		
-//            		x = (float) (Math.random() * screen.width);
-//            		y = (float) (Math.random() * screen.height);
-//            		
-//            		xTest = Math.abs(x - b.getX());
-//            		yTest = Math.abs(y - b.getY());
-//                	mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
-//            	}            	
-//            }
-            
+        
+        
+        ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
+        
+        for (int i = 0; i < 30; i++) {
+        	       	
+        	float r = (float) ((Math.random() * 50) + 50);
+        	float x = 0;
+        	float y = 0;
+        	
+        	// Choose x and y in such a way so that no overlap occurs
+        	
+        	// Set checker to be equal to the number of existing bubbles on the screen
+        	int checker = bubbles.size();
+        	
+        	/* while loop checks for any overlap with existing bubbles,
+        	 * if it finds one it will reassign x and y and try again until
+        	 * it finds acceptable values
+        	 */
+        	while (checker != 0) {
+        		checker = bubbles.size();
+        		
+        		x = (float) ((Math.random() * (screen.width - r)) + r);
+                y = (float) ((Math.random() * (screen.height - r)) + r);
+                
+        		for (Bubble b : bubbles) {
+        			                  
+                    float xTest = x - b.getX();
+                	float yTest = y - b.getY();
+                    
+                    float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
+                    
+                    if (mag > (b.getR() + r)) {
+                    	checker -= 1;
+                    } else {
+                    	break;
+                    }
+        		}
+        	}
+        	            
             Bubble bubble = new Bubble(item, x, y, r);
-//          bubbles.add(bubble);
+            bubbles.add(bubble);
             this.elements.add(bubble);
             this.physicsEngine.add(bubble);
             this.controller.add(bubble);
