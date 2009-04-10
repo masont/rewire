@@ -23,6 +23,8 @@ public class FixedAnimation implements Animation {
 	    }
 		bubble.setX(x);
 		bubble.setY(y);
+//		bubble.setDx(0);
+//		bubble.setDy(0);
 		return (bubble.getState() != Bubble.State.EXPANDED);
 	}
 
