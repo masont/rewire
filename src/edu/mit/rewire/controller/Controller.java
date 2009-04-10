@@ -15,12 +15,15 @@ public class Controller {
     
     private final List<MouseAware> components;
     
+    private final List<MouseAware> toRemove;
+    
     private final ProcessingView view;
     
     private final float width, height;
     
     public Controller(ProcessingView view, float width, float height) {
         this.components = new LinkedList<MouseAware>();
+        this.toRemove = new LinkedList<MouseAware>();
         this.view = view;
         this.width = width;
         this.height = height;
@@ -37,6 +40,12 @@ public class Controller {
                 break;
             }
         }
+        
+        for (MouseAware component : toRemove) {
+            components.remove(component);
+        }
+        
+        toRemove.clear();
     }
     
     public void doMove(int x, int y) {
@@ -45,6 +54,12 @@ public class Controller {
                 component.dispatchOver(this, x, y);
             }
         }
+        
+        for (MouseAware component : toRemove) {
+            components.remove(component);
+        }
+        
+        toRemove.clear();
     }
 
     public void handleBubbleClick(Bubble bubble) {
@@ -59,7 +74,7 @@ public class Controller {
     public void handleMarkReadClick(Bubble bubble) {
         this.view.add(new PopBubbleAnimation(bubble, view));
         this.view.remove(bubble);
-//        this.remove(bubble);
+        this.toRemove.add(bubble);
     }
     
     public void handleStarClick(Bubble bubble) {

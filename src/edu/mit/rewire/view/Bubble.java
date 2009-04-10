@@ -175,17 +175,18 @@ public class Bubble implements Drawable, Particle, MouseAware {
     //@Override
     public void dispatchClick(Controller controller, int x, int y) {
         if (this.state == State.EXPANDED) {
-            if (x >= this.x + this.r * 1 / 5 && x <= this.x + this.r * 1 / 5 + 100) {
-                if (y >= this.y - this.r / 2 + 230) {
-                    controller.handleTrashClick(this);
-                } else if (y >= this.y - this.r / 2 + 165) {
-                    controller.handleOpenClick(this);
-                } else if (y >=this.y - this.r / 2 + 100) {
-                    controller.handleStarClick(this);
-                } else if (y >= this.y - this.r / 2) {
-                    controller.handleMarkReadClick(this);
-                }
-            }
+            controller.handleMarkReadClick(this);
+//            if (x >= this.x + this.r / 5 && x <= this.x + this.r / 5 + 100) {
+//                if (y >= this.y - this.r / 2 + 230) {
+//                    controller.handleTrashClick(this);
+//                } else if (y >= this.y - this.r / 2 + 165) {
+//                    controller.handleOpenClick(this);
+//                } else if (y >=this.y - this.r / 2 + 100) {
+//                    controller.handleStarClick(this);
+//                } else if (y >= this.y - this.r / 2) {
+//                    controller.handleMarkReadClick(this);
+//                }
+//            }
         } else {
             controller.handleBubbleClick(this);
         }
