@@ -78,7 +78,7 @@ public class ProcessingView extends PApplet {
         titleFont = loadFont("HelveticaNeue-Light-36.vlw");
         bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
 
-        size(screen.width, screen.height, OPENGL);
+        size(screen.width, screen.height);
         background(0);
         smooth();
         frameRate(30);
@@ -282,17 +282,21 @@ public class ProcessingView extends PApplet {
     public void draw() {
         background(0);
         
-        image(rewire,20,40);
+        update(mouseX, mouseY);
 
+
+        for (Drawable element : elements) {
+            element.draw(this.g);
+        }
+        
         Iterator<Animation> iterator = animations.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().step())
                 iterator.remove();
         }
 
-        for (Drawable element : elements) {
-            element.draw(this.g);
-        }
+        
+        image(rewire,20,40);
 
     }
 
@@ -308,12 +312,10 @@ public class ProcessingView extends PApplet {
         this.elements.remove(bubble);
     }
 
-    @Override
-    public void mouseClicked() {
-        int x = mouseX;
-        int y = mouseY;
-
-        this.controller.doClick(x, y);
+    public void update(int x, int y) {
+        if (mousePressed) {
+            this.controller.doClick(x, y);
+        }
     }
     //    
     // @Override
