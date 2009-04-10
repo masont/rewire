@@ -12,7 +12,9 @@ public class ExpandBubbleAnimation implements Animation {
 
 	@Override
 	public boolean step() {
-		this.bubble.setR(this.bubble.getR() + 1);
+		if (this.bubble.getR() < 1080 * .5) {
+			this.bubble.setR(this.bubble.getR() + 1);
+		}
 		return false;
 	}
 
