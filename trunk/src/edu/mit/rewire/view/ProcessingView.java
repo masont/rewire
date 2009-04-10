@@ -12,7 +12,6 @@ import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.DummyItem;
 import edu.mit.rewire.model.Item;
-import edu.mit.rewire.model.MockItem;
 import edu.mit.rewire.view.animation.Animation;
 import edu.mit.rewire.view.animation.PhysicsAnimation;
 
@@ -26,6 +25,8 @@ public class ProcessingView extends PApplet {
     private PhysicsAnimation physicsEngine;
 
     private Controller controller;
+    
+    private PImage rewire;
 
     private PImage bluebubble;
     private PImage lavenderbubble;
@@ -52,6 +53,8 @@ public class ProcessingView extends PApplet {
     @Override
     public void setup() {
         this.controller = new Controller(this, screen.width, screen.height);
+        
+        rewire = loadImage("logo.png");
 
         bluebubble = loadImage("blue.png");
         lavenderbubble = loadImage("lavender.png");
@@ -94,7 +97,7 @@ public class ProcessingView extends PApplet {
         		"Friday, April 17th *\n" +
         		"12:30 - 2:00pm\n" +
         		"Room 3-133*\n"));
-       /* dataSource.addItem(new DummyItem("orange",
+        dataSource.addItem(new DummyItem("orange",
         		"Subject: 6.863 Project Proposal",
         		"From: Professor Robert C Smith",
         		"Hi all,\n\n"+
@@ -106,8 +109,8 @@ public class ProcessingView extends PApplet {
         		"(clustering) eg, spam, some sort of talk announcement, etc. -- for this, there are many sorts of classifications methods. "+
         		"But again, I didn't know what your ultimate functional objective was --\n\n"+
         		
-        		"best bob"));*/
-        /*dataSource.addItem(new DummyItem("orange",
+        		"best bob"));
+        dataSource.addItem(new DummyItem("orange",
         		"Subject: My name is Ekaterina.",
         		"From: Yesenia Valenzuela",
         		"Hi my new friend!\n\n"+
@@ -136,8 +139,8 @@ public class ProcessingView extends PApplet {
         dataSource.addItem(new DummyItem("orange",
         		"Subject: !!!!!",
         		"From: James Smith",
-        		"http://www.ustream.tv/channel/snoop-dogg-live"));*/
-        /*dataSource.addItem(new DummyItem("blue",
+        		"http://www.ustream.tv/channel/snoop-dogg-live"));
+        dataSource.addItem(new DummyItem("blue",
         		"Heiko Smith",
         		"6 hours ago",
         		"accepted your friend request."));
@@ -152,12 +155,12 @@ public class ProcessingView extends PApplet {
         dataSource.addItem(new DummyItem("blue",
         		"John Smith",
         		"9:28am",
-        		"commented on your status"));*/
-        /*dataSource.addItem(new DummyItem("blue",
-        		"Amy Rickards",
+        		"commented on your status"));
+        dataSource.addItem(new DummyItem("blue",
+        		"Amy Smith",
         		"7:48pm",
-        		"made a comment about your photo."));*/
-        /*dataSource.addItem(new DummyItem("lavender",
+        		"made a comment about your photo."));
+        dataSource.addItem(new DummyItem("lavender",
         		"fimoculous",
         		"6:36 PM Apr 7th from web",
         		"Do social media experts have any purpose whatsoever? http://tinyurl.com/ct3e96"));
@@ -172,8 +175,8 @@ public class ProcessingView extends PApplet {
         dataSource.addItem(new DummyItem("lavender",
         		"JSCarroll",
         		"5:13 AM Mar 24th from web",
-        		"Twitter teaches brevity, but being brief doesn't necessarily mean an observer is either insightful or interesting."));*/
-        /*dataSource.addItem(new DummyItem("lavender",
+        		"Twitter teaches brevity, but being brief doesn't necessarily mean an observer is either insightful or interesting."));
+        dataSource.addItem(new DummyItem("lavender",
         		"livejamie",
         		"5:02 PM Mar 18th from Ping.fm",
         		"The only reason people pick the White Album or Pet Sounds as best album of all time is because it's hard to narrow it to one Jock Jams CD."));
@@ -193,7 +196,7 @@ public class ProcessingView extends PApplet {
         		"- read papers\n"+
         		"- tech support emails\n"+
         		"- fill out reimbursement forms\n"+
-        		"- taxes"));*/
+        		"- taxes"));
 
         List<Item> items = dataSource.getItems();
 
@@ -278,6 +281,8 @@ public class ProcessingView extends PApplet {
     @Override
     public void draw() {
         background(0);
+        
+        image(rewire,20,40);
 
         Iterator<Animation> iterator = animations.iterator();
         while (iterator.hasNext()) {

@@ -17,4 +17,9 @@ public class MockItem implements Item {
         return "Mock Item";
     }
 
+    //@Override
+    public String getHeader() {
+        return "nowish";
+    }
+
 }
