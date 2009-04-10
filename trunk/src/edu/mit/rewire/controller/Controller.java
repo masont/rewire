@@ -7,7 +7,9 @@ import edu.mit.rewire.view.Bubble;
 import edu.mit.rewire.view.MouseAware;
 import edu.mit.rewire.view.ProcessingView;
 import edu.mit.rewire.view.animation.ExpandBubbleAnimation;
+import edu.mit.rewire.view.animation.FixedAnimation;
 import edu.mit.rewire.view.animation.PopBubbleAnimation;
+import edu.mit.rewire.view.animation.SequentialAnimation;
 
 public class Controller {
     
@@ -45,7 +47,10 @@ public class Controller {
     }
 
     public void handleBubbleClick(Bubble bubble) {
-        this.view.add(new ExpandBubbleAnimation(bubble, 100, width, height));
+        SequentialAnimation animation = new SequentialAnimation();
+        animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
+        animation.add(new FixedAnimation(bubble));
+        this.view.add(animation);
     }
     
     public void handleMarkReadClick(Bubble bubble) {
