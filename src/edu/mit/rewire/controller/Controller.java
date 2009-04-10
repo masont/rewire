@@ -14,9 +14,13 @@ public class Controller {
     
     private final ProcessingView view;
     
-    public Controller(ProcessingView view) {
+    private final float width, height;
+    
+    public Controller(ProcessingView view, float width, float height) {
         this.components = new LinkedList<MouseAware>();
         this.view = view;
+        this.width = width;
+        this.height = height;
     }
     
     public void add(MouseAware clickable) {
@@ -40,7 +44,7 @@ public class Controller {
     }
 
     public void handleBubbleClick(Bubble bubble) {
-        this.view.add(new ExpandBubbleAnimation(bubble, 100));
+        this.view.add(new ExpandBubbleAnimation(bubble, 100, width, height));
     }
 
 }
