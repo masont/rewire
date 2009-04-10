@@ -57,7 +57,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
 
     @Override
     public void draw(PGraphics graphics) {
-    	graphics.image(backimage, x, y, 2 * r, 2 * r);
+    	graphics.image(backimage, x - r, y - r, 2 * r, 2 * r);
         /*graphics.noStroke();
         graphics.fill(background.getRed(), background.getGreen(), background.getBlue(), background.getAlpha());
         graphics.ellipse(x, y, 2 * r, 2 * r);*/
@@ -124,15 +124,6 @@ public class Bubble implements Drawable, Particle, MouseAware {
     @Override
     public void setDy(float dy) {
         this.dy = dy;
-    }
-    
-    public Color getBackground() {
-        return this.background;
-    }
-
-    @Override
-    public void setBackground(Color background) {
-        this.background = background;
     }
     
     @Override
