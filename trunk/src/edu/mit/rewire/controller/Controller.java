@@ -4,29 +4,37 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.mit.rewire.view.Bubble;
-import edu.mit.rewire.view.Clickable;
+import edu.mit.rewire.view.MouseAware;
 import edu.mit.rewire.view.ProcessingView;
 import edu.mit.rewire.view.animation.ExpandBubbleAnimation;
 
 public class Controller {
     
-    private final List<Clickable> clickables;
+    private final List<MouseAware> components;
     
     private final ProcessingView view;
     
     public Controller(ProcessingView view) {
-        this.clickables = new LinkedList<Clickable>();
+        this.components = new LinkedList<MouseAware>();
         this.view = view;
     }
     
-    public void add(Clickable clickable) {
-        this.clickables.add(clickable);
+    public void add(MouseAware clickable) {
+        this.components.add(clickable);
     }
     
     public void doClick(int x, int y) {
-        for (Clickable clickable : clickables) {
-            if (clickable.isClicked(x, y)) {
+        for (MouseAware clickable : components) {
+            if (clickable.hits(x, y)) {
                 clickable.dispatchClick(this);
+            }
+        }
+    }
+    
+    public void doMove(int x, int y) {
+        for (MouseAware clickable : components) {
+            if (clickable.hits(x, y)) {
+                clickable.dispatchOver(this);
             }
         }
     }
