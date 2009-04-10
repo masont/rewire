@@ -27,13 +27,14 @@ public class Controller {
     }
     
     public void add(MouseAware clickable) {
-        this.components.add(clickable);
+        this.components.add(0, clickable);
     }
     
     public void doClick(int x, int y) {
         for (MouseAware component : components) {
             if (component.hits(x, y)) {
                 component.dispatchClick(this, x, y);
+                break;
             }
         }
     }
@@ -51,6 +52,8 @@ public class Controller {
         animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
         animation.add(new FixedAnimation(bubble));
         this.view.add(animation);
+        this.view.remove(bubble);
+        this.view.add(bubble);
     }
     
     public void handleMarkReadClick(Bubble bubble) {
