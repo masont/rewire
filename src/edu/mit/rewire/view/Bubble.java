@@ -1,12 +1,13 @@
 package edu.mit.rewire.view;
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import processing.core.PGraphics;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
-public class Bubble implements Drawable, Particle, Clickable {
+public class Bubble implements Drawable, Particle, MouseAware {
     
     public enum State {
         SMALL,
@@ -29,6 +30,9 @@ public class Bubble implements Drawable, Particle, Clickable {
     /** Velocity in pixels / second */
     private float dx = 0, dy = 0;
     
+    /** Background color */
+    private Color background;
+    
     /** Flag for whether or not this bubble needs to be redrawn */
     private boolean changed;
     
@@ -42,13 +46,15 @@ public class Bubble implements Drawable, Particle, Clickable {
         this.dx = (float) ((0.5 - Math.random()) * 1);
         this.dy = (float) ((0.5 - Math.random()) * 1);
         
+        this.background = Color.GRAY;
+        
         this.changed = true;
     }
 
     @Override
     public void draw(PGraphics graphics) {
         graphics.noStroke();
-        graphics.fill(150, 200);
+        graphics.fill(background.getRed(), background.getGreen(), background.getBlue(), background.getAlpha());
         graphics.ellipse(x, y, 2 * r, 2 * r);
     }
 
@@ -114,14 +120,27 @@ public class Bubble implements Drawable, Particle, Clickable {
     public void setDy(float dy) {
         this.dy = dy;
     }
+    
+    public Color getBackground() {
+        return this.background;
+    }
 
+    public void setBackground(Color background) {
+        this.background = background;
+    }
+    
     @Override
     public void dispatchClick(Controller controller) {
         controller.handleBubbleClick(this);        
     }
+    
+    @Override
+    public void dispatchOver(Controller controller) {
+        this.background = Color.DARK_GRAY;
+    }
 
     @Override
-    public boolean isClicked(int x, int y) {
+    public boolean hits(int x, int y) {
         return Point2D.distance(x, y, this.x, this.y) <= this.r;
     }
     

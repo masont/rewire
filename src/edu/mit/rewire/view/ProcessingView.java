@@ -1,6 +1,5 @@
 package edu.mit.rewire.view;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,9 +27,10 @@ public class ProcessingView extends PApplet {
     public void setup() {
         this.controller = new Controller(this);
         
-        size(screen.width, screen.height);
+        size(screen.width, screen.height, OPENGL);
         background(0);
         smooth();
+        frameRate(30);
         
         physicsEngine = new PhysicsAnimation(this.width, this.height);
         Item item = new MockItem();
@@ -68,7 +68,6 @@ public class ProcessingView extends PApplet {
         this.animations.add(physicsEngine);
     }
     
-    
     @Override
     public void draw() {
         background(0);
@@ -84,6 +83,7 @@ public class ProcessingView extends PApplet {
                 element.setChanged(false);
             }
         }
+        
     }
     
     public void add(Animation animation) {
@@ -97,5 +97,14 @@ public class ProcessingView extends PApplet {
         
         this.controller.doClick(x, y);
     }
+    
+    @Override
+    public void mouseMoved() {
+        int x = mouseX;
+        int y = mouseY;
+        
+        this.controller.doMove(x, y);
+    }
+
 
 }

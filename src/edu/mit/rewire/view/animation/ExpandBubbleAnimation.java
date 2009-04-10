@@ -14,6 +14,8 @@ public class ExpandBubbleAnimation implements Animation {
 	public boolean step() {
 		if (this.bubble.getR() < 1080 * .5) {
 			this.bubble.setR(this.bubble.getR() + 1);
+		} else {
+		    return true;
 		}
 		return false;
 	}

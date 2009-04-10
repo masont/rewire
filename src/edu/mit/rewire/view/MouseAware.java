@@ -2,12 +2,14 @@ package edu.mit.rewire.view;
 
 import edu.mit.rewire.controller.Controller;
 
-public interface Clickable {
+public interface MouseAware {
     
-    boolean isClicked(int x, int y);
+    boolean hits(int x, int y);
     
     void dispatchClick(Controller controller);
     
+    void dispatchOver(Controller controller);
+
     int getZ();
 
 }
