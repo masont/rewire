@@ -6,19 +6,19 @@ public class FixedAnimation implements Animation {
 
 	private Bubble bubble;
 
-	private final float width, height;
+	private final float x, y;
 	
 	public FixedAnimation(Bubble bubble, float width, float height) {
 		this.bubble = bubble;
-		this.width = width;
-		this.height = height;
+		this.x = bubble.getX();
+		this.y = bubble.getY();
 	}
 	
 	@Override
 	public boolean step() {
-		bubble.setDx(0);
-		bubble.setDy(0);
-		return false;
+		bubble.setX(x);
+		bubble.setY(y);
+		return (bubble.getState() != Bubble.State.EXPANDED);
 	}
 
 }

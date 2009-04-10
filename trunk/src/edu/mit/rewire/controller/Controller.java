@@ -7,6 +7,7 @@ import edu.mit.rewire.view.Bubble;
 import edu.mit.rewire.view.MouseAware;
 import edu.mit.rewire.view.ProcessingView;
 import edu.mit.rewire.view.animation.ExpandBubbleAnimation;
+import edu.mit.rewire.view.animation.PopBubbleAnimation;
 
 public class Controller {
     
@@ -28,23 +29,48 @@ public class Controller {
     }
     
     public void doClick(int x, int y) {
-        for (MouseAware clickable : components) {
-            if (clickable.hits(x, y)) {
-                clickable.dispatchClick(this);
+        for (MouseAware component : components) {
+            if (component.hits(x, y)) {
+                component.dispatchClick(this, x, y);
             }
         }
     }
     
     public void doMove(int x, int y) {
-        for (MouseAware clickable : components) {
-            if (clickable.hits(x, y)) {
-                clickable.dispatchOver(this);
+        for (MouseAware component : components) {
+            if (component.hits(x, y)) {
+                component.dispatchOver(this, x, y);
             }
         }
     }
 
     public void handleBubbleClick(Bubble bubble) {
         this.view.add(new ExpandBubbleAnimation(bubble, 100, width, height));
+    }
+    
+    public void handleMarkReadClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+//        this.remove(bubble);
+    }
+    
+    public void handleStarClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+    
+    public void handleOpenClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+    
+    public void handleTrashClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+
+    public void remove(MouseAware component) {
+        this.components.remove(component);        
     }
 
 }
