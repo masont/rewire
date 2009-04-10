@@ -19,7 +19,7 @@ public class SequentialAnimation implements Animation {
 		this.animations.add(animation);
 	}
 
-	@Override
+	//@Override
 	public boolean step() {
 		if (animations.isEmpty()) return true;
 		if (animations.get(0).step()) animations.remove(0);
