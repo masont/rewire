@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1000px" height="1000px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+<filter  id="AI_GaussianBlur_7">
+	<feGaussianBlur  stdDeviation="7"></feGaussianBlur>
+</filter>
+<filter  id="AI_GaussianBlur_4">
+	<feGaussianBlur  stdDeviation="4"></feGaussianBlur>
+</filter>
+<g filter="url(#AI_GaussianBlur_7)">
+	<circle cx="514.539" cy="474.169" r="400"/>
+	<g>
+		<path fill="#FF0000" d="M907.037,474.115c-0.154,89.555-30.907,177.366-87.354,246.998
+			c-55.51,68.475-133.378,116.763-219.333,136.156c-88.477,19.963-183.114,7.91-263.886-33.214
+			c-78.104-39.765-141.119-105.646-178.228-184.944c-38.473-82.214-46.224-177.522-23.285-265.173
+			c22.171-84.716,73.64-160.823,143.566-213.464c72.074-54.258,161.381-81.778,251.439-78.509
+			c89.03,3.232,175.449,37.859,242.543,96.355c66.607,58.072,111.945,137.877,128.131,224.697
+			C905.001,426.456,906.996,450.282,907.037,474.115c0.017,9.686,15.021,9.772,15.004,0.108
+			c-0.158-91.121-30.905-179.616-86.846-251.454c-54.434-69.902-132.136-120.587-217.77-142.999
+			c-89.265-23.362-185.181-14.965-269.388,22.406c-80.621,35.78-148.262,98.78-190.806,175.914
+			c-44.452,80.593-59.516,175.144-44.229,265.735c14.824,87.844,59.922,169.462,125.227,229.856
+			c66.118,61.146,151.691,98.57,241.306,106.483c90.812,8.019,183.252-15.577,259.305-65.739
+			c74.082-48.864,130.666-121.681,160.286-205.263c15.31-43.199,22.836-89.143,22.915-134.94
+			C922.058,464.536,907.054,464.453,907.037,474.115z"/>
+	</g>
+</g>
+<g filter="url(#AI_GaussianBlur_4)">
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="515.6514" y1="304.9102" x2="515.6514" y2="123.9204">
+		<stop  offset="0.1735" style="stop-color:#FDFDFE;stop-opacity:0"/>
+		<stop  offset="0.9259" style="stop-color:#FDFDFE;stop-opacity:0.9104"/>
+		<stop  offset="1" style="stop-color:#FDFDFE"/>
+	</linearGradient>
+	<ellipse fill="url(#SVGID_1_)" cx="515.652" cy="215.584" rx="253.932" ry="89.326"/>
+	<ellipse fill="none" stroke="#000000" cx="515.652" cy="215.584" rx="253.932" ry="89.326"/>
+</g>
+</svg>
