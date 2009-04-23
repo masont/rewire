@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import processing.core.PApplet;
+import processing.core.PShape;
 import processing.core.PImage;
 import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
@@ -28,12 +29,12 @@ public class ProcessingView extends PApplet {
     
     private PImage rewire;
 
-    private PImage bluebubble;
-    private PImage lavenderbubble;
-    private PImage pinkbubble;
-    private PImage seafoambubble;
-    private PImage yellowbubble;
-    private PImage orangebubble;
+    private PShape bluebubble;
+    private PShape lavenderbubble;
+    private PShape pinkbubble;
+    private PShape seafoambubble;
+    private PShape yellowbubble;
+    private PShape orangebubble;
 
     private PImage blueicon;
     private PImage lavendericon;
@@ -56,12 +57,12 @@ public class ProcessingView extends PApplet {
         
         rewire = loadImage("logo.png");
 
-        bluebubble = loadImage("blue.png");
-        lavenderbubble = loadImage("lavender.png");
-        pinkbubble = loadImage("pink.png");
-        seafoambubble = loadImage("seafoam.png");
-        yellowbubble = loadImage("yellow.png");
-        orangebubble = loadImage("orange.png");
+        bluebubble = loadShape("blue.svg");
+        lavenderbubble = loadShape("lavender.svg");
+        pinkbubble = loadShape("pink.svg");
+        seafoambubble = loadShape("seafoam.svg");
+        yellowbubble = loadShape("yellow.svg");
+        orangebubble = loadShape("orange.svg");
 
         blueicon = loadImage("facebook-rounded.png");
         lavendericon = loadImage("twitter.png");

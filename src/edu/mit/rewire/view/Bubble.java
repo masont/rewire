@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PShape;
 import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
@@ -33,7 +34,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
     private float dx = 0, dy = 0;
 
     /** Background image for the bubble */
-    private PImage backimage;
+    private PShape backimage;
 
     /** Fonts for the title and body */
     private PFont titleFont;
@@ -51,7 +52,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this(null, x, y, r, null, null, null, null, null, null, null, null);
     }
 
-    public Bubble(Item item, float x, float y, float r, PImage backimage,
+    public Bubble(Item item, float x, float y, float r, PShape backimage,
             PFont titleFont, PFont bodyFont, PImage icon,
             PImage markReadButton, PImage starButton, PImage openButton,
             PImage trashButton) {
@@ -79,19 +80,26 @@ public class Bubble implements Drawable, Particle, MouseAware {
 
     //@Override
     public void draw(PGraphics graphics) {
-        graphics.image(backimage, x - r, y - r, 2 * r, 2 * r);
+//    	graphics.smooth();
+//    	graphics.fill(0);
+//    	graphics.stroke(204,102,0);
+//    	graphics.strokeWeight(4);
+//    	graphics.arc(x,y,2*r,2*r,0,(float) (2*Math.PI));
+    	
+    	
+        graphics.shape(backimage, x - r, y - r, 2 * r, 2 * r);
         graphics.fill(136);
         switch (state) {
         case SMALL:
-            graphics.image(icon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
-                    r * 3 / 5);
+//            graphics.image(icon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
+//                    r * 3 / 5);
             graphics.textFont(bodyFont,10);
             graphics.text(item.getTitle(), x - r * 4 / 5, y,
             		2*r,2*r);
             break;
         case MEDIUM:
-            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
-                    r * 1 / 2);
+//            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
+//                    r * 1 / 2);
             graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
             	r * 9/5,2*r);
@@ -99,8 +107,8 @@ public class Bubble implements Drawable, Particle, MouseAware {
             graphics.text(item.getHeader(), x - r * 3 / 5, y + r * 1 / 2);
             break;
         case EXPANDED:
-            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
-                    r * 1 / 2);
+//            graphics.image(icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
+//                    r * 1 / 2);
             graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
             	r,2*r);
