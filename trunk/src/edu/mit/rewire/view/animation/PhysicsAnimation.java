@@ -44,7 +44,7 @@ public class PhysicsAnimation implements Animation {
 	public boolean step() {
 		for (int i = 0; i < particles.size(); i++) {
 			for (int j = i + 1; j < particles.size(); j++) {
-				handleRepulsion(particles.get(i), particles.get(j));
+//				handleRepulsion(particles.get(i), particles.get(j));
 //				handleCollision(particles.get(i), particles.get(j));
 			}
 		}
@@ -81,6 +81,7 @@ public class PhysicsAnimation implements Animation {
 	}
 
 	protected void handleRepulsion(Particle p1, Particle p2) {
+		
 		PVector offset = new PVector();
 		offset.x = p2.getX() - p1.getX();
 		offset.y = p2.getY() - p1.getY();
