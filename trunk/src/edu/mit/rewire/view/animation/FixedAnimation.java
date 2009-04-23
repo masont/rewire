@@ -21,10 +21,10 @@ public class FixedAnimation implements Animation {
 	        this.y = bubble.getY();
 	        first = false;
 	    }
+	    
 		bubble.setX(x);
 		bubble.setY(y);
-//		bubble.setDx(0);
-//		bubble.setDy(0);
+		
 		return (bubble.getState() != Bubble.State.EXPANDED);
 	}
 
