@@ -68,7 +68,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.titleFont = titleFont;
         this.bodyFont = bodyFont;
         this.icon = icon;
-        this.state = Math.random() > .5 ? State.MEDIUM : State.MEDIUM;
+        this.state = Math.random() > .33 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
         
@@ -80,12 +80,6 @@ public class Bubble implements Drawable, Particle, MouseAware {
 
     //@Override
     public void draw(PGraphics graphics) {
-//    	graphics.smooth();
-//    	graphics.fill(0);
-//    	graphics.stroke(204,102,0);
-//    	graphics.strokeWeight(4);
-//    	graphics.arc(x,y,2*r,2*r,0,(float) (2*Math.PI));
-    	
     	
         graphics.shape(backimage, x - r, y - r, 2 * r, 2 * r);
         graphics.fill(136);
