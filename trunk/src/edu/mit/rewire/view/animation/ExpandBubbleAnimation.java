@@ -43,52 +43,19 @@ public class ExpandBubbleAnimation implements Animation {
 		}
 
 		// Move bubble to center horizontally
-				
 		if (this.bubble.getX() < width/2) {
-			if (this.bubble.getX() - width/2 < xDistance/2) {
-				this.bubble.setX(this.bubble.getX() + adjustX);
-				adjustX += 10;
-			} else {
-				this.bubble.setX(this.bubble.getX() + adjustX);
-				if (adjustX > 11) {
-					adjustX -= 10;
-				}
-			}
+			float xDistance = width/2 - this.bubble.getX();
+			this.bubble.setX((xDistance/5) + this.bubble.getX());
 		} else {
-			if (this.bubble.getX() - width/2 > xDistance/2) {
-				this.bubble.setX(this.bubble.getX() - adjustX);
-				adjustX += 10;
-			} else {
-				this.bubble.setX(this.bubble.getX() - adjustX);
-				if (adjustX > 11) {
-					adjustX -= 10;
-				}
-			}
-			
+			float xDistance = this.bubble.getX() - width/2;
+			this.bubble.setX(this.bubble.getX() - (xDistance/5));
 		}
-
 		
-		// Move bubble to center vertically		
+		// Move bubble to center vertically
 		if (this.bubble.getY() < height/2) {
-			if (this.bubble.getY() - height/2 < yDistance/2) {
-				this.bubble.setY(this.bubble.getY() + adjustY);
-				adjustY += 10;
-			} else {
-				this.bubble.setY(this.bubble.getY() + adjustY);
-				if (adjustY > 11) {
-					adjustY -= 10;
-				}
-			}
+			this.bubble.setY(((height/2 - this.bubble.getY())/5) + this.bubble.getY());
 		} else {
-			if (this.bubble.getY() - height/2 > yDistance/2) {
-				this.bubble.setY(this.bubble.getY() - adjustY);
-				adjustY += 10;
-			} else {
-				this.bubble.setY(this.bubble.getY() - adjustY);
-				if (adjustY > 11) {
-					adjustY -= 10;
-				}
-			}
+			this.bubble.setY(this.bubble.getY() - ((this.bubble.getY() - height/2)/5));
 		}
 		
 		
