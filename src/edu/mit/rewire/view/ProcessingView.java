@@ -23,14 +23,21 @@ public class ProcessingView extends PApplet {
 	private final List<Drawable> elements = new ArrayList<Drawable>();
 	private final List<Animation> animations = new LinkedList<Animation>();
 	private final List<Bubble> bubbles = new ArrayList<Bubble>();				// JARED CHANGE
-	
+
 	private PhysicsAnimation physicsEngine;
 
 	private Controller controller;
 
+	// Variables for placement of bubbles on screen
+	private final boolean randomPlacement = true;
+	private float r = 150;
 	private float x;
 	private float y;
-	
+	private int cellRows = (int) Math.floor(screen.height/(2*r));
+	private int cellColumns = (int) Math.floor(screen.width/(2*r));
+	private boolean[][] testArray = new boolean[cellRows][cellColumns];
+
+
 	private PImage rewire;
 
 	private PShape bluebubble;
@@ -205,43 +212,66 @@ public class ProcessingView extends PApplet {
 
 		List<Item> items = dataSource.getItems();
 
+
+		System.out.println(cellRows + " rows and " + cellColumns + " columns.");
+
 		for (Item item : items) {
 
-			float r = 75;
-			float x = (float) ((Math.random() * (screen.width - r)) + r);
-			float y = (float) ((Math.random() * (screen.height - r)) + r);
-
-			// Choose x and y in such a way so that no overlap occurs
-
-			// Set checker to be equal to the number of existing bubbles on the screen
-			int checker = bubbles.size();
-
-			System.out.println("external " + checker);
-			
-			/* while loop checks for any overlap with existing bubbles,
-			 * if it finds one it will reassign x and y and try again until
-			 * it finds acceptable values
-			 */
-			while (checker != 0) {
-				
-				checker = bubbles.size();
-
+			if (randomPlacement) {
 				x = (float) ((Math.random() * (screen.width - r)) + r);
 				y = (float) ((Math.random() * (screen.height - r)) + r);
 
-				for (Bubble b : bubbles) {
+				// Choose x and y in such a way so that no overlap occurs
 
-					float xTest = x - b.getX();
-					float yTest = y - b.getY();
+				// Set checker to be equal to the number of existing bubbles on the screen
+				int checker = bubbles.size();
+				
+				/* while loop checks for any overlap with existing bubbles,
+				 * if it finds one it will reassign x and y and try again until
+				 * it finds acceptable values
+				 */
+				while (checker != 0) {
 
-					float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
+					checker = bubbles.size();
 
-					if (mag > (b.getR() + r)) {
-						checker -= 1;
-					} else {
-						break;
+					x = (float) ((Math.random() * (screen.width - r)) + r);
+					y = (float) ((Math.random() * (screen.height - r)) + r);
+
+					for (Bubble b : bubbles) {
+
+						float xTest = x - b.getX();
+						float yTest = y - b.getY();
+
+						float mag = (float) Math.sqrt(xTest * xTest + yTest * yTest);
+
+						if (mag > (b.getR() + r)) {
+							checker -= 1;
+						} else {
+							break;
+						}
 					}
 				}
+
+			} else {
+				
+				// Attempt to place bubbles into predefined 'cells'
+				// --Currently not finished feature.
+				
+				int rowChoice = (int) Math.floor(Math.random() * cellRows);
+				int columnChoice = (int) Math.floor(Math.random() * cellColumns);
+
+				x = (columnChoice * (2*r)) + r;
+				y = (rowChoice * (2*r)) + r;
+
+				while (testArray[rowChoice][columnChoice]) {
+					rowChoice = (int) Math.floor(Math.random() * cellRows);
+					columnChoice = (int) Math.floor(Math.random() * cellColumns);
+
+					x = (columnChoice * (2*r)) + r;
+					y = (rowChoice * (2*r)) + r;
+				}
+
+				testArray[rowChoice][columnChoice] = true;
 			}
 
 			// ugly if-else statement
@@ -329,7 +359,7 @@ public class ProcessingView extends PApplet {
 	//    
 	// @Override
 	// public void mouseMoved() {
-		// int x = mouseX;
+	// int x = mouseX;
 	// int y = mouseY;
 	//        
 	// this.controller.doMove(x, y);
