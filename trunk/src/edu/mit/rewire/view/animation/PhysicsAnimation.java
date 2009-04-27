@@ -3,38 +3,34 @@ package edu.mit.rewire.view.animation;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.mit.rewire.model.Item;
-import edu.mit.rewire.model.MockItem;
 import edu.mit.rewire.view.Bubble;
-import edu.mit.rewire.view.Particle;
+import edu.mit.rewire.view.Bubble.State;
 
 import processing.core.PVector;
 
 public class PhysicsAnimation implements Animation {
 
-	List<Particle> particles;
+	List<Bubble> bubbles;
 
 	private final float width, height;
-
-	private final float springConstant = 0.05f;
 
 	private final float repulsionConstant = 200f;
 
 	private final float frictionConstant = -0.9f;
 
 	public PhysicsAnimation(float width, float height) {
-		this.particles = new ArrayList<Particle>();
+		this.bubbles = new ArrayList<Bubble>();
 		this.width = width;
 		this.height = height;
 	}
 
-	public PhysicsAnimation(float width, float height, List<Particle> particles) {
+	public PhysicsAnimation(float width, float height, List<Bubble> bubbles) {
 		this(height, width);
-		this.particles.addAll(particles);
+		this.bubbles.addAll(bubbles);
 	}
 
-	public void add(Particle p) {
-		this.particles.add(p);
+	public void add(Bubble p) {
+		this.bubbles.add(p);
 	}
 
 	public void init() {
@@ -42,14 +38,16 @@ public class PhysicsAnimation implements Animation {
 	}
 
 	public boolean step() {
-		for (int i = 0; i < particles.size(); i++) {
-			for (int j = i + 1; j < particles.size(); j++) {
-//				handleRepulsion(particles.get(i), particles.get(j));
-//				handleCollision(particles.get(i), particles.get(j));
+		for (int i = 0; i < bubbles.size(); i++) {
+			for (int j = i + 1; j < bubbles.size(); j++) {
+				handleRepulsion(bubbles.get(i), bubbles.get(j));
+				if (testCollision(bubbles.get(i), bubbles.get(j))) {
+					handleCollision(bubbles.get(i), bubbles.get(j));
+				}
 			}
 		}
 
-		for (Particle p : particles) {
+		for (Bubble p : bubbles) {
 			p.setX(p.getX() + p.getDx());
 			p.setY(p.getY() + p.getDy());
 			handleWalls(p);
@@ -58,7 +56,7 @@ public class PhysicsAnimation implements Animation {
 		return false;
 	}
 
-	protected void handleWalls(Particle p) {
+	protected void handleWalls(Bubble p) {
 		float x = p.getX();
 		float y = p.getY();
 		float r = p.getR();
@@ -80,144 +78,91 @@ public class PhysicsAnimation implements Animation {
 		}
 	}
 
-	protected void handleRepulsion(Particle p1, Particle p2) {
+	protected void handleRepulsion(Bubble b1, Bubble b2) {
 		
 		PVector offset = new PVector();
-		offset.x = p2.getX() - p1.getX();
-		offset.y = p2.getY() - p1.getY();
+		offset.x = b2.getX() - b1.getX();
+		offset.y = b2.getY() - b1.getY();
 
 		float force = (float) (repulsionConstant / Math.pow(offset.mag(), 2));
 		offset.normalize();
 		offset.mult(force);
 
-		p1.setDx(p1.getDx() - offset.x);
-		p1.setDy(p1.getDy() - offset.y);
-		p2.setDx(p2.getDx() + offset.x);
-		p2.setDy(p2.getDy() + offset.y);
-	}
-	
-	protected void handleInitialCollision(Particle p1, Particle p2) {
-		
-	}
-	
-	protected void handleCollision(Particle p1, Particle p2) {
-		// get distances between the balls components
-		PVector bVect = new PVector();
-		bVect.x = p2.getX() - p1.getX();
-		bVect.y = p2.getY() - p1.getY();
-		float minDist = p1.getR() + p2.getR();
-		
-		// calculate magnitude of the vector separating the balls
-		float bVectMagnitude = (float) Math.sqrt((bVect.x * bVect.x) + (bVect.y * bVect.y));
-		if (bVectMagnitude < minDist) {		
-			
-			// get angle of bVect
-			float theta = (float) Math.atan2(bVect.y, bVect.x);
-			
-			// precalculate trig values
-			float sine = (float) Math.sin(theta);
-			float cosine = (float) Math.cos(theta);
-			
-			// bTemps will hold rotated ball positions. 
-			Item item = new MockItem();
-			Bubble bTemp1 = new Bubble(0, 0, 0);
-			Bubble bTemp2 = new Bubble(0, 0, 0);
-			
-			/* Bubble 2's position is relative to Bubble 1's
-			 * so you can use the vector between them (bVect) as the
-			 * reference point in the rotation expressions.
-			 * since bubble 2 will rotate around bubble 1 */
-			bTemp2.setX(cosine * bVect.x + sine * bVect.y);
-			bTemp2.setY(cosine * bVect.y - sine * bVect.x);
-			
-			// rotate Temporary velocities
-		 	
-			PVector vTemp1 = new PVector();
-			PVector vTemp2 = new PVector();
-			
-			vTemp1.x = cosine * p1.getDx() + sine * p1.getDy();
-			vTemp1.y = cosine * p1.getDy() + sine * p1.getDx();
-			vTemp2.x = cosine * p2.getDx() + sine * p2.getDy();
-			vTemp2.y = cosine * p2.getDy() - sine * p2.getDx();
-		
-			/* Now that velocities are rotated, you can use 1D
-		 	 * conservation of momentum equations to calculate
-		 	 * the final velocity along the x-axis. */
-			
-			PVector vFinal1 = new PVector();
-			PVector vFinal2 = new PVector();
-			
-			vFinal1.x = (float) (((.1 * (p1.getR() - p2.getR()) * vTemp1.x) + (.2 * p2.getR() * vTemp2.x)) / (.1 * (p1.getR() + p2.getR())));
-			vFinal1.y = vTemp1.y;
-			vFinal2.x = (float) (((.1 * (p2.getR() - p1.getR()) * vTemp2.x) + (.2 * p1.getR() * vTemp1.x)) / (.1 * (p1.getR() + p2.getR())));
-			vFinal2.y = vTemp2.y; 
-			
-			// hack to avoid clumping - CAUSES PROBLEMS
-//			bTemp1.setX(bTemp1.getX() + vFinal1.x);
-//			bTemp2.setX(bTemp2.getX() + vFinal2.x);
-//			float targetX = bTemp1.getX() + cosine * minDist;
-//			float targetY = bTemp1.getY() + sine * minDist;
-//			float ax = (targetX - bTemp2.getX()) * springConstant;
-//			float ay = (targetY - bTemp2.getY()) * springConstant;
-//			bTemp1.setDx(bTemp1.getDx() - ax);
-//			bTemp1.setDy(bTemp1.getDy() - ay);
-//			bTemp2.setDx(bTemp2.getDx() + ax);
-//			bTemp2.setDy(bTemp2.getDy() + ay);
-		
-			/* Rotate ball positions and velocities back
-			 * Reverse signs in trig expressions to rotate
-			 * in the opposite direction */
-			// rotate balls
-			Bubble bFinal1 = new Bubble(0, 0, 0);
-			Bubble bFinal2 = new Bubble(0, 0, 0);
-			
-			bFinal1.setX(cosine * bTemp1.getX() - sine * bTemp1.getY());
-			bFinal1.setY(cosine * bTemp1.getY() + sine * bTemp1.getX());
-			bFinal2.setX(cosine * bTemp2.getX() - sine * bTemp2.getY());
-			bFinal2.setY(cosine * bTemp2.getY() + sine * bTemp2.getX());
-						
-			// update balls to screen position
-			p2.setX(p1.getX() + bFinal2.getX());
-			p2.setY(p1.getY() + bFinal2.getY());
-			p1.setX(p1.getX() + bFinal1.getX());
-			p1.setY(p1.getY() + bFinal1.getY());
-			
-			// update velocities
-			p1.setDx(cosine * vFinal1.x - sine * vFinal1.y);
-			p1.setDy(cosine * vFinal1.y + sine * vFinal1.x);
-			p2.setDx(cosine * vFinal2.x - sine * vFinal2.y);
-			p2.setDy(cosine * vFinal2.y + sine * vFinal2.x);
+		if (b1.getState() == State.MEDIUM || b1.getState() == State.SMALL) {
+			b1.setDx(b1.getDx() - offset.x);
+			b1.setDy(b1.getDy() - offset.y);
 		}
-
+		if (b2.getState() == State.MEDIUM || b2.getState() == State.SMALL) {
+			b2.setDx(b2.getDx() + offset.x);
+			b2.setDy(b2.getDy() + offset.y);
+		}
 	}
 	
-// 		OLD SORT OF WORKING handleCollision METHOD
-//	    protected void handleCollision(Particle p1, Particle p2) {
-//	
-//	        // get distances between the balls components
-//	        PVector offset = new PVector();
-//	        offset.x = p2.getX() - p1.getX();
-//	        offset.y = p2.getY() - p1.getY();
-//	
-//	        // calculate magnitude of the vector separating the balls
-//	        float d = offset.mag();
-//	        float minDist = p1.getR() + p2.getR();
-//	
-//	        if (d < minDist * 1.1) {
-//	        	
-//	        	offset.normalize();
-//	            offset.mult(minDist);
-//	            p2.setX(p1.getX() + offset.x);
-//	            p2.setY(p1.getY() + offset.y);
-//	
-//	            float dx = p1.getDx(), dy = p2.getDy();
-//	            p1.setDx(p2.getDx());
-//	            p1.setDy(p2.getDy());
-//	            p2.setDx(dx);
-//	            p2.setDy(dy);
-//	
-//	        }
-//	
-//	    }
-
+	protected boolean testCollision(Bubble b1, Bubble b2) {
+		PVector collisionVector = new PVector();
+		float minDist = b1.getR() + b2.getR();
+		
+		collisionVector.x = b1.getX() - b2.getX();
+		collisionVector.y = b1.getY() - b2.getY();
+		
+		if (collisionVector.mag() < minDist) {
+			return true;
+		}		
+		
+		return false;
+	}
+	
+	protected void handleCollision(Bubble b1, Bubble b2) {
+		PVector unitNormal = new PVector();
+		PVector unitTangent = new PVector();
+		PVector initialVelocityb1 = new PVector();
+		PVector initialVelocityb2 = new PVector();
+		PVector newNormalVelocityb1 = new PVector();
+		PVector newNormalVelocityb2 = new PVector();
+		PVector newTangentialVelocityb1 = new PVector();
+		PVector newTangentialVelocityb2 = new PVector();
+		
+		PVector finalVelocityb1 = new PVector();
+		PVector finalVelocityb2 = new PVector();
+		
+		float v1n, v1t, v2n, v2t;
+		float v1np, v1tp, v2np, v2tp;
+		float massb1 = (float) (Math.PI * b1.getR() * b1.getR());
+		float massb2 = (float) (Math.PI * b2.getR() * b2.getR());
+		
+		
+		unitNormal.set((b1.getX() - b2.getX()), (b1.getY() - b2.getY()), 0);
+		unitNormal.normalize();
+		
+		unitTangent.set(-unitNormal.y, unitNormal.x, 0);
+		
+		initialVelocityb1.set(b1.getDx(), b1.getDy(), 0);
+		initialVelocityb2.set(b2.getDx(), b2.getDy(), 0);
+		
+		v1n = unitNormal.dot(initialVelocityb1);
+		v1t = unitTangent.dot(initialVelocityb1);
+		v2n = unitNormal.dot(initialVelocityb2);
+		v2t = unitTangent.dot(initialVelocityb2);
+		
+		v1tp = v1t;
+		v2tp = v2t;
+		
+		v1np = (v1n * (massb1 - massb2) + (2 * massb2 * v2n)) / (massb1 + massb2);
+		v2np = (v2n * (massb2 - massb1) + (2 * massb1 * v1n)) / (massb1 + massb2);
+		
+		newNormalVelocityb1 = PVector.mult(unitNormal, v1np);
+		newTangentialVelocityb1 = PVector.mult(unitTangent, v1tp);
+		newNormalVelocityb2 = PVector.mult(unitNormal, v2np);
+		newTangentialVelocityb2 = PVector.mult(unitTangent, v2tp);
+		
+		finalVelocityb1 = PVector.add(newNormalVelocityb1, newTangentialVelocityb1);
+		finalVelocityb2 = PVector.add(newNormalVelocityb2, newTangentialVelocityb2);
+		
+		
+		b1.setDx(finalVelocityb1.x);
+		b1.setDy(finalVelocityb1.y);
+		
+		b2.setDx(finalVelocityb2.x);
+		b2.setDy(finalVelocityb2.y);
+	}
 }

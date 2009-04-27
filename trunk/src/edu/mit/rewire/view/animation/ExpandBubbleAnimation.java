@@ -62,6 +62,8 @@ public class ExpandBubbleAnimation implements Animation {
 		// Stop regular animation of bubble
 		this.bubble.setDx(0);
 		this.bubble.setDy(0);
+		
+		this.bubble.setState(State.EXPANDING);
 	}
 
 	//@Override
