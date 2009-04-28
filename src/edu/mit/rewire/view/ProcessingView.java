@@ -68,24 +68,24 @@ public class ProcessingView extends PApplet {
 
 		rewire = loadImage("logo.png");
 
-		bluebubble = loadShape("blue.svg");
-		lavenderbubble = loadShape("lavender.svg");
-		pinkbubble = loadShape("pink.svg");
-		seafoambubble = loadShape("seafoam.svg");
-		yellowbubble = loadShape("yellow.svg");
-		orangebubble = loadShape("orange.svg");
+		bluebubble = loadShape("bubble-blue.svg");
+		lavenderbubble = loadShape("bubble-lavender.svg");
+		pinkbubble = loadShape("bubble-pink.svg");
+		seafoambubble = loadShape("bubble-seafoam.svg");
+		yellowbubble = loadShape("bubble-yellow.svg");
+		orangebubble = loadShape("bubble-orange.svg");
 
-		blueicon = loadImage("facebook-rounded.png");
-		lavendericon = loadImage("twitter.png");
-		pinkicon = loadImage("times.png");
-		seafoamicon = loadImage("todo.png");
-		yellowicon = loadImage("weather.png");
-		orangeicon = loadImage("gmail.png");
+		blueicon = loadImage("fav-facebook.svg");
+		lavendericon = loadImage("fav-twitter.svg");
+		pinkicon = loadImage("fav-nyt.svg");
+		seafoamicon = loadImage("fav-todo.svg");
+		yellowicon = loadImage("fav-weather.svg");
+		orangeicon = loadImage("fav-mail.svg");
 
-		markReadButton = loadImage("markread.png");
-		starButton = loadImage("star.png");
-		openButton = loadImage("open.png");
-		trashButton = loadImage("trash.png");
+		markReadButton = loadImage("button-pop.svg");
+		starButton = loadImage("button-star.svg");
+		openButton = loadImage("button-open.svg");
+		trashButton = loadImage("button-trash.svg");
 
 		titleFont = loadFont("HelveticaNeue-Light-36.vlw");
 		bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
