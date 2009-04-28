@@ -43,10 +43,10 @@ public class Bubble implements Drawable, Particle, MouseAware {
     /** Icon representing the type of item */
     private PImage icon;
 
-    private PImage markReadButton;
-    private PImage starButton;
-    private PImage openButton;
-    private PImage trashButton;
+    private PShape markReadButton;
+    private PShape starButton;
+    private PShape openButton;
+    private PShape trashButton;
 
     public Bubble(float x, float y, float r) {
         this(null, x, y, r, null, null, null, null, null, null, null, null);
@@ -54,8 +54,8 @@ public class Bubble implements Drawable, Particle, MouseAware {
 
     public Bubble(Item item, float x, float y, float r, PShape backimage,
             PFont titleFont, PFont bodyFont, PImage icon,
-            PImage markReadButton, PImage starButton, PImage openButton,
-            PImage trashButton) {
+            PShape markReadButton, PShape starButton, PShape openButton,
+            PShape trashButton) {
         this.item = item;
 
         this.x = x;
@@ -112,10 +112,10 @@ public class Bubble implements Drawable, Particle, MouseAware {
             graphics.text(item.getBody(), x - r * 3 / 5, y + r * 1 / 10, r, r);
             
             final float BUTTON_WIDTH = 54f;
-            graphics.image(markReadButton, x + r * 2 / 5, y - r / 2);
-            graphics.image(starButton, x + r * 2 / 5, y - r / 2 + 100);
-            graphics.image(openButton, x + r * 2 / 5, y - r / 2 + 165);
-            graphics.image(trashButton, x + r * 2 / 5, y - r / 2 + 230);
+            graphics.shape(markReadButton, x + r * 2 / 5, y - r / 2);
+            graphics.shape(starButton, x + r * 2 / 5, y - r / 2 + 100);
+            graphics.shape(openButton, x + r * 2 / 5, y - r / 2 + 165);
+            graphics.shape(trashButton, x + r * 2 / 5, y - r / 2 + 230);
 
             break;
         }

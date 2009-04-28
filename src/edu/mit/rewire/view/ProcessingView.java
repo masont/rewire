@@ -54,10 +54,10 @@ public class ProcessingView extends PApplet {
 	private PImage yellowicon;
 	private PImage orangeicon;
 
-	private PImage markReadButton;
-	private PImage starButton;
-	private PImage openButton;
-	private PImage trashButton;
+	private PShape markReadButton;
+	private PShape starButton;
+	private PShape openButton;
+	private PShape trashButton;
 
 	private PFont titleFont;
 	private PFont bodyFont;
@@ -82,10 +82,10 @@ public class ProcessingView extends PApplet {
 		yellowicon = loadImage("fav-weather.svg");
 		orangeicon = loadImage("fav-mail.svg");
 
-		markReadButton = loadImage("button-pop.svg");
-		starButton = loadImage("button-star.svg");
-		openButton = loadImage("button-open.svg");
-		trashButton = loadImage("button-trash.svg");
+		markReadButton = loadShape("button-pop.svg");
+		starButton = loadShape("button-star.svg");
+		openButton = loadShape("button-open.svg");
+		trashButton = loadShape("button-trash.svg");
 
 		titleFont = loadFont("HelveticaNeue-Light-36.vlw");
 		bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
