@@ -29,8 +29,8 @@ public class ProcessingView extends PApplet {
 	private Controller controller;
 
 	// Variables for placement of bubbles on screen
-	private final boolean randomPlacement = true;
-	private float r = 150;
+	private final boolean randomPlacement = false;
+	private float r = 75;
 	private float x;
 	private float y;
 	private int cellRows = (int) Math.floor(screen.height/(2*r));
