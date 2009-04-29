@@ -2,10 +2,10 @@ package edu.mit.rewire.view;
 
 import java.awt.geom.Point2D;
 
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PShape;
-import processing.core.PFont;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
