@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.core.PShape;
-import processing.core.PImage;
 import processing.core.PFont;
+import processing.core.PImage;
+import processing.core.PShape;
 import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.DummyItem;
@@ -213,7 +213,7 @@ public class ProcessingView extends PApplet {
 		List<Item> items = dataSource.getItems();
 
 
-		System.out.println(cellRows + " rows and " + cellColumns + " columns.");
+		//System.out.println(cellRows + " rows and " + cellColumns + " columns.");
 
 		for (Item item : items) {
 
@@ -310,7 +310,7 @@ public class ProcessingView extends PApplet {
 			this.physicsEngine.add(bubble);
 			this.controller.add(bubble);
 			this.bubbles.add(bubble);
-			System.out.println(bubbles);
+			//System.out.println(bubbles);
 		}
 
 		this.physicsEngine.init();
