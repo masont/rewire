@@ -41,7 +41,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
     private PFont bodyFont;
 
     /** Icon representing the type of item */
-    private PImage icon;
+    private PShape icon;
 
     private PShape markReadButton;
     private PShape starButton;
@@ -53,7 +53,7 @@ public class Bubble implements Drawable, Particle, MouseAware {
     }
 
     public Bubble(Item item, float x, float y, float r, PShape backimage,
-            PFont titleFont, PFont bodyFont, PImage icon,
+            PFont titleFont, PFont bodyFont, PShape icon,
             PShape markReadButton, PShape starButton, PShape openButton,
             PShape trashButton) {
         this.item = item;

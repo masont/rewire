@@ -47,12 +47,12 @@ public class ProcessingView extends PApplet {
 	private PShape yellowbubble;
 	private PShape orangebubble;
 
-	private PImage blueicon;
-	private PImage lavendericon;
-	private PImage pinkicon;
-	private PImage seafoamicon;
-	private PImage yellowicon;
-	private PImage orangeicon;
+	private PShape blueicon;
+	private PShape lavendericon;
+	private PShape pinkicon;
+	private PShape seafoamicon;
+	private PShape yellowicon;
+	private PShape orangeicon;
 
 	private PShape markReadButton;
 	private PShape starButton;
@@ -75,12 +75,12 @@ public class ProcessingView extends PApplet {
 		yellowbubble = loadShape("bubble-yellow.svg");
 		orangebubble = loadShape("bubble-orange.svg");
 
-		blueicon = loadImage("fav-facebook.svg");
-		lavendericon = loadImage("fav-twitter.svg");
-		pinkicon = loadImage("fav-nyt.svg");
-		seafoamicon = loadImage("fav-todo.svg");
-		yellowicon = loadImage("fav-weather.svg");
-		orangeicon = loadImage("fav-mail.svg");
+		blueicon = loadShape("fav-facebook.svg");
+		lavendericon = loadShape("fav-twitter.svg");
+		pinkicon = loadShape("fav-nyt.svg");
+		seafoamicon = loadShape("fav-todo.svg");
+		yellowicon = loadShape("fav-weather.svg");
+		orangeicon = loadShape("fav-mail.svg");
 
 		markReadButton = loadShape("button-pop.svg");
 		starButton = loadShape("button-star.svg");
