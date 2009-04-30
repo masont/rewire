@@ -25,6 +25,7 @@ public class DataSource {
 			Status status = timeline.get(i);
 			this.addItem(new TwitterItem(status));
 		}
+		new WeatherItem();
 		
 	}
 	
