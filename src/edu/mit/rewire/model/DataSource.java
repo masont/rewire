@@ -25,7 +25,18 @@ public class DataSource {
 			Status status = timeline.get(i);
 			this.addItem(new TwitterItem(status));
 		}
-		new WeatherItem();
+		this.addItem(new WeatherItem());
+
+//		try {
+//			SAXBuilder parser = new SAXBuilder();
+//			Document doc = parser.build("http://www.google.com/calendar/m");
+//		} catch (JDOMException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 	

@@ -61,7 +61,6 @@ public class ProcessingView extends PApplet {
 
 	private PShape toggle_red;
 	private PShape toggle_twitterblue;
-	private PShape toggle_pink;
 	private PShape toggle_seafoam;
 	private PShape toggle_yellow;
 	private PShape toggle_orange;
@@ -96,7 +95,6 @@ public class ProcessingView extends PApplet {
 
 		toggle_red = loadShape("toggle-red-on.svg");
 		toggle_twitterblue = loadShape("toggle-twitter-on.svg");
-		toggle_pink = loadShape("toggle-pink-on.svg");
 		toggle_seafoam = loadShape("toggle-seafoam-on.svg");
 		toggle_yellow = loadShape("toggle-yellow-on.svg");
 		toggle_orange = loadShape("toggle-orange-on.svg");
@@ -186,14 +184,6 @@ public class ProcessingView extends PApplet {
 				"Amy Smith",
 				"7:48pm",
 		"made a comment about your photo."));
-		dataSource.addItem(new DummyItem("weather",
-				"Weather",
-				"4/10/09",
-				"Friday: Rain likely. Low 42F. S winds shifting to ENE at 10 to 15 mph. Chance of rain 80%. Rainfall near a quarter of an inch.\n\n"+
-
-				"Saturday: Rain showers early with overcast skies later in the day. High around 45F. Winds NNE at 10 to 20 mph. Chance of rain 70%.\n\n"+
-
-		"Sunday: Partly cloudy. Highs in the mid 40s and lows in the low 30s."));
 		dataSource.addItem(new DummyItem("todo",
 				"Agenda",
 				"4/10/09",
