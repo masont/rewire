@@ -33,19 +33,19 @@ public class Bubble implements Drawable, Particle, MouseAware {
     private float dx = 0, dy = 0;
 
     /** Background image for the bubble */
-    private PShape bubble_image;
+    private PShape bubble;
 
     /** Fonts for the title and body */
-    private PFont font_title;
-    private PFont font_body;
+    private PFont titleFont;
+    private PFont bodyFont;
 
     /** Icon representing the type of item */
-    private PShape fav_icon;
+    private PShape favIcon;
 
-    private PShape button_pop;
-    private PShape button_star;
-    private PShape button_open;
-    private PShape button_trash;
+    private PShape popButton;
+    private PShape starButton;
+    private PShape openButton;
+    private PShape trashButton;
 
     public Bubble(float x, float y, float r) {
         this(null, x, y, r, null, null, null, null, null, null, null, null);
@@ -63,58 +63,58 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.dx = (float) ((0.5 - Math.random()) * 1);
         this.dy = (float) ((0.5 - Math.random()) * 1);
 
-        this.bubble_image = backimage;
-        this.font_title = titleFont;
-        this.font_body = bodyFont;
-        this.fav_icon = icon;
+        this.bubble = backimage;
+        this.titleFont = titleFont;
+        this.bodyFont = bodyFont;
+        this.favIcon = icon;
         this.state = Math.random() > .33 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
         
-        this.button_pop = markReadButton;
-        this.button_star = starButton;
-        this.button_open = openButton;
-        this.button_trash = trashButton;
+        this.popButton = markReadButton;
+        this.starButton = starButton;
+        this.openButton = openButton;
+        this.trashButton = trashButton;
     }
 
     //@Override
     public void draw(PGraphics graphics) {
     	
-        graphics.shape(bubble_image, x - r, y - r, 2 * r, 2 * r);
+        graphics.shape(bubble, x - r, y - r, 2 * r, 2 * r);
         graphics.fill(136);
         switch (state) {
         case SMALL:
-            graphics.shape(fav_icon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
+            graphics.shape(favIcon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
                     r * 3 / 5);
-            graphics.textFont(font_body,10);
+            graphics.textFont(bodyFont,10);
             graphics.text(item.getTitle(), x - r * 4 / 5, y,
             		2*r,2*r);
             break;
         case MEDIUM:
-            graphics.shape(fav_icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
+            graphics.shape(favIcon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
-            graphics.textFont(font_title,20);
+            graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
             	r * 9/5,2*r);
-            graphics.textFont(font_body);
+            graphics.textFont(bodyFont);
             graphics.text(item.getHeader(), x - r * 3 / 5, y + r * 1 / 2);
             break;
         case EXPANDED:
-            graphics.shape(fav_icon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
+            graphics.shape(favIcon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
-            graphics.textFont(font_title,20);
+            graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
             	r,2*r);
-            graphics.textFont(font_body);
+            graphics.textFont(bodyFont);
             graphics.text(item.getHeader(), x - r * 4 / 5, y + r * 1 / 20);
-            graphics.textFont(font_body);
+            graphics.textFont(bodyFont);
             graphics.text(item.getBody(), x - r * 3 / 5, y + r * 1 / 10, r, r);
             
             //final float BUTTON_WIDTH = 54f;
-            graphics.shape(button_pop, x + r * 2 / 5, y - r / 2);
-            graphics.shape(button_star, x + r * 2 / 5, y - r / 2 + 100);
-            graphics.shape(button_open, x + r * 2 / 5, y - r / 2 + 165);
-            graphics.shape(button_trash, x + r * 2 / 5, y - r / 2 + 230);
+            graphics.shape(popButton, x + r * 2 / 5, y - r / 2);
+            graphics.shape(starButton, x + r * 2 / 5, y - r / 2 + 100);
+            graphics.shape(openButton, x + r * 2 / 5, y - r / 2 + 165);
+            graphics.shape(trashButton, x + r * 2 / 5, y - r / 2 + 230);
 
             break;
         }
