@@ -46,7 +46,7 @@ public class ProcessingView extends PApplet {
 	private PShape bubble_seafoam;
 	private PShape bubble_yellow;
 	private PShape bubble_orange;
-
+	
 	private PShape fav_rss;
 	private PShape fav_twitter;
 	private PShape fav_nyt;
@@ -59,6 +59,13 @@ public class ProcessingView extends PApplet {
 	private PShape button_open;
 	private PShape button_trash;
 
+	private PShape toggle_red;
+	private PShape toggle_twitterblue;
+	private PShape toggle_pink;
+	private PShape toggle_seafoam;
+	private PShape toggle_yellow;
+	private PShape toggle_orange;
+	
 	private PFont font_title;
 	private PFont font_body;
 
@@ -87,6 +94,13 @@ public class ProcessingView extends PApplet {
 		button_open = loadShape("button-open.svg");
 		button_trash = loadShape("button-trash.svg");
 
+		toggle_red = loadShape("toggle-red-on.svg");
+		toggle_twitterblue = loadShape("toggle-twitter-on.svg");
+		toggle_pink = loadShape("toggle-pink-on.svg");
+		toggle_seafoam = loadShape("toggle-seafoam-on.svg");
+		toggle_yellow = loadShape("toggle-yellow-on.svg");
+		toggle_orange = loadShape("toggle-orange-on.svg");
+		
 		font_title = loadFont("HelveticaNeue-Light-36.vlw");
 		font_body = loadFont("HelveticaNeue-Light-14.vlw");
 
@@ -316,6 +330,11 @@ public class ProcessingView extends PApplet {
 
 
 		image(rewire,20,40);
+		shape(toggle_red,20,600,60,60);
+		shape(toggle_twitterblue,100,600,60,60);
+		shape(toggle_orange,180,600,60,60);
+		shape(toggle_seafoam,260,600,60,60);
+		shape(toggle_yellow,340,600,60,60);
 
 	}
 
