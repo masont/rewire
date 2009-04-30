@@ -40,27 +40,27 @@ public class ProcessingView extends PApplet {
 
 	private PImage rewire;
 
-	private PShape bluebubble;
-	private PShape lavenderbubble;
-	private PShape pinkbubble;
-	private PShape seafoambubble;
-	private PShape yellowbubble;
-	private PShape orangebubble;
+	private PShape bubble_red;
+	private PShape bubble_twitterblue;
+	private PShape bubble_pink;
+	private PShape bubble_seafoam;
+	private PShape bubble_yellow;
+	private PShape bubble_orange;
 
-	private PShape blueicon;
-	private PShape lavendericon;
-	private PShape pinkicon;
-	private PShape seafoamicon;
-	private PShape yellowicon;
-	private PShape orangeicon;
+	private PShape fav_rss;
+	private PShape fav_twitter;
+	private PShape fav_nyt;
+	private PShape fav_todo;
+	private PShape fav_weather;
+	private PShape fav_mail;
 
-	private PShape markReadButton;
-	private PShape starButton;
-	private PShape openButton;
-	private PShape trashButton;
+	private PShape button_pop;
+	private PShape button_star;
+	private PShape button_open;
+	private PShape button_trash;
 
-	private PFont titleFont;
-	private PFont bodyFont;
+	private PFont font_title;
+	private PFont font_body;
 
 	@Override
 	public void setup() {
@@ -68,27 +68,27 @@ public class ProcessingView extends PApplet {
 
 		rewire = loadImage("logo.png");
 
-		bluebubble = loadShape("bubble-blue.svg");
-		lavenderbubble = loadShape("bubble-lavender.svg");
-		pinkbubble = loadShape("bubble-pink.svg");
-		seafoambubble = loadShape("bubble-seafoam.svg");
-		yellowbubble = loadShape("bubble-yellow.svg");
-		orangebubble = loadShape("bubble-orange.svg");
+		bubble_red = loadShape("bubble-red.svg");
+		bubble_twitterblue = loadShape("bubble-twitterblue.svg");
+		bubble_pink = loadShape("bubble-pink.svg");
+		bubble_seafoam = loadShape("bubble-seafoam.svg");
+		bubble_yellow = loadShape("bubble-yellow.svg");
+		bubble_orange = loadShape("bubble-orange.svg");
 
-		blueicon = loadShape("fav-facebook.svg");
-		lavendericon = loadShape("fav-twitter.svg");
-		pinkicon = loadShape("fav-nyt.svg");
-		seafoamicon = loadShape("fav-todo.svg");
-		yellowicon = loadShape("fav-weather.svg");
-		orangeicon = loadShape("fav-mail.svg");
+		fav_rss = loadShape("rss-orange.svg");
+		fav_twitter = loadShape("fav-twitter.svg");
+		fav_nyt = loadShape("fav-nyt.svg");
+		fav_todo = loadShape("fav-todo.svg");
+		fav_weather = loadShape("fav-weather.svg");
+		fav_mail = loadShape("fav-mail.svg");
 
-		markReadButton = loadShape("button-pop.svg");
-		starButton = loadShape("button-star.svg");
-		openButton = loadShape("button-open.svg");
-		trashButton = loadShape("button-trash.svg");
+		button_pop = loadShape("button-pop.svg");
+		button_star = loadShape("button-star.svg");
+		button_open = loadShape("button-open.svg");
+		button_trash = loadShape("button-trash.svg");
 
-		titleFont = loadFont("HelveticaNeue-Light-36.vlw");
-		bodyFont = loadFont("HelveticaNeue-Light-14.vlw");
+		font_title = loadFont("HelveticaNeue-Light-36.vlw");
+		font_body = loadFont("HelveticaNeue-Light-14.vlw");
 
 		size(screen.width, screen.height);
 		background(0);
@@ -98,7 +98,7 @@ public class ProcessingView extends PApplet {
 		physicsEngine = new PhysicsAnimation(this.width, this.height);
 
 		DataSource dataSource = new DataSource();
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: Next Friday: Computation Lecture Series: Shane Burger @ 12:30 in 3-133",
 				"From: Daniela Smith",
 				"All are invited to this talk in the Computation Group Lecture Series,\n"+
@@ -109,7 +109,7 @@ public class ProcessingView extends PApplet {
 				"Friday, April 17th *\n" +
 				"12:30 - 2:00pm\n" +
 		"Room 3-133*\n"));
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: 6.863 Project Proposal",
 				"From: Professor Robert C Smith",
 				"Hi all,\n\n"+
@@ -122,7 +122,7 @@ public class ProcessingView extends PApplet {
 				"But again, I didn't know what your ultimate functional objective was --\n\n"+
 
 		"best bob"));
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: My name is Ekaterina.",
 				"From: Yesenia Valenzuela",
 				"Hi my new friend!\n\n"+
@@ -135,7 +135,7 @@ public class ProcessingView extends PApplet {
 				"Please reply only to my personal e-mail:  ekaterina2129@gmail.com\n\n"+
 
 		"Bye."));
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: [Listit] How to synchronize 2 computers",
 				"From: Eleanor Smith",
 				"Every time I try to synchronize it says 'sync success  yet none of my "+
@@ -144,55 +144,35 @@ public class ProcessingView extends PApplet {
 				"I love this product, but haven't quite got the hang of it yet.  Help.\n\n"+
 
 		"Eleanor Smith"));
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: !!!!!",
 				"From: James Smith",
 		"http://www.ustream.tv/channel/snoop-dogg-live"));
-		dataSource.addItem(new DummyItem("orange",
+		dataSource.addItem(new DummyItem("mail",
 				"Subject: !!!!!",
 				"From: James Smith",
 		"http://www.ustream.tv/channel/snoop-dogg-live"));
-		dataSource.addItem(new DummyItem("blue",
+		dataSource.addItem(new DummyItem("rss",
 				"Heiko Smith",
 				"6 hours ago",
 		"accepted your friend request."));
-		dataSource.addItem(new DummyItem("blue",
+		dataSource.addItem(new DummyItem("rss",
 				"Anna Smith",
 				"20 hours ago",
 		"knows a secret about you."));
-		dataSource.addItem(new DummyItem("blue",
+		dataSource.addItem(new DummyItem("rss",
 				"Greg Smith",
 				"on Thursday",
 		"wrote on your Wall."));
-		dataSource.addItem(new DummyItem("blue",
+		dataSource.addItem(new DummyItem("rss",
 				"John Smith",
 				"9:28am",
 		"commented on your status"));
-		dataSource.addItem(new DummyItem("blue",
+		dataSource.addItem(new DummyItem("rss",
 				"Amy Smith",
 				"7:48pm",
 		"made a comment about your photo."));
-		dataSource.addItem(new DummyItem("lavender",
-				"fimoculous",
-				"6:36 PM Apr 7th from web",
-		"Do social media experts have any purpose whatsoever? http://tinyurl.com/ct3e96"));
-		dataSource.addItem(new DummyItem("lavender",
-				"evan",
-				"3:06 PM Mar 30th from web",
-		"Mo' tweets, mo' problems."));
-		dataSource.addItem(new DummyItem("lavender",
-				"nick",
-				"9:27 PM Mar 24th from web",
-		"It's been a fun couple of years, Twitter, but when are we gonna start a second thread?"));
-		dataSource.addItem(new DummyItem("lavender",
-				"JSCarroll",
-				"5:13 AM Mar 24th from web",
-		"Twitter teaches brevity, but being brief doesn't necessarily mean an observer is either insightful or interesting."));
-		dataSource.addItem(new DummyItem("lavender",
-				"livejamie",
-				"5:02 PM Mar 18th from Ping.fm",
-		"The only reason people pick the White Album or Pet Sounds as best album of all time is because it's hard to narrow it to one Jock Jams CD."));
-		dataSource.addItem(new DummyItem("yellow",
+		dataSource.addItem(new DummyItem("weather",
 				"Weather",
 				"4/10/09",
 				"Friday: Rain likely. Low 42F. S winds shifting to ENE at 10 to 15 mph. Chance of rain 80%. Rainfall near a quarter of an inch.\n\n"+
@@ -200,7 +180,7 @@ public class ProcessingView extends PApplet {
 				"Saturday: Rain showers early with overcast skies later in the day. High around 45F. Winds NNE at 10 to 20 mph. Chance of rain 70%.\n\n"+
 
 		"Sunday: Partly cloudy. Highs in the mid 40s and lows in the low 30s."));
-		dataSource.addItem(new DummyItem("seafoam",
+		dataSource.addItem(new DummyItem("todo",
 				"Agenda",
 				"4/10/09",
 				"- talk to adam"+
@@ -276,34 +256,34 @@ public class ProcessingView extends PApplet {
 
 			// ugly if-else statement
 			Bubble bubble;
-			if (item.getType() == "blue") {
-				bubble = new Bubble(item, x, y, r, bluebubble, titleFont,
-						bodyFont, blueicon, markReadButton, starButton,
-						openButton, trashButton);
-			} else if (item.getType() == "lavender") {
-				bubble = new Bubble(item, x, y, r, lavenderbubble, titleFont,
-						bodyFont, lavendericon, markReadButton, starButton,
-						openButton, trashButton);
-			} else if (item.getType() == "pink") {
-				bubble = new Bubble(item, x, y, r, pinkbubble, titleFont,
-						bodyFont, pinkicon, markReadButton, starButton,
-						openButton, trashButton);
-			} else if (item.getType() == "seafoam") {
-				bubble = new Bubble(item, x, y, r, seafoambubble, titleFont,
-						bodyFont, seafoamicon, markReadButton, starButton,
-						openButton, trashButton);
-			} else if (item.getType() == "yellow") {
-				bubble = new Bubble(item, x, y, r, yellowbubble, titleFont,
-						bodyFont, yellowicon, markReadButton, starButton,
-						openButton, trashButton);
-			} else if (item.getType() == "orange") {
-				bubble = new Bubble(item, x, y, r, orangebubble, titleFont,
-						bodyFont, orangeicon, markReadButton, starButton,
-						openButton, trashButton);
+			if (item.getType() == "rss") {
+				bubble = new Bubble(item, x, y, r, bubble_orange, font_title,
+						font_body, fav_rss, button_pop, button_star,
+						button_open, button_trash);
+			} else if (item.getType() == "twitter") {
+				bubble = new Bubble(item, x, y, r, bubble_twitterblue, font_title,
+						font_body, fav_twitter, button_pop, button_star,
+						button_open, button_trash);
+			} else if (item.getType() == "nyt") {
+				bubble = new Bubble(item, x, y, r, bubble_pink, font_title,
+						font_body, fav_nyt, button_pop, button_star,
+						button_open, button_trash);
+			} else if (item.getType() == "todo") {
+				bubble = new Bubble(item, x, y, r, bubble_seafoam, font_title,
+						font_body, fav_todo, button_pop, button_star,
+						button_open, button_trash);
+			} else if (item.getType() == "weather") {
+				bubble = new Bubble(item, x, y, r, bubble_yellow, font_title,
+						font_body, fav_weather, button_pop, button_star,
+						button_open, button_trash);
+			} else if (item.getType() == "mail") {
+				bubble = new Bubble(item, x, y, r, bubble_red, font_title,
+						font_body, fav_mail, button_pop, button_star,
+						button_open, button_trash);
 			} else {
-				bubble = new Bubble(item, x, y, r, orangebubble, titleFont,
-						bodyFont, orangeicon, markReadButton, starButton,
-						openButton, trashButton);
+				bubble = new Bubble(item, x, y, r, bubble_red, font_title,
+						font_body, fav_mail, button_pop, button_star,
+						button_open, button_trash);
 			}
 
 			this.elements.add(bubble);
