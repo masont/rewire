@@ -335,9 +335,17 @@ public class ProcessingView extends PApplet {
 	public void add(Bubble bubble) {
 		this.elements.add(bubble);
 	}
+	
+	public void add(BackgroundOverlay bg) {
+		this.elements.add(bg);
+	}
 
 	public void remove(Bubble bubble) {
 		this.elements.remove(bubble);
+	}
+	
+	public void remove(BackgroundOverlay bg) {
+		this.elements.remove(bg);
 	}
 
 	public void update(int x, int y) {
