@@ -30,28 +30,35 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 		return alpha;
 	}
 
-	@Override
-	public void dispatchClick(Controller controller, int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void dispatchDown(Controller controller, int x, int y) {
+        // TODO Auto-generated method stub
+        
+    }
 
-	@Override
-	public void dispatchOver(Controller controller, int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void dispatchDrag(Controller controller, int x, int y) {
+        // TODO Auto-generated method stub
+        
+    }
 
-	@Override
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void dispatchIn(Controller controller, int x, int y) {
+        // TODO Auto-generated method stub
+        
+    }
 
-	@Override
-	public boolean hits(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public void dispatchUp(Controller controller, int x, int y) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean hits(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 
 }

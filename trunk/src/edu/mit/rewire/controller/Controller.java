@@ -23,6 +23,10 @@ public class Controller {
     
     private final float width, height;
     
+    private boolean mouseDown = false;
+    
+    private MouseAware mouseOver = null;
+    
     private BackgroundOverlay bg;
         
     public Controller(ProcessingView view, float width, float height) {
@@ -37,12 +41,40 @@ public class Controller {
         this.components.add(0, clickable);
     }
     
-    public void doClick(int x, int y) {
+    private MouseAware hitComponent(int x, int y) {
         for (MouseAware component : components) {
             if (component.hits(x, y)) {
-                component.dispatchClick(this, x, y);
-                break;
+                return component;
             }
+        }
+        return null;
+    }
+    
+    public void update(int x, int y, boolean pressed) {
+        MouseAware hitComponent = hitComponent(x, y);
+        if (hitComponent == null) {
+            this.mouseOver = null;
+            this.mouseDown = pressed;
+            return;
+        }
+        
+        if (pressed) {
+            if (this.mouseDown) {
+                hitComponent.dispatchDrag(this, x, y);
+            } else {
+                this.mouseDown = true;
+                hitComponent.dispatchDown(this, x, y);
+            }
+        } else {
+            if (this.mouseDown) {
+                hitComponent.dispatchUp(this, x, y);
+                this.mouseDown = false;
+            } else {
+                                
+            }
+
+            this.mouseDown = false;
+
         }
         
         for (MouseAware component : toRemove) {
@@ -52,10 +84,11 @@ public class Controller {
         toRemove.clear();
     }
     
+    
     public void doMove(int x, int y) {
         for (MouseAware component : components) {
             if (component.hits(x, y)) {
-                component.dispatchOver(this, x, y);
+                component.dispatchIn(this, x, y);
             }
         }
         

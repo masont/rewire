@@ -6,10 +6,12 @@ public interface MouseAware {
     
     boolean hits(int x, int y);
     
-    void dispatchClick(Controller controller, int x, int y);
+    void dispatchDown(Controller controller, int x, int y);
     
-    void dispatchOver(Controller controller, int x, int y);
-
-    int getZ();
+    void dispatchUp(Controller controller, int x, int y);
+    
+    void dispatchIn(Controller controller, int x, int y);
+    
+    void dispatchDrag(Controller controller, int x, int y);
 
 }
