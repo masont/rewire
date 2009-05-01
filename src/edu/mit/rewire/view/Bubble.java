@@ -48,13 +48,10 @@ public class Bubble implements Drawable, Particle, MouseAware {
     private PShape trashButton;
 
     public Bubble(float x, float y, float r) {
-        this(null, x, y, r, null, null, null, null, null, null, null, null);
+        this(null, x, y, r, null, null);
     }
 
-    public Bubble(Item item, float x, float y, float r, PShape backimage,
-            PFont titleFont, PFont bodyFont, PShape icon,
-            PShape markReadButton, PShape starButton, PShape openButton,
-            PShape trashButton) {
+    public Bubble(Item item, float x, float y, float r, PShape backImage, PShape icon) {
         this.item = item;
 
         this.x = x;
@@ -63,18 +60,18 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.dx = (float) ((0.5 - Math.random()) * 1);
         this.dy = (float) ((0.5 - Math.random()) * 1);
 
-        this.bubble = backimage;
-        this.titleFont = titleFont;
-        this.bodyFont = bodyFont;
+        this.bubble = backImage;
+        this.titleFont = ViewResources.loadFont("titleFont");
+        this.bodyFont = ViewResources.loadFont("bodyFont");
         this.favIcon = icon;
         this.state = Math.random() > .33 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
         
-        this.popButton = markReadButton;
-        this.starButton = starButton;
-        this.openButton = openButton;
-        this.trashButton = trashButton;
+        this.popButton = ViewResources.loadShape("popButton");
+        this.starButton = ViewResources.loadShape("starButton");
+        this.openButton = ViewResources.loadShape("openButton");
+        this.trashButton = ViewResources.loadShape("trashButton");
     }
 
     //@Override
@@ -172,9 +169,24 @@ public class Bubble implements Drawable, Particle, MouseAware {
     public void setDy(float dy) {
         this.dy = dy;
     }
+    
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void clearState() {
+        this.state = defaultState;
+    }
      
-    //@Override
-    public void dispatchClick(Controller controller, int x, int y) {
+    public void dispatchDown(Controller controller, int x, int y) {
+
+    }
+    
+    public void dispatchUp(Controller controller, int x, int y) {
         if (this.state == State.EXPANDED) {
             controller.handleMarkReadClick(this);
 //            if (x >= this.x + this.r / 5 && x <= this.x + this.r / 5 + 100) {
@@ -193,31 +205,18 @@ public class Bubble implements Drawable, Particle, MouseAware {
         }
     }
 
-    //@Override
-    public void dispatchOver(Controller controller, int x, int y) {
+    public void dispatchIn(Controller controller, int x, int y) {
+
+    }
+    
+    public void dispatchDrag(Controller controller, int x, int y) {
 
     }
 
-    //@Override
     public boolean hits(int x, int y) {
         return Point2D.distance(x, y, this.x, this.y) <= this.r;
     }
 
-    //@Override
-    public int getZ() {
-        return 0;
-    }
 
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public void clearState() {
-        this.state = defaultState;
-    }
 
 }
