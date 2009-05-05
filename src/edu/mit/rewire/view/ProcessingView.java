@@ -33,8 +33,6 @@ public class ProcessingView extends PApplet {
     private final float width = screen.width;
     private final float height = screen.height;
     
-    private boolean mouseDown = false;
-    
     private MouseAware mouseOver = null;
     
     private BackgroundOverlay bg;
@@ -153,76 +151,32 @@ public class ProcessingView extends PApplet {
 		if (component == null) return;
 		component.dispatchUp(this, mouseX, mouseY);
 	}
-
+	
+	public void mouseMoved() {
+	    MouseAware component = hitComponent();
+        if (component == null) {
+            if (mouseOver != null) {
+                this.mouseOver.dispatchOut(this, mouseX, mouseY);
+                this.mouseOver = null;
+            }
+        } else {
+            if (mouseOver == null) {
+                component.dispatchIn(this, mouseX, mouseY);
+                this.mouseOver = component;
+            } else if (mouseOver == component) {
+                component.dispatchIn(this, mouseX, mouseY);
+                this.mouseOver.dispatchOut(this, mouseX, mouseY);
+                this.mouseOver = component;
+            }
+        }
+	    
+	}
 
 	public void remove(BackgroundOverlay bg) {
 		this.elements.remove(bg);
 	}
-	// START METHODS FROM CONTROLLER
-	
-	public void add(MouseAware clickable) {
-        this.components.add(0, clickable);
-    }
-    
-    private MouseAware hitComponent(int x, int y) {
-        for (MouseAware component : components) {
-            if (component.hits(x, y)) {
-                return component;
-            }
-        }
-        return null;
-    }
-    
-    public void update(int x, int y, boolean pressed) {
-        MouseAware hitComponent = hitComponent(x, y);
-        if (hitComponent == null) {
-            this.mouseOver = null;
-            this.mouseDown = pressed;
-            return;
-        }
-        
-        if (pressed) {
-            if (this.mouseDown) {
-                hitComponent.dispatchDrag(this, x, y);
-            } else {
-                this.mouseDown = true;
-                hitComponent.dispatchDown(this, x, y);
-            }
-        } else {
-            if (this.mouseDown) {
-                hitComponent.dispatchUp(this, x, y);
-                this.mouseDown = false;
-            } else {
-                                
-            }
 
-            this.mouseDown = false;
-
-        }
-        
-        for (MouseAware component : toRemove) {
-            components.remove(component);
-        }
-        
-        toRemove.clear();
-    }
-    
-    
-    public void doMove(int x, int y) {
-        for (MouseAware component : components) {
-            if (component.hits(x, y)) {
-                component.dispatchIn(this, x, y);
-            }
-        }
-        
-        for (MouseAware component : toRemove) {
-            components.remove(component);
-        }
-        
-        toRemove.clear();
-    }
-
-    public void handleBubbleClick(Bubble bubble) {
+    public void expandBubble(Bubble bubble) {
         bg = new BackgroundOverlay(width, height);
     	
     	SequentialAnimation animation = new SequentialAnimation();

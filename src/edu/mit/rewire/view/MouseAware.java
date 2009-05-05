@@ -10,6 +10,8 @@ public interface MouseAware {
     
     void dispatchIn(ProcessingView view, int x, int y);
     
+    void dispatchOut(ProcessingView view, int x, int y);
+    
     void dispatchDrag(ProcessingView view, int x, int y);
 
 }
