@@ -1,7 +1,16 @@
 package edu.mit.rewire.model;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -11,9 +20,12 @@ public class DataSource {
 	
 	private List<Item> items;
 
+	@SuppressWarnings("unchecked")
 	public DataSource() {
 		this.items = new ArrayList<Item>();
+		// WEATHER
 		this.addItem(new WeatherItem());
+		// TWITTER 
 		Twitter twitter = new Twitter("claytonrules","superawesome");
 		List<Status> timeline = new ArrayList<Status>();
 		try {
@@ -25,46 +37,35 @@ public class DataSource {
 			Status status = timeline.get(i);
 			this.addItem(new TwitterItem(status));
 		}
-		
+		// EMAIL
 		Inbox inbox = new Inbox();
-
 		try {
 			for (int i=0; i<5; i++) {
-				this.addItem(inbox.getEmail(i));
+				this.addItem(new EmailItem(inbox.getEmail(i)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-//		try {
-//			SAXBuilder parser = new SAXBuilder();
-//			Document doc = parser.build("http://www.google.com/calendar/m");
-//		} catch (JDOMException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+        try {
+        	SyndFeedInput input = new SyndFeedInput();
+			SyndFeed feed = input.build(new XmlReader(new URL("http://feeds.boingboing.net/boingboing/iBag")));
+			List<SyndEntry> entries = feed.getEntries();
+
+			for (int i=0; i<5; i++) {
+				this.addItem(new RSSItem(entries.get(i)));
+			}
+			
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (FeedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-        this.addItem(new DummyItem("rss",
-                "Heiko Smith",
-                "6 hours ago",
-        "accepted your friend request."));
-        this.addItem(new DummyItem("rss",
-                "Anna Smith",
-                "20 hours ago",
-        "knows a secret about you."));
-        this.addItem(new DummyItem("rss",
-                "Greg Smith",
-                "on Thursday",
-        "wrote on your Wall."));
-        this.addItem(new DummyItem("rss",
-                "John Smith",
-                "9:28am",
-        "commented on your status"));
-        this.addItem(new DummyItem("rss",
-                "Amy Smith",
-                "7:48pm",
-        "made a comment about your photo."));
         this.addItem(new DummyItem("todo",
                 "Agenda",
                 "4/10/09",
