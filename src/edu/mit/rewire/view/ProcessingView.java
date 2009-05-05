@@ -163,7 +163,7 @@ public class ProcessingView extends PApplet {
             if (mouseOver == null) {
                 component.dispatchIn(this, mouseX, mouseY);
                 this.mouseOver = component;
-            } else if (mouseOver == component) {
+            } else if (mouseOver != component) {
                 component.dispatchIn(this, mouseX, mouseY);
                 this.mouseOver.dispatchOut(this, mouseX, mouseY);
                 this.mouseOver = component;
