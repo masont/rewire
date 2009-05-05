@@ -10,6 +10,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.internet.InternetAddress;
 
 public class Inbox {
 
@@ -97,15 +98,20 @@ public class Inbox {
 		// FROM
 		String from = "from";
 		if ((a = m.getFrom()) != null) {
-		    for (int j = 0; j < a.length; j++)
-			from = ("FROM: " + a[j].toString());
+			for (int j = 0; j < a.length; j++) {
+				InternetAddress ia = (InternetAddress)a[j];
+				from = ia.getPersonal();
+				if (from == null) {
+					ia.toString();
+				}
+			}
 		}
 		// TO
 		String to = "to";
 		if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
-		    for (int j = 0; j < a.length; j++) {
-			to = ("TO: " + a[j].toString());
-		    }
+			for (int j = 0; j < a.length; j++) {
+				to = ("TO: " + a[j].toString());
+			}
 		}
 		// SUBJECT
 		String subject = m.getSubject();
@@ -115,7 +121,7 @@ public class Inbox {
 		// CONTENT
 		String content = m.getContent().toString();
 		
-		return new EmailItem(subject, from + " " + date, to + "\n" + content);
+		return new EmailItem(subject, from, to + "\n" + content + "\n" + date);
 
 	}
 }
