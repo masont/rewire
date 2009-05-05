@@ -23,6 +23,8 @@ public class ProcessingView extends PApplet {
 
 	private final List<Drawable> elements = new ArrayList<Drawable>();
 	private final List<Animation> animations = new LinkedList<Animation>();
+	
+	private final List<Button> bubbleButtons = new LinkedList<Button>();
 
 	private PhysicsAnimation physicsEngine;
 
@@ -127,6 +129,10 @@ public class ProcessingView extends PApplet {
 	public void addMouseAware(MouseAware component) {
 		this.components.add(component);
 	}
+	
+    public void addBubbleButton(Button button) {
+        this.bubbleButtons.add(button);
+    }
 
 	public void removeDrawable(Drawable drawable) {
 		this.elements.remove(drawable);
@@ -217,13 +223,7 @@ public class ProcessingView extends PApplet {
         Button markReadButton = new MarkReadButton(bubble, 100, 100, 100, 100);
         this.addMouseAware(markReadButton);
         this.addDrawable(markReadButton);
-    }
-    
-    public void markRead(Bubble bubble) {
-        this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeBubble(bubble);
-        this.addAnimation(new GrayOutAnimation(bg, false));
-        this.removeMouseAware(bg);
+        this.addBubbleButton(markReadButton);
     }
     
     public void shrinkBubble(Bubble bubble) {
@@ -234,6 +234,30 @@ public class ProcessingView extends PApplet {
     	this.addAnimation(animation);
         
         this.removeMouseAware(bg);
+        
+        for (Button button : this.bubbleButtons) {
+            this.removeMouseAware(button);
+            this.removeDrawable(button);
+        }
+        this.bubbleButtons.clear();
+    }
+    
+    public void popBubble(Bubble bubble) {
+        this.addAnimation(new PopBubbleAnimation(bubble, this));
+        this.removeBubble(bubble);
+        
+        this.addAnimation(new GrayOutAnimation(bg, false));
+        this.removeMouseAware(bg);
+        
+        for (Button button : this.bubbleButtons) {
+            this.removeMouseAware(button);
+            this.removeDrawable(button);
+        }
+        this.bubbleButtons.clear();
+    }
+    
+    public void markRead(Bubble bubble) {
+        this.popBubble(bubble);
     }
     
 
