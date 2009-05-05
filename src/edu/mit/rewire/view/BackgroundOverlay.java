@@ -1,6 +1,5 @@
 package edu.mit.rewire.view;
 
-import edu.mit.rewire.controller.Controller;
 import processing.core.PGraphics;
 
 public class BackgroundOverlay implements Drawable, MouseAware {
@@ -31,25 +30,25 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 	}
 
     //@Override
-    public void dispatchDown(Controller controller, int x, int y) {
+    public void dispatchDown(ProcessingView view, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
     //@Override
-    public void dispatchDrag(Controller controller, int x, int y) {
+    public void dispatchDrag(ProcessingView view, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
     //@Override
-    public void dispatchIn(Controller controller, int x, int y) {
+    public void dispatchIn(ProcessingView view, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
     //@Override
-    public void dispatchUp(Controller controller, int x, int y) {
+    public void dispatchUp(ProcessingView view, int x, int y) {
         // TODO Auto-generated method stub
         
     }
