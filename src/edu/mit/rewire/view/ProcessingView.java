@@ -35,7 +35,7 @@ public class ProcessingView extends PApplet {
     
     private MouseAware mouseDown = null;
     
-    private BackgroundOverlay bg;
+    private BackgroundOverlay bg = new BackgroundOverlay(null, width, height);;
 	
 	private DataSource dataSource;
 
@@ -55,6 +55,8 @@ public class ProcessingView extends PApplet {
 		this.loadItems();
 		this.physicsEngine.init();
 		this.animations.add(physicsEngine);
+		
+		this.addDrawable(bg);
 	}
 
 	private void loadItems() {
@@ -193,7 +195,7 @@ public class ProcessingView extends PApplet {
     	bubble.setOriginalX(bubble.getX());
     	bubble.setOriginalY(bubble.getY());
     	
-        bg = new BackgroundOverlay(bubble, width, height);
+    	bg.setBubble(bubble);
     	
     	SequentialAnimation animation = new SequentialAnimation();
         animation.add(new GrayOutAnimation(bg, true));
@@ -204,6 +206,7 @@ public class ProcessingView extends PApplet {
         
         this.removeDrawable(bubble);
         this.removeMouseAware(bubble);
+        this.removeDrawable(bg);
         
         this.addMouseAware(bg);
         this.addDrawable(bg);
@@ -221,7 +224,6 @@ public class ProcessingView extends PApplet {
         this.removeBubble(bubble);
         this.addAnimation(new GrayOutAnimation(bg, false));
         this.removeMouseAware(bg);
-        this.removeDrawable(bg);
     }
     
     public void shrinkBubble(Bubble bubble) {
@@ -231,7 +233,6 @@ public class ProcessingView extends PApplet {
     	
     	this.addAnimation(animation);
         
-        this.removeDrawable(bg);
         this.removeMouseAware(bg);
     }
     

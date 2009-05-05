@@ -30,6 +30,10 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 	public float getAlpha() {
 		return alpha;
 	}
+	
+	public void setBubble(Bubble bubble) {
+		this.bubble = bubble;
+	}
 
     public void dispatchDown(ProcessingView view, int x, int y) {
         // TODO Auto-generated method stub
