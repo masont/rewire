@@ -80,7 +80,7 @@ public class ProcessingView extends PApplet {
 				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("seafoamBubble"), ViewResources.loadShape("todoIcon"));
 			} else if (item.getType() == "weather") {
 				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("yellowBubble"), ViewResources.loadShape("weatherIcon"));
-			} else if (item.getType() == "mail") {
+			} else if (item.getType() == "email") {
 				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("mailIcon"));
 			} else {
 				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("mailIcon"));
