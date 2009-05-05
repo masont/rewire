@@ -15,7 +15,7 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 		this.alpha = 10;
 	}
 	
-	@Override
+	//@Override
 	public void draw(PGraphics graphics) {
 		graphics.fill(255, alpha);
 		graphics.rect(0, 0, width, height);
@@ -30,31 +30,31 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 		return alpha;
 	}
 
-    @Override
+    //@Override
     public void dispatchDown(Controller controller, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+    //@Override
     public void dispatchDrag(Controller controller, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+    //@Override
     public void dispatchIn(Controller controller, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+    //@Override
     public void dispatchUp(Controller controller, int x, int y) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+    //@Override
     public boolean hits(int x, int y) {
         // TODO Auto-generated method stub
         return false;
