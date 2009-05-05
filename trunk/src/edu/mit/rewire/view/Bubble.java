@@ -21,6 +21,7 @@ public class Bubble implements Drawable, MouseAware {
 
     /** Default state of the bubble */
     private State defaultState;
+    private float originalX, originalY;
 
     /** Position in pixels */
     private float x, y;
@@ -142,6 +143,14 @@ public class Bubble implements Drawable, MouseAware {
     public void setX(float x) {
         this.x = x;
     }
+    
+    public void setOriginalX(float x) {
+    	this.originalX = x;
+    }
+    
+    public float getOriginalX() {
+    	return originalX;
+    }
 
     //@Override
     public float getY() {
@@ -151,6 +160,14 @@ public class Bubble implements Drawable, MouseAware {
     //@Override
     public void setY(float y) {
         this.y = y;
+    }
+    
+    public void setOriginalY(float y) {
+    	this.originalY = y;
+    }
+    
+    public float getOriginalY() {
+    	return originalY;
     }
 
     //@Override
@@ -179,6 +196,10 @@ public class Bubble implements Drawable, MouseAware {
 
     public void setState(State state) {
         this.state = state;
+    }
+    
+    public State getDefaultState() {
+    	return defaultState;
     }
 
     public void clearState() {

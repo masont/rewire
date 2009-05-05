@@ -14,9 +14,8 @@ public class PhysicsAnimation implements Animation {
 
 	private final float width, height;
 
-	private float repulsionConstant = 700f;
-	private float wallRepulsionConstant = 500f;
-	private boolean wallRepulsion = true;
+	private float repulsionConstant = 800f;
+	private float wallRepulsionConstant = 600f;
 
 	private final float frictionConstant = 0.9f;
 	
@@ -50,17 +49,6 @@ public class PhysicsAnimation implements Animation {
 				}
 			}
 		}
-		
-		wallRepulsion = true;
-		repulsionConstant = 700f;
-		
-		// Push bubbles to walls when there is an expanded bubble
-//		for (Bubble p : bubbles) {
-//			if (p.getState() == State.EXPANDED || p.getState() == State.EXPANDING) {
-//				repulsionConstant = 20000f;
-//				wallRepulsion = false;
-//			}
-//		}
 
 		for (Bubble p : bubbles) {
 			p.setX(p.getX() + p.getDx());
@@ -68,9 +56,7 @@ public class PhysicsAnimation implements Animation {
 			p.setDx(p.getDx() * frictionConstant);
 			p.setDy(p.getDy() * frictionConstant);
 			handleWalls(p);
-			if(wallRepulsion) {
-				handleWallRepulsion(p);
-			}
+			handleWallRepulsion(p);
 		}
 		
 		return false;
@@ -125,8 +111,8 @@ public class PhysicsAnimation implements Animation {
 		west.mult(forceW);
 		
 		if (b1.getState() == State.MEDIUM || b1.getState() == State.SMALL) {
-			b1.setDx(b1.getDx() - east.x + west.x);
-			b1.setDy(b1.getDy() + north.y - south.y);
+			b1.setDx(b1.getDx() - east.x + (2 * west.x));
+			b1.setDy(b1.getDy() + (2 * north.y) - (2 * south.y));
 		}
 		
 	}

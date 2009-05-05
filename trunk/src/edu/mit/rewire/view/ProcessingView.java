@@ -15,6 +15,7 @@ import edu.mit.rewire.view.animation.GrayOutAnimation;
 import edu.mit.rewire.view.animation.PhysicsAnimation;
 import edu.mit.rewire.view.animation.PopBubbleAnimation;
 import edu.mit.rewire.view.animation.SequentialAnimation;
+import edu.mit.rewire.view.animation.ShrinkBubbleAnimation;
 
 public class ProcessingView extends PApplet {
 
@@ -133,7 +134,7 @@ public class ProcessingView extends PApplet {
 	}
 	
 	public void removeMouseAware(MouseAware component) {
-	    this.components.remove(components);
+	    this.components.remove(component);
 	}
 
 	private MouseAware hitComponent() {
@@ -186,7 +187,10 @@ public class ProcessingView extends PApplet {
 	}
 
     public void expandBubble(Bubble bubble) {
-        bg = new BackgroundOverlay(width, height);
+    	bubble.setOriginalX(bubble.getX());
+    	bubble.setOriginalY(bubble.getY());
+    	
+        bg = new BackgroundOverlay(bubble, width, height);
     	
     	SequentialAnimation animation = new SequentialAnimation();
         animation.add(new GrayOutAnimation(bg, true));
@@ -204,6 +208,18 @@ public class ProcessingView extends PApplet {
         this.addMouseAware(bubble);
         this.addDrawable(bubble);
     }
+    
+    public void shrinkBubble(Bubble bubble) {
+    	SequentialAnimation animation = new SequentialAnimation();
+    	animation.add(new GrayOutAnimation(bg, false));
+    	animation.add(new ShrinkBubbleAnimation(bubble, 100, width, height));
+    	
+    	this.addAnimation(animation);
+        
+        this.removeDrawable(bg);
+        this.removeMouseAware(bg);
+    }
+    
     
     public void handleMarkReadClick(Bubble bubble) {
         this.addAnimation(new PopBubbleAnimation(bubble, this));
