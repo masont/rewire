@@ -17,7 +17,8 @@ public class RSSItem implements Item {
 		String date = entry.getPublishedDate().toString(); 
 		this.header = entry.getAuthor() + " "  + date.substring(0,date.length() - 12);
 		this.body = ((SyndContentImpl) entry.getContents().get(0)).getValue()
-		.replaceAll("\\<br\\>","\n").replaceAll("\\<.*?\\>", "");
+		.replaceAll("\\s+", " ").replaceAll("\\<br\\>","\n").replaceAll("\\</p\\>","\n")
+		.replaceAll("\\<.*?\\>", "");
 	}
 	
 	public String getBody() {
