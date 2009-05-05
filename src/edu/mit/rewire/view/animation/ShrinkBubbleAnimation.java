@@ -69,7 +69,7 @@ public class ShrinkBubbleAnimation implements Animation {
 		this.bubble.setDx(0);
 		this.bubble.setDy(0);
 		
-		this.bubble.setState(State.EXPANDING);
+		this.bubble.setState(State.TRANSITIONING);
 	}
 
 	//@Override
@@ -102,7 +102,6 @@ public class ShrinkBubbleAnimation implements Animation {
 				else {
 					rDistance = this.bubble.getR() - R;
 					this.bubble.setR(this.bubble.getR() - (float) Math.ceil(rDistance/expSpeed));
-					System.out.println(this.bubble.getR());
 				}
 			}	
 		}

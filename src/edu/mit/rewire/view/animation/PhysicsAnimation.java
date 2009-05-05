@@ -156,8 +156,8 @@ public class PhysicsAnimation implements Animation {
 	}
 	
 	protected void handleCollision(Bubble b1, Bubble b2) {
-		if ((b1.getState() != State.EXPANDED && b1.getState() != State.EXPANDING) &&
-				(b2.getState() != State.EXPANDED && b2.getState() != State.EXPANDING)) {
+		if ((b1.getState() != State.EXPANDED && b1.getState() != State.TRANSITIONING) &&
+				(b2.getState() != State.EXPANDED && b2.getState() != State.TRANSITIONING)) {
 			float xDist = b2.getX() - b1.getX();
 			float yDist = b2.getY() - b1.getY();
 			float angle = (float) Math.atan2(yDist, xDist);

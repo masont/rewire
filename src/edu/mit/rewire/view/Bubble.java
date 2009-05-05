@@ -10,7 +10,7 @@ import edu.mit.rewire.model.Item;
 public class Bubble implements Drawable, MouseAware {
 
     public enum State {
-        SMALL, MEDIUM, EXPANDED, EXPANDING
+        SMALL, MEDIUM, EXPANDED, TRANSITIONING
     }
 
     /** Model instance that this bubble represents */
