@@ -14,11 +14,13 @@ public class PhysicsAnimation implements Animation {
 
 	private final float width, height;
 
-	private final float repulsionConstant = 500f;
+	private float repulsionConstant = 700f;
+	private float wallRepulsionConstant = 500f;
+	private boolean wallRepulsion = true;
 
-	private final float frictionConstant = 0.95f;
+	private final float frictionConstant = 0.9f;
 	
-	private final float springConstant = 0.01f;
+	private final float springConstant = 0.005f;
 
 	public PhysicsAnimation(float width, float height) {
 		this.bubbles = new ArrayList<Bubble>();
@@ -48,6 +50,17 @@ public class PhysicsAnimation implements Animation {
 				}
 			}
 		}
+		
+		wallRepulsion = true;
+		repulsionConstant = 700f;
+		
+		// Push bubbles to walls when there is an expanded bubble
+//		for (Bubble p : bubbles) {
+//			if (p.getState() == State.EXPANDED || p.getState() == State.EXPANDING) {
+//				repulsionConstant = 20000f;
+//				wallRepulsion = false;
+//			}
+//		}
 
 		for (Bubble p : bubbles) {
 			p.setX(p.getX() + p.getDx());
@@ -55,6 +68,9 @@ public class PhysicsAnimation implements Animation {
 			p.setDx(p.getDx() * frictionConstant);
 			p.setDy(p.getDy() * frictionConstant);
 			handleWalls(p);
+			if(wallRepulsion) {
+				handleWallRepulsion(p);
+			}
 		}
 		
 		return false;
@@ -82,6 +98,39 @@ public class PhysicsAnimation implements Animation {
 		}
 	}
 
+	protected void handleWallRepulsion(Bubble b1) {
+		PVector north = new PVector();
+		PVector south = new PVector();
+		PVector east = new PVector();
+		PVector west = new PVector();
+		
+		north.y = b1.getY();
+		south.y = height - b1.getY();
+		east.x = width - b1.getX();
+		west.x = b1.getX();
+		
+		float forceN = (float) (wallRepulsionConstant / Math.pow(north.mag(), 2));
+		float forceS = (float) (wallRepulsionConstant / Math.pow(south.mag(), 2));
+		float forceE = (float) (wallRepulsionConstant / Math.pow(east.mag(), 2));
+		float forceW = (float) (wallRepulsionConstant / Math.pow(west.mag(), 2));
+		
+		north.normalize();
+		south.normalize();
+		east.normalize();
+		west.normalize();
+		
+		north.mult(forceN);
+		south.mult(forceS);
+		east.mult(forceE);
+		west.mult(forceW);
+		
+		if (b1.getState() == State.MEDIUM || b1.getState() == State.SMALL) {
+			b1.setDx(b1.getDx() - east.x + west.x);
+			b1.setDy(b1.getDy() + north.y - south.y);
+		}
+		
+	}
+	
 	protected void handleRepulsion(Bubble b1, Bubble b2) {
 		
 		PVector offset = new PVector();
