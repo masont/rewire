@@ -56,7 +56,7 @@ public class BackgroundOverlay implements Drawable, MouseAware {
     //@Override
     public boolean hits(int x, int y) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
 

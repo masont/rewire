@@ -66,7 +66,7 @@ public class Bubble implements Drawable, MouseAware {
         this.titleFont = ViewResources.loadFont("titleFont");
         this.bodyFont = ViewResources.loadFont("bodyFont");
         this.favIcon = icon;
-        this.state = Math.random() > .33 ? State.SMALL : State.MEDIUM;
+        this.state = Math.random() > .4 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
         

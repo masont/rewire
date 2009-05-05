@@ -64,9 +64,9 @@ public class ProcessingView extends PApplet {
 
 		for (Item item : items) {
 
-			// Place bubbles randomly on screen - PhysicsAnimation handles spreading bubbles out on screen
-			x = (float) ((Math.random() * (screen.width - r)) + r);
-			y = (float) ((Math.random() * (screen.height - r)) + r);
+			// Place bubbles randomly near center of screen - PhysicsAnimation handles spreading bubbles out on screen
+			x = (float) ((Math.random() * (0 - r) + r)) + (screen.width/2);
+			y = (float) ((Math.random() * (0 - r) + r)) + (screen.height/2);
 
 			// ugly if-else statement
 			Bubble bubble;
