@@ -35,6 +35,8 @@ public class ProcessingView extends PApplet {
     
     private MouseAware mouseOver = null;
     
+    private MouseAware mouseDown = null;
+    
     private BackgroundOverlay bg;
 	
 	private DataSource dataSource;
@@ -143,10 +145,17 @@ public class ProcessingView extends PApplet {
 	public void mousePressed() {
 		MouseAware component = hitComponent();
 		if (component == null) return;
+	    this.mouseDown = component;
 		component.dispatchDown(this, mouseX, mouseY);
 	}
 
 	public void mouseReleased() {
+	    // FIXME releasing mouse outside of region registers as a click
+	    if (this.mouseDown != null) {
+	        this.mouseDown.dispatchUp(this, mouseX, mouseY);
+	        this.mouseDown = null;
+	        return;
+	    }
 		MouseAware component = hitComponent();
 		if (component == null) return;
 		component.dispatchUp(this, mouseX, mouseY);
