@@ -113,7 +113,7 @@ public class ProcessingView extends PApplet {
 		shape(ViewResources.loadShape("redToggle"),20,600,60,60);
 		shape(ViewResources.loadShape("twitterBlueToggle"),100,600,60,60);
 		shape(ViewResources.loadShape("orangeToggle"),180,600,60,60);
-		shape(ViewResources.loadShape("seafoamToggle"),260,600,60,60);
+		shape(ViewResources.loadShape("kellyToggle"),260,600,60,60);
 		shape(ViewResources.loadShape("yellowToggle"),340,600,60,60);
 
 	}

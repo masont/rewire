@@ -6,8 +6,8 @@ public interface Item {
     
     String getTitle();
     
-    String getBody();
-    
     String getHeader();
+    
+    String getBody();
 
 }

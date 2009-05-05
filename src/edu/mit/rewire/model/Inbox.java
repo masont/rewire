@@ -1,16 +1,13 @@
 package edu.mit.rewire.model;
 
-import java.util.Date;
 import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.FetchProfile;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.mail.internet.InternetAddress;
 
 public class Inbox {
 
@@ -92,37 +89,7 @@ public class Inbox {
 		}
 	}
 
-	public EmailItem getEmail(int i) throws Exception {
-		Message m = msgs[msgs.length - 1 - i];
-		Address[] a;
-		// FROM
-		String from = "from";
-		if ((a = m.getFrom()) != null) {
-			for (int j = 0; j < a.length; j++) {
-				InternetAddress ia = (InternetAddress)a[j];
-				from = ia.getPersonal();
-				if (from == null) {
-					ia.toString();
-				}
-			}
-		}
-		// TO
-		String to = "to";
-		if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
-			for (int j = 0; j < a.length; j++) {
-				to = ("TO: " + a[j].toString());
-			}
-		}
-		// SUBJECT
-		String subject = m.getSubject();
-		// DATE
-		Date d = m.getSentDate();
-		String date = d != null ? d.toString() : "unknown";
-		System.out.print(date);
-		// CONTENT
-		String content = m.getContent().toString();
-		
-		return new EmailItem(subject, from, to + "\n" + content + "\n" + date);
-
+	public Message getEmail(int i) throws Exception {
+		return msgs[msgs.length - 1 - i];
 	}
 }
