@@ -15,7 +15,9 @@ public class TwitterItem implements Item {
     	
 		this.body = status.getText();
 		this.title = status.getUser().getName();
-		this.header = status.getCreatedAt().toString();
+		String date = status.getCreatedAt().toString();
+		this.header = date.substring(0,date.length()-12);
+		
 	}
 
 	public String getBody() {
