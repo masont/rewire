@@ -5,10 +5,9 @@ import java.awt.geom.Point2D;
 import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PShape;
-import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.Item;
 
-public class Bubble implements Drawable, Particle, MouseAware {
+public class Bubble implements Drawable, MouseAware {
 
     public enum State {
         SMALL, MEDIUM, EXPANDED, EXPANDING

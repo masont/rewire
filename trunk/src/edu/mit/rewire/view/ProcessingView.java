@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import processing.core.PApplet;
-import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.view.animation.Animation;
@@ -23,15 +22,13 @@ public class ProcessingView extends PApplet {
 
 	private final List<Drawable> elements = new ArrayList<Drawable>();
 	private final List<Animation> animations = new LinkedList<Animation>();
-	private final List<Bubble> bubbles = new ArrayList<Bubble>();				// JARED CHANGE
+	private final List<Bubble> bubbles = new ArrayList<Bubble>();
 
 	private PhysicsAnimation physicsEngine;
 
 	private final List<MouseAware> components = new LinkedList<MouseAware>();
     
     private final List<MouseAware> toRemove = new LinkedList<MouseAware>();
-    
-    private final ProcessingView view = this;
     
     private final float width = screen.width;
     private final float height = screen.height;
@@ -91,7 +88,7 @@ public class ProcessingView extends PApplet {
 
 			this.elements.add(bubble);
 			this.physicsEngine.add(bubble);
-			this.view.add(bubble);
+			this.add(bubble);
 			this.bubbles.add(bubble);
 		}
 	}
@@ -161,11 +158,6 @@ public class ProcessingView extends PApplet {
 	public void remove(BackgroundOverlay bg) {
 		this.elements.remove(bg);
 	}
-
-	public void update(int x, int y) {
-		this.view.update(x, y, mousePressed);
-	}
-	
 	// START METHODS FROM CONTROLLER
 	
 	public void add(MouseAware clickable) {
@@ -237,33 +229,34 @@ public class ProcessingView extends PApplet {
         animation.add(new GrayOutAnimation(bg, true));
     	animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
         animation.add(new FixedAnimation(bubble));
-        this.view.add(animation);
-        this.view.remove(bubble);
-        this.view.add(bg);
-        this.view.add(bubble);
+        
+        this.add(animation);
+        this.remove(bubble);
+        this.add(bg);
+        this.add(bubble);
     }
     
     public void handleMarkReadClick(Bubble bubble) {
-        this.view.add(new PopBubbleAnimation(bubble, view));
-        this.view.remove(bubble);
-        this.view.add(new GrayOutAnimation(bg, false));
+        this.add(new PopBubbleAnimation(bubble, this));
+        this.remove(bubble);
+        this.add(new GrayOutAnimation(bg, false));
         this.toRemove.add(bubble);
         this.toRemove.add(bg);
     }
     
     public void handleStarClick(Bubble bubble) {
-        this.view.add(new PopBubbleAnimation(bubble, view));
-        this.view.remove(bubble);
+        this.add(new PopBubbleAnimation(bubble, this));
+        this.remove(bubble);
     }
     
     public void handleOpenClick(Bubble bubble) {
-        this.view.add(new PopBubbleAnimation(bubble, view));
-        this.view.remove(bubble);
+        this.add(new PopBubbleAnimation(bubble, this));
+        this.remove(bubble);
     }
     
     public void handleTrashClick(Bubble bubble) {
-        this.view.add(new PopBubbleAnimation(bubble, view));
-        this.view.remove(bubble);
+        this.add(new PopBubbleAnimation(bubble, this));
+        this.remove(bubble);
     }
 
     public void remove(MouseAware component) {
