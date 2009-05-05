@@ -106,7 +106,7 @@ public class Bubble implements Drawable, MouseAware {
             graphics.text(item.getTitle(), x - r * 3 / 5, y - r * 2 / 5,
             	r,2*r);
             graphics.textFont(bodyFont);
-            graphics.text(item.getHeader(), x - r * 2 / 5, y - r * 1 / 5, r, r);
+            graphics.text(item.getHeader(), x - r * 1 / 2, y - r * 3 / 10, r * 9 / 10, r * 4 / 5);
             graphics.textFont(bodyFont);
             graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r, r);
             
