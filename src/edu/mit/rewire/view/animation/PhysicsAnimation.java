@@ -35,6 +35,10 @@ public class PhysicsAnimation implements Animation {
 	public void add(Bubble p) {
 		this.bubbles.add(p);
 	}
+	
+	public void remove(Bubble p) {
+	    this.bubbles.remove(p);
+	}
 
 	public void init() {
 
