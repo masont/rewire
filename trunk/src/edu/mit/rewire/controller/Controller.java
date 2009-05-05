@@ -116,8 +116,8 @@ public class Controller {
         this.view.add(new PopBubbleAnimation(bubble, view));
         this.view.remove(bubble);
         this.view.add(new GrayOutAnimation(bg, false));
-        this.view.remove(bg);
         this.toRemove.add(bubble);
+        this.toRemove.add(bg);
     }
     
     public void handleStarClick(Bubble bubble) {
