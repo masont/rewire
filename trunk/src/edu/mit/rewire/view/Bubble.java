@@ -89,14 +89,14 @@ public class Bubble implements Drawable, MouseAware {
                     r * 3 / 5);
             graphics.textFont(bodyFont,10);
             graphics.text(item.getTitle(), x - r * 3 / 5, y,
-            		r * 4 / 3, r);
+            		r * 4 / 3, r * 4 / 5);
             break;
         case MEDIUM:
             graphics.shape(favIcon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
             graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 3 / 5, y - r * 1 / 5,
-            	r * 7 / 5, 2*r);
+            	r * 7 / 5, r * 3 / 5);
             graphics.textFont(bodyFont);
             graphics.text(item.getHeader(), x - r * 2 / 5, y + r * 2 / 5, r * 5 / 5, r * 2 / 5);
             break;
@@ -105,11 +105,11 @@ public class Bubble implements Drawable, MouseAware {
                     r * 1 / 2);
             graphics.textFont(titleFont,20);
             graphics.text(item.getTitle(), x - r * 3 / 5, y - r * 2 / 5,
-            	r,2*r);
+            	r, r * 2 / 10);
             graphics.textFont(bodyFont);
-            graphics.text(item.getHeader(), x - r * 1 / 2, y - r * 3 / 10, r * 9 / 10, r * 4 / 5);
+            graphics.text(item.getHeader(), x - r * 1 / 2, y - r * 2 / 10, r * 9 / 10, r * 4 / 5);
             graphics.textFont(bodyFont, 12);
-            graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r, r);
+            graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r, r * 3 / 5);
             
             //final float BUTTON_WIDTH = 54f;
             graphics.shape(popButton, x + r * 2 / 5, y - r / 2);
