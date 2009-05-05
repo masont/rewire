@@ -88,7 +88,7 @@ public class ShrinkBubbleAnimation implements Animation {
 		 * much is left to go". (minimum step size of 1)
 		 */
 
-		// EXPAND BUBBLE
+		// CONTRACT BUBBLE
 		if (this.bubble.getR() <= R) {
 			checkR = true;
 		} else {
@@ -109,8 +109,8 @@ public class ShrinkBubbleAnimation implements Animation {
 
 
 
-		// MOVE BUBBLE TO CENTER IN X DIRECTION
-		// From left of center
+		// MOVE BUBBLE TO ORIGINAL POSITION IN X DIRECTION
+		// From left of midpoint
 		if (Math.abs(xDistance) < thresh) {
 			checkX = true;
 		} else {
@@ -127,7 +127,7 @@ public class ShrinkBubbleAnimation implements Animation {
 				}			
 			}
 
-			// From right of center
+			// From right of midpoint
 			else {
 				// SLOW IN
 				if (this.bubble.getX() > midpointX) {
@@ -142,8 +142,8 @@ public class ShrinkBubbleAnimation implements Animation {
 			}
 		}
 
-		// MOVE BUBBLE TO CENTER IN Y DIMENSION
-		// From above center
+		// MOVE BUBBLE TO ORIGINAL POSITION IN Y DIMENSION
+		// From above midpoint
 		if (Math.abs(yDistance) < thresh) {
 			checkY = true;
 		} else {
@@ -159,7 +159,7 @@ public class ShrinkBubbleAnimation implements Animation {
 					this.bubble.setY((float) (Math.ceil(yDistance/expSpeed) + this.bubble.getY()));
 				}
 			} 
-			// From below center
+			// From below midpoint
 			else {
 				// SLOW IN
 				if (this.bubble.getY() > midpointY) {
