@@ -1,6 +1,5 @@
 package edu.mit.rewire.view;
 
-import edu.mit.rewire.view.animation.ShrinkBubbleAnimation;
 import processing.core.PGraphics;
 
 public class BackgroundOverlay implements Drawable, MouseAware {
