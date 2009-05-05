@@ -117,7 +117,8 @@ public class Inbox {
 		String subject = m.getSubject();
 		// DATE
 		Date d = m.getSentDate();
-		String date = d != null ? d.toString() : "UNKNOWN";
+		String date = d != null ? d.toString() : "unknown";
+		System.out.print(date);
 		// CONTENT
 		String content = m.getContent().toString();
 		
