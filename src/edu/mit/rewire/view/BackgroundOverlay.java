@@ -1,5 +1,6 @@
 package edu.mit.rewire.view;
 
+import edu.mit.rewire.view.animation.ShrinkBubbleAnimation;
 import processing.core.PGraphics;
 
 public class BackgroundOverlay implements Drawable, MouseAware {
@@ -7,8 +8,10 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 	private float width;
 	private float height;
 	private float alpha;
+	private Bubble bubble;
 	
-	public BackgroundOverlay(float width, float height) {
+	public BackgroundOverlay(Bubble bubble, float width, float height) {
+		this.bubble = bubble;
 		this.width = width;
 		this.height = height;
 		this.alpha = 10;
@@ -48,8 +51,8 @@ public class BackgroundOverlay implements Drawable, MouseAware {
     }
 
     public void dispatchUp(ProcessingView view, int x, int y) {
-        // TODO Auto-generated method stub
-        
+//        view.addAnimation(new ShrinkBubbleAnimation(bubble, 100, width, height));
+        view.shrinkBubble(bubble);
     }
 
     public boolean hits(int x, int y) {
