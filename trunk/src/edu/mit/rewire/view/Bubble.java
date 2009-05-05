@@ -186,29 +186,21 @@ public class Bubble implements Drawable, MouseAware {
     }
      
     public void dispatchDown(ProcessingView view, int x, int y) {
-
+        this.r -= 4;
     }
     
     public void dispatchUp(ProcessingView view, int x, int y) {
-        if (this.state == State.EXPANDED) {
-            view.handleMarkReadClick(this);
-//            if (x >= this.x + this.r / 5 && x <= this.x + this.r / 5 + 100) {
-//                if (y >= this.y - this.r / 2 + 230) {
-//                    controller.handleTrashClick(this);
-//                } else if (y >= this.y - this.r / 2 + 165) {
-//                    controller.handleOpenClick(this);
-//                } else if (y >=this.y - this.r / 2 + 100) {
-//                    controller.handleStarClick(this);
-//                } else if (y >= this.y - this.r / 2) {
-//                    controller.handleMarkReadClick(this);
-//                }
-//            }
-        } else {
-            view.handleBubbleClick(this);
+        this.r += 4;
+        if (this.state != State.EXPANDED) {
+            view.expandBubble(this);
         }
     }
 
     public void dispatchIn(ProcessingView view, int x, int y) {
+
+    }
+    
+    public void dispatchOut(ProcessingView view, int x, int y) {
 
     }
     
