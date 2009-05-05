@@ -107,7 +107,7 @@ public class Bubble implements Drawable, MouseAware {
             	r,2*r);
             graphics.textFont(bodyFont);
             graphics.text(item.getHeader(), x - r * 1 / 2, y - r * 3 / 10, r * 9 / 10, r * 4 / 5);
-            graphics.textFont(bodyFont);
+            graphics.textFont(bodyFont, 12);
             graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r, r);
             
             //final float BUTTON_WIDTH = 54f;
