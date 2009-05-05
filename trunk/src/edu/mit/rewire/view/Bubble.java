@@ -185,13 +185,13 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.state = defaultState;
     }
      
-    public void dispatchDown(Controller controller, int x, int y) {
+    public void dispatchDown(ProcessingView view, int x, int y) {
 
     }
     
-    public void dispatchUp(Controller controller, int x, int y) {
+    public void dispatchUp(ProcessingView view, int x, int y) {
         if (this.state == State.EXPANDED) {
-            controller.handleMarkReadClick(this);
+            view.handleMarkReadClick(this);
 //            if (x >= this.x + this.r / 5 && x <= this.x + this.r / 5 + 100) {
 //                if (y >= this.y - this.r / 2 + 230) {
 //                    controller.handleTrashClick(this);
@@ -204,15 +204,15 @@ public class Bubble implements Drawable, Particle, MouseAware {
 //                }
 //            }
         } else {
-            controller.handleBubbleClick(this);
+            view.handleBubbleClick(this);
         }
     }
 
-    public void dispatchIn(Controller controller, int x, int y) {
+    public void dispatchIn(ProcessingView view, int x, int y) {
 
     }
     
-    public void dispatchDrag(Controller controller, int x, int y) {
+    public void dispatchDrag(ProcessingView view, int x, int y) {
 
     }
 

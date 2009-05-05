@@ -10,7 +10,12 @@ import edu.mit.rewire.controller.Controller;
 import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.Item;
 import edu.mit.rewire.view.animation.Animation;
+import edu.mit.rewire.view.animation.ExpandBubbleAnimation;
+import edu.mit.rewire.view.animation.FixedAnimation;
+import edu.mit.rewire.view.animation.GrayOutAnimation;
 import edu.mit.rewire.view.animation.PhysicsAnimation;
+import edu.mit.rewire.view.animation.PopBubbleAnimation;
+import edu.mit.rewire.view.animation.SequentialAnimation;
 
 public class ProcessingView extends PApplet {
 
@@ -22,8 +27,21 @@ public class ProcessingView extends PApplet {
 
 	private PhysicsAnimation physicsEngine;
 
-	private Controller controller;
-
+	private final List<MouseAware> components = new LinkedList<MouseAware>();
+    
+    private final List<MouseAware> toRemove = new LinkedList<MouseAware>();
+    
+    private final ProcessingView view = this;
+    
+    private final float width = screen.width;
+    private final float height = screen.height;
+    
+    private boolean mouseDown = false;
+    
+    private MouseAware mouseOver = null;
+    
+    private BackgroundOverlay bg;
+	
 	private DataSource dataSource;
 
 	private float r = 75;
@@ -32,8 +50,7 @@ public class ProcessingView extends PApplet {
 
 	@Override
 	public void setup() {
-		this.controller = new Controller(this, screen.width, screen.height);
-
+		
 		size(screen.width, screen.height);
 		background(0);
 		smooth();
@@ -74,7 +91,7 @@ public class ProcessingView extends PApplet {
 
 			this.elements.add(bubble);
 			this.physicsEngine.add(bubble);
-			this.controller.add(bubble);
+			this.view.add(bubble);
 			this.bubbles.add(bubble);
 		}
 	}
@@ -131,35 +148,126 @@ public class ProcessingView extends PApplet {
 	public void mousePressed() {
 		MouseAware component = hitComponent();
 		if (component == null) return;
-		component.dispatchDown(controller, mouseX, mouseY);
+		component.dispatchDown(this, mouseX, mouseY);
 	}
 
 	public void mouseReleased() {
 		MouseAware component = hitComponent();
 		if (component == null) return;
-		component.dispatchUp(controller, mouseX, mouseY);
+		component.dispatchUp(this, mouseX, mouseY);
 	}
 
-//	public void mouseMoved() {
-//	MouseAware component = hitComponent();
-//if (component == null) return;
-//	component.dispatchDown(controller, mouseX, mouseY);
-//	}
 
 	public void remove(BackgroundOverlay bg) {
 		this.elements.remove(bg);
 	}
 
 	public void update(int x, int y) {
-		this.controller.update(x, y, mousePressed);
+		this.view.update(x, y, mousePressed);
 	}
-	//    
-	// @Override
-	// public void mouseMoved() {
-	// int x = mouseX;
-	// int y = mouseY;
-	//        
-	// this.controller.doMove(x, y);
-	// }
+	
+	// START METHODS FROM CONTROLLER
+	
+	public void add(MouseAware clickable) {
+        this.components.add(0, clickable);
+    }
+    
+    private MouseAware hitComponent(int x, int y) {
+        for (MouseAware component : components) {
+            if (component.hits(x, y)) {
+                return component;
+            }
+        }
+        return null;
+    }
+    
+    public void update(int x, int y, boolean pressed) {
+        MouseAware hitComponent = hitComponent(x, y);
+        if (hitComponent == null) {
+            this.mouseOver = null;
+            this.mouseDown = pressed;
+            return;
+        }
+        
+        if (pressed) {
+            if (this.mouseDown) {
+                hitComponent.dispatchDrag(this, x, y);
+            } else {
+                this.mouseDown = true;
+                hitComponent.dispatchDown(this, x, y);
+            }
+        } else {
+            if (this.mouseDown) {
+                hitComponent.dispatchUp(this, x, y);
+                this.mouseDown = false;
+            } else {
+                                
+            }
+
+            this.mouseDown = false;
+
+        }
+        
+        for (MouseAware component : toRemove) {
+            components.remove(component);
+        }
+        
+        toRemove.clear();
+    }
+    
+    
+    public void doMove(int x, int y) {
+        for (MouseAware component : components) {
+            if (component.hits(x, y)) {
+                component.dispatchIn(this, x, y);
+            }
+        }
+        
+        for (MouseAware component : toRemove) {
+            components.remove(component);
+        }
+        
+        toRemove.clear();
+    }
+
+    public void handleBubbleClick(Bubble bubble) {
+        bg = new BackgroundOverlay(width, height);
+    	
+    	SequentialAnimation animation = new SequentialAnimation();
+        animation.add(new GrayOutAnimation(bg, true));
+    	animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
+        animation.add(new FixedAnimation(bubble));
+        this.view.add(animation);
+        this.view.remove(bubble);
+        this.view.add(bg);
+        this.view.add(bubble);
+    }
+    
+    public void handleMarkReadClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+        this.view.add(new GrayOutAnimation(bg, false));
+        this.toRemove.add(bubble);
+        this.toRemove.add(bg);
+    }
+    
+    public void handleStarClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+    
+    public void handleOpenClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+    
+    public void handleTrashClick(Bubble bubble) {
+        this.view.add(new PopBubbleAnimation(bubble, view));
+        this.view.remove(bubble);
+    }
+
+    public void remove(MouseAware component) {
+        this.components.remove(component);        
+    }
 
 }
