@@ -3,61 +3,51 @@ package edu.mit.rewire.view.animation;
 import edu.mit.rewire.view.Bubble;
 import edu.mit.rewire.view.Bubble.State;
 
-public class ExpandBubbleAnimation implements Animation {
+public class MoveBubbleAnimation implements Animation {
 
 	private Bubble bubble;
 
-
-	// VARIABLES TO ADJUST EXPANSION ANIMATION
-	private final float R = 400;		// Radius of expanded bubble
+	// VARIABLES TO ADJUST MOVEMENT ANIMATION
 	private final float thresh = 5;	// Threshold for stopping expansion (x and y direction)
 	private final float expSpeed = 3;	// Speed of expansion (smaller = faster)
 
-	private boolean checkR;
 	private boolean checkX;
 	private boolean checkY;
 
-	// Fixed values for center of the screen
-	private final float xCenter, yCenter;
+	// Fixed values for the destination of the bubble
+	private final float xDest, yDest;
 
 	// Fixed midpoints between starting value and desired value
 	private final float midpointX;
 	private final float midpointY;
-	private final float midpointR;
 
 	// Adjustment values for 'slow in' animation
 	private float adjustX;
 	private float adjustY;
-	private float adjustR;
 
 	// Recalculable 'distance' values of bubble from desired values 
 	private float xDistance;
 	private float yDistance;
-	private float rDistance;
 
 	// Constructor
-	public ExpandBubbleAnimation(Bubble bubble, int frames, float width, float height) {
+	public MoveBubbleAnimation(Bubble bubble, int frames, float xDest, float yDest) {
 		this.bubble = bubble;		
-		this.xCenter = width/2;
-		this.yCenter = height/2;
+		this.xDest = xDest;
+		this.yDest = yDest;
 
 		// Set initial midpoints between screen center and starting location of bubble for 'slow in' animation
-		midpointX = (this.bubble.getX() + xCenter)/2;
-		midpointY = (this.bubble.getY() + yCenter)/2;
-		midpointR = (this.bubble.getR() + R)/2;
+		midpointX = (this.bubble.getX() + xDest)/2;
+		midpointY = (this.bubble.getY() + yDest)/2;
 
 		// Set initial adjustment values for 'slow in' animation
 		this.adjustX = 1;
 		this.adjustY = 1;
-		this.adjustR = 1;
 
-		this.checkR = false;
 		this.checkX = false;
 		this.checkY = false;
 		
-		this.xDistance = width;
-		this.yDistance = height;
-		this.rDistance = (float) Math.sqrt(width * width + height * height);
+		this.xDistance = 0;
+		this.yDistance = 0;
 
 		// Stop regular animation of bubble
 		this.bubble.setDx(0);
@@ -82,32 +72,13 @@ public class ExpandBubbleAnimation implements Animation {
 		 * much is left to go". (minimum step size of 1)
 		 */
 
-		// EXPAND BUBBLE
-		if (this.bubble.getR() >= R) {
-			checkR = true;
-		} else {
-			if (this.bubble.getR() < R) {
-				// SLOW IN
-				if (this.bubble.getR() < midpointR) {
-					this.bubble.setR(this.bubble.getR() + adjustR);
-					adjustR = adjustR + (adjustR/expSpeed);
-				} 
-				// SLOW OUT
-				else {
-					rDistance = R - this.bubble.getR();
-					this.bubble.setR((float) Math.ceil(rDistance/expSpeed) + this.bubble.getR());
-				}
-			}	
-		}
-
-
 
 		// MOVE BUBBLE TO CENTER IN X DIRECTION
 		// From left of center
 		if (Math.abs(xDistance) < thresh) {
 			checkX = true;
 		} else {
-			if (this.bubble.getX() < xCenter) {
+			if (this.bubble.getX() < xDest) {
 				// SLOW IN
 				if (this.bubble.getX() < midpointX) {
 					this.bubble.setX(this.bubble.getX() + adjustX);
@@ -115,7 +86,7 @@ public class ExpandBubbleAnimation implements Animation {
 				} 
 				// SLOW OUT
 				else {
-					xDistance = (float) Math.abs(xCenter - this.bubble.getX());
+					xDistance = (float) Math.abs(xDest - this.bubble.getX());
 					this.bubble.setX((float) (Math.ceil(xDistance/expSpeed) + this.bubble.getX()));
 				}			
 			}
@@ -129,7 +100,7 @@ public class ExpandBubbleAnimation implements Animation {
 				} 
 				// SLOW OUT
 				else {
-					xDistance = (float) Math.abs(this.bubble.getX() - xCenter);
+					xDistance = (float) Math.abs(this.bubble.getX() - xDest);
 					this.bubble.setX((float) (this.bubble.getX() - Math.ceil(xDistance/expSpeed)));
 				}
 			}
@@ -140,7 +111,7 @@ public class ExpandBubbleAnimation implements Animation {
 		if (Math.abs(yDistance) < thresh) {
 			checkY = true;
 		} else {
-			if (this.bubble.getY() < yCenter) {
+			if (this.bubble.getY() < yDest) {
 				// SLOW IN
 				if (this.bubble.getY() < midpointY) {
 					this.bubble.setY(this.bubble.getY() + adjustY);
@@ -148,7 +119,7 @@ public class ExpandBubbleAnimation implements Animation {
 				} 
 				// SLOW OUT
 				else {
-					yDistance = (float) Math.abs(yCenter - this.bubble.getY());
+					yDistance = (float) Math.abs(yDest - this.bubble.getY());
 					this.bubble.setY((float) (Math.ceil(yDistance/expSpeed) + this.bubble.getY()));
 				}
 			} 
@@ -161,7 +132,7 @@ public class ExpandBubbleAnimation implements Animation {
 				}
 				// SLOW OUT
 				else {
-					yDistance = (float) Math.abs(this.bubble.getY() - yCenter);
+					yDistance = (float) Math.abs(this.bubble.getY() - yDest);
 					this.bubble.setY((float) (this.bubble.getY() - Math.ceil(yDistance/expSpeed)));
 				}
 			}
@@ -169,8 +140,8 @@ public class ExpandBubbleAnimation implements Animation {
 
 
 		// Check to see if expanded bubble values are met and stop animation if true
-		if (checkR && checkX && checkY) {
-			this.bubble.setState(State.EXPANDED);
+		if (checkX && checkY) {
+			this.bubble.clearState();
 			return true;
 		} else {
 			return false;
