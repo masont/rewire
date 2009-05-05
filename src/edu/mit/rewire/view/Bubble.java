@@ -81,7 +81,7 @@ public class Bubble implements Drawable, MouseAware {
     	
         graphics.shape(bubble, x - r, y - r, 2 * r, 2 * r);
         graphics.fill(136);
- //     graphics.textAlign(CENTER);
+        //graphics.textAlign(CENTER);
         switch (state) {
         case SMALL:
             graphics.shape(favIcon, x - r * 3 / 10, y - r * 3 / 5, r * 3 / 5,
@@ -103,12 +103,12 @@ public class Bubble implements Drawable, MouseAware {
             graphics.shape(favIcon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
             graphics.textFont(titleFont,20);
-            graphics.text(item.getTitle(), x - r * 4 / 5, y - r * 1 / 5,
+            graphics.text(item.getTitle(), x - r * 3 / 5, y - r * 2 / 5,
             	r,2*r);
             graphics.textFont(bodyFont);
-            graphics.text(item.getHeader(), x - r * 4 / 5, y + r * 1 / 20);
+            graphics.text(item.getHeader(), x - r * 2 / 5, y - r * 1 / 5, r, r);
             graphics.textFont(bodyFont);
-            graphics.text(item.getBody(), x - r * 3 / 5, y + r * 1 / 10, r, r);
+            graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r, r);
             
             //final float BUTTON_WIDTH = 54f;
             graphics.shape(popButton, x + r * 2 / 5, y - r / 2);
