@@ -18,7 +18,6 @@ public class DataSource {
 		try {
 			timeline = twitter.getFriendsTimeline();
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int i=0; i<5; i++) {
@@ -26,15 +25,15 @@ public class DataSource {
 			this.addItem(new TwitterItem(status));
 		}
 		this.addItem(new WeatherItem());
+		
+		//new Inbox();
 
 //		try {
 //			SAXBuilder parser = new SAXBuilder();
 //			Document doc = parser.build("http://www.google.com/calendar/m");
 //		} catch (JDOMException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		
@@ -112,14 +111,6 @@ public class DataSource {
                 "Amy Smith",
                 "7:48pm",
         "made a comment about your photo."));
-        this.addItem(new DummyItem("weather",
-                "Weather",
-                "4/10/09",
-                "Friday: Rain likely. Low 42F. S winds shifting to ENE at 10 to 15 mph. Chance of rain 80%. Rainfall near a quarter of an inch.\n\n"+
-
-                "Saturday: Rain showers early with overcast skies later in the day. High around 45F. Winds NNE at 10 to 20 mph. Chance of rain 70%.\n\n"+
-
-        "Sunday: Partly cloudy. Highs in the mid 40s and lows in the low 30s."));
         this.addItem(new DummyItem("todo",
                 "Agenda",
                 "4/10/09",

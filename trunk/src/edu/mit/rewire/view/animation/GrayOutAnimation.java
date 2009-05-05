@@ -10,7 +10,7 @@ public class GrayOutAnimation implements Animation {
 		this.bg = bg;
 	}
 	
-	@Override
+	//@Override
 	public boolean step() {
 		while (this.bg.getAlpha() < 90) {
 			this.bg.setAlpha(this.bg.getAlpha() + 10);

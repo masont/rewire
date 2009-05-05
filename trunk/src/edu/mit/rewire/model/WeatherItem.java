@@ -63,12 +63,10 @@ public class WeatherItem implements Item {
 	}
 	
 	public String getBody() {
-		// TODO Auto-generated method stub
 		return body;
 	}
 
 	public String getHeader() {
-		// TODO Auto-generated method stub
 		return header;
 	}
 
