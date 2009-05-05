@@ -22,7 +22,6 @@ public class ProcessingView extends PApplet {
 
 	private final List<Drawable> elements = new ArrayList<Drawable>();
 	private final List<Animation> animations = new LinkedList<Animation>();
-	private final List<Bubble> bubbles = new ArrayList<Bubble>();
 
 	private PhysicsAnimation physicsEngine;
 
@@ -87,9 +86,9 @@ public class ProcessingView extends PApplet {
 			}
 
 			this.elements.add(bubble);
+			this.components.add(bubble);
 			this.physicsEngine.add(bubble);
-			this.add(bubble);
-			this.bubbles.add(bubble);
+			this.addDrawable(bubble);
 		}
 	}
 
@@ -117,29 +116,34 @@ public class ProcessingView extends PApplet {
 
 	}
 
-	public void add(Animation animation) {
+	public void addAnimation(Animation animation) {
 		this.animations.add(animation);
 	}
 
-	public void add(Bubble bubble) {
-		this.elements.add(bubble);
+	public void addDrawable(Drawable drawable) {
+		this.elements.add(drawable);
 	}
 
-	public void add(BackgroundOverlay bg) {
-		this.elements.add(bg);
+	public void addMouseAware(MouseAware component) {
+		this.components.add(component);
 	}
 
-	public void remove(Bubble bubble) {
-		this.elements.remove(bubble);
+	public void removeDrawable(Drawable drawable) {
+		this.elements.remove(drawable);
+	}
+	
+	public void removeMouseAware(MouseAware component) {
+	    this.components.remove(components);
 	}
 
 	private MouseAware hitComponent() {
-		for (MouseAware component : bubbles) {
+	    MouseAware target = null;
+		for (MouseAware component : components) {
 			if (component.hits(mouseX, mouseY)) {
-				return component;
+				target = component;
 			}
 		}
-		return null;
+		return target;
 	}
 
 	public void mousePressed() {
@@ -181,10 +185,6 @@ public class ProcessingView extends PApplet {
 	    
 	}
 
-	public void remove(BackgroundOverlay bg) {
-		this.elements.remove(bg);
-	}
-
     public void expandBubble(Bubble bubble) {
         bg = new BackgroundOverlay(width, height);
     	
@@ -193,33 +193,39 @@ public class ProcessingView extends PApplet {
     	animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
         animation.add(new FixedAnimation(bubble));
         
-        this.add(animation);
-        this.remove(bubble);
-        this.add(bg);
-        this.add(bubble);
+        this.addAnimation(animation);
+        
+        this.removeDrawable(bubble);
+        this.removeMouseAware(bubble);
+        
+        this.addMouseAware(bg);
+        this.addDrawable(bg);
+        
+        this.addMouseAware(bubble);
+        this.addDrawable(bubble);
     }
     
     public void handleMarkReadClick(Bubble bubble) {
-        this.add(new PopBubbleAnimation(bubble, this));
-        this.remove(bubble);
-        this.add(new GrayOutAnimation(bg, false));
+        this.addAnimation(new PopBubbleAnimation(bubble, this));
+        this.removeDrawable(bubble);
+        this.addAnimation(new GrayOutAnimation(bg, false));
         this.toRemove.add(bubble);
         this.toRemove.add(bg);
     }
     
     public void handleStarClick(Bubble bubble) {
-        this.add(new PopBubbleAnimation(bubble, this));
-        this.remove(bubble);
+        this.addAnimation(new PopBubbleAnimation(bubble, this));
+        this.removeDrawable(bubble);
     }
     
     public void handleOpenClick(Bubble bubble) {
-        this.add(new PopBubbleAnimation(bubble, this));
-        this.remove(bubble);
+        this.addAnimation(new PopBubbleAnimation(bubble, this));
+        this.removeDrawable(bubble);
     }
     
     public void handleTrashClick(Bubble bubble) {
-        this.add(new PopBubbleAnimation(bubble, this));
-        this.remove(bubble);
+        this.addAnimation(new PopBubbleAnimation(bubble, this));
+        this.removeDrawable(bubble);
     }
 
     public void remove(MouseAware component) {
