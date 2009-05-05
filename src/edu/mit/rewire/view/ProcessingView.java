@@ -141,12 +141,6 @@ public class ProcessingView extends PApplet {
 	public void removeMouseAware(MouseAware component) {
 	    this.components.remove(component);
 	}
-	
-	public void removeBubble(Bubble bubble) {
-	    this.removeDrawable(bubble);
-	    this.removeMouseAware(bubble);
-	    this.physicsEngine.remove(bubble);
-	}
 
 	private MouseAware hitComponent() {
 	    MouseAware target = null;
@@ -244,7 +238,9 @@ public class ProcessingView extends PApplet {
     
     public void popBubble(Bubble bubble) {
         this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeBubble(bubble);
+        this.removeDrawable(bubble);
+        this.removeMouseAware(bubble);
+        this.physicsEngine.remove(bubble);
         
         this.addAnimation(new GrayOutAnimation(bg, false));
         this.removeMouseAware(bg);
