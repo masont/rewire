@@ -57,8 +57,11 @@ public class Bubble implements Drawable, Particle, MouseAware {
         this.x = x;
         this.y = y;
 
-        this.dx = (float) ((0.5 - Math.random()) * 1);
-        this.dy = (float) ((0.5 - Math.random()) * 1);
+//        this.dx = (float) ((0.5 - Math.random()) * 1);
+//        this.dy = (float) ((0.5 - Math.random()) * 1);
+        
+        this.dx = 0;
+        this.dy = 0;
 
         this.bubble = backImage;
         this.titleFont = ViewResources.loadFont("titleFont");
