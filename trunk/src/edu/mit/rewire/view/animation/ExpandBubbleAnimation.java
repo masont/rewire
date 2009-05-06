@@ -1,6 +1,7 @@
 package edu.mit.rewire.view.animation;
 
 import edu.mit.rewire.view.Bubble;
+import edu.mit.rewire.view.ProcessingView;
 import edu.mit.rewire.view.Bubble.State;
 
 public class ExpandBubbleAnimation implements Animation {
@@ -34,9 +35,13 @@ public class ExpandBubbleAnimation implements Animation {
 	private float xDistance;
 	private float yDistance;
 	private float rDistance;
+	
+	private ProcessingView view;
 
 	// Constructor
-	public ExpandBubbleAnimation(Bubble bubble, int frames, float width, float height) {
+	public ExpandBubbleAnimation(Bubble bubble, ProcessingView view, int frames, float width, float height) {
+	    this.view = view;
+	    
 		this.bubble = bubble;		
 		this.xCenter = width/2;
 		this.yCenter = height/2;
@@ -171,6 +176,7 @@ public class ExpandBubbleAnimation implements Animation {
 		// Check to see if expanded bubble values are met and stop animation if true
 		if (checkR && checkX && checkY) {
 			this.bubble.setState(State.EXPANDED);
+			this.view.showBubbleButtons(this.bubble);
 			return true;
 		} else {
 			return false;

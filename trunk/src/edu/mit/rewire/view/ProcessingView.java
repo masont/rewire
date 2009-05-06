@@ -211,7 +211,7 @@ public class ProcessingView extends PApplet {
     	bg.setBubble(bubble);
     	
     	SequentialAnimation animation = new SequentialAnimation();
-    	animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
+    	animation.add(new ExpandBubbleAnimation(bubble, this, 100, width, height));
         animation.add(new FixedAnimation(bubble));
         
         this.addAnimation(new GrayOutAnimation(bg, true));
@@ -226,19 +226,37 @@ public class ProcessingView extends PApplet {
         
         this.addMouseAware(bubble);
         this.addDrawable(bubble);
+
+    }
+    
+    public void showBubbleButtons(Bubble bubble) {
         
-        Button markReadButton = new MarkReadButton(bubble, 100, 100, 100, 100);
+        float buttonX = bubble.getX() + bubble.getR() / 2;
+        float baseY = bubble.getY() - bubble.getR() * 2 / 4;
+        float spacing = 60;
+        
+        Button markReadButton = new MarkReadButton(bubble, buttonX, baseY, 100, 100);
         this.addMouseAware(markReadButton);
         this.addDrawable(markReadButton);
         this.addBubbleButton(markReadButton);
+        
+        Button bubbleButton = new BubbleButton(bubble, buttonX, baseY + spacing, 100, 100);
+        this.addMouseAware(bubbleButton);
+        this.addDrawable(bubbleButton);
+        this.addBubbleButton(bubbleButton);
+        
+        
+        Button trashButton = new TrashButton(bubble, buttonX, baseY + spacing * 3, 100, 100);
+        this.addMouseAware(trashButton);
+        this.addDrawable(trashButton);
+        this.addBubbleButton(trashButton);
+        
+        
     }
 
 	public void minimizeBubble(Bubble bubble) {
-		SequentialAnimation animation = new SequentialAnimation();
-		animation.add(new GrayOutAnimation(bg, false));
-		animation.add(new ShrinkBubbleAnimation(bubble, 100, width, height));
-
-		this.addAnimation(animation);
+		this.addAnimation(new GrayOutAnimation(bg, false));
+		this.addAnimation(new ShrinkBubbleAnimation(bubble, 100, width, height));		
 
 		this.removeMouseAware(bg);
 
