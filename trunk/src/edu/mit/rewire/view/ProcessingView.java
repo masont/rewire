@@ -42,6 +42,8 @@ public class ProcessingView extends PApplet {
 	private BackgroundOverlay bg = new BackgroundOverlay(null, width, height);;
 
 	private DataSource dataSource;
+	
+	private UndoCommand lastCommand = null;
 
 	private float r = 75;
 	private float x;
@@ -243,6 +245,15 @@ public class ProcessingView extends PApplet {
 		}
 
 	}
+	
+    public void keyPressed() {
+        if (keyEvent.getKeyChar() == 'Z' || keyEvent.getKeyChar() == 'z') {
+            if (this.lastCommand != null) {
+                this.lastCommand.undo();
+                this.lastCommand = null;
+            }
+        }
+    }
 
 	public void showBubbleButtons(Bubble bubble) {
 
@@ -326,7 +337,7 @@ public class ProcessingView extends PApplet {
 		}
 	}
 
-	public void popBubble(Bubble bubble) {
+	public void popBubble(final Bubble bubble) {
 		this.addAnimation(new PopBubbleAnimation(bubble, this));
 		this.removeDrawable(bubble);
 		this.removeMouseAware(bubble);
@@ -340,6 +351,17 @@ public class ProcessingView extends PApplet {
 			this.removeDrawable(button);
 		}
 		this.bubbleButtons.clear();
+		
+        final ProcessingView self = this;
+        this.lastCommand = new UndoCommand() {
+            public void undo() {
+                bubble.setState(bubble.getDefaultState());
+                bubble.setR(bubble.getState() == State.SMALL ? 75 : 150);
+                self.elements.add(bubble);
+                self.components.add(bubble);
+                self.physicsEngine.add(bubble);
+            }
+        };
 	}
 
 	public void trashBubble(Bubble bubble) {
