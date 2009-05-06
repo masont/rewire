@@ -106,12 +106,10 @@ public class ScaleBubbleAnimation implements Animation {
 
 		// Check to see if expanded bubble values are met and stop animation if true
 		if (checkR) {
-			System.out.println("truing");
 			this.bubble.setDefaultState(state);
 			this.bubble.clearState();
 			return true;
 		} else {
-			System.out.println("failing");
 			return false;
 		}
 	}
