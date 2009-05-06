@@ -9,7 +9,7 @@ public class PopBubbleAnimation implements Animation {
     private final Bubble bubble;
     private final ProcessingView view;
     
-    private int frames = 4;
+    private int frames = 2;
     
     private static PImage popImage;
 
