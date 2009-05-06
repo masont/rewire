@@ -13,6 +13,7 @@ public class TrashButton extends Button {
     }
 
     public void execute(ProcessingView view, int x, int y) {
+        view.trashBubble(bubble);
     }
 
 
