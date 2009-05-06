@@ -55,7 +55,7 @@ public class BackgroundOverlay implements Drawable, MouseAware {
 
     public void dispatchUp(ProcessingView view, int x, int y) {
 //        view.addAnimation(new ShrinkBubbleAnimation(bubble, 100, width, height));
-        view.shrinkBubble(bubble);
+        view.minimizeBubble(bubble);
     }
 
     public boolean hits(int x, int y) {
