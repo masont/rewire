@@ -1,5 +1,6 @@
 package edu.mit.rewire.view.animation;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,8 +21,12 @@ public class ConcurrentAnimation implements Animation {
     }
 
     public boolean step() {
-        // TODO Auto-generated method stub
-        return false;
+        Iterator<Animation> iterator = animations.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().step())
+                iterator.remove();
+        }
+        return animations.isEmpty();
     }
 
 }
