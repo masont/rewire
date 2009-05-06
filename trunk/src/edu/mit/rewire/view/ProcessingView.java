@@ -64,6 +64,23 @@ public class ProcessingView extends PApplet {
 	private void loadItems() {
 		List<Item> items = dataSource.getItems();
 
+		Toggle redToggle = new Toggle(20, screen.height - 100, 60, 80, ViewResources.loadShape("redToggleOn"), ViewResources.loadShape("redToggleHover"), ViewResources.loadShape("redToggleOff"));
+		Toggle twitterBlueToggle = new Toggle(100, screen.height - 100, 60, 80, ViewResources.loadShape("twitterBlueToggleOn"), ViewResources.loadShape("twitterBlueToggleHover"), ViewResources.loadShape("twitterBlueToggleOff"));
+		Toggle orangeToggle = new Toggle(180, screen.height - 100, 60, 80, ViewResources.loadShape("orangeToggleOn"), ViewResources.loadShape("orangeToggleHover"), ViewResources.loadShape("orangeToggleOff"));
+		Toggle kellyToggle = new Toggle(260, screen.height - 100, 60, 80, ViewResources.loadShape("kellyToggleOn"), ViewResources.loadShape("kellyToggleHover"), ViewResources.loadShape("kellyToggleOff"));
+		Toggle yellowToggle = new Toggle(340, screen.height - 100, 60, 80, ViewResources.loadShape("yellowToggleOn"), ViewResources.loadShape("yellowToggleHover"), ViewResources.loadShape("yellowToggleOff"));
+		
+		this.elements.add(redToggle);
+		this.components.add(redToggle);
+		this.elements.add(twitterBlueToggle);
+		this.components.add(twitterBlueToggle);
+		this.elements.add(orangeToggle);
+		this.components.add(orangeToggle);
+		this.elements.add(kellyToggle);
+		this.components.add(kellyToggle);
+		this.elements.add(yellowToggle);
+		this.components.add(yellowToggle);
+		
 		for (Item item : items) {
 
 			// Place bubbles randomly near center of screen - PhysicsAnimation handles spreading bubbles out on screen
@@ -109,7 +126,8 @@ public class ProcessingView extends PApplet {
 		}
 
 		image(ViewResources.loadImage("logo"),20,40);
-
+		
+		
 //		shape(ViewResources.loadShape("redToggle"),20,600,60,60);
 //		shape(ViewResources.loadShape("twitterBlueToggle"),100,600,60,60);
 //		shape(ViewResources.loadShape("orangeToggle"),180,600,60,60);
