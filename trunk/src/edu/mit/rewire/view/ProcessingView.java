@@ -73,19 +73,19 @@ public class ProcessingView extends PApplet {
 			// ugly if-else statement
 			Bubble bubble;
 			if (item.getType() == "rss") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("orangeBubble"),  ViewResources.loadShape("rssIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("orangeBubble"), ViewResources.loadShape("orangeBubbleHover"), ViewResources.loadShape("rssIcon"));
 			} else if (item.getType() == "twitter") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("twitterBlueBubble"), ViewResources.loadShape("twitterIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("twitterBlueBubble"), ViewResources.loadShape("twitterBlueBubbleHover"), ViewResources.loadShape("twitterIcon"));
 			} else if (item.getType() == "nyt") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("pinkBubble"), ViewResources.loadShape("nytIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("pinkBubble"), ViewResources.loadShape("pinkBubbleHover"), ViewResources.loadShape("nytIcon"));
 			} else if (item.getType() == "todo") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("kellyBubble"), ViewResources.loadShape("todoIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("kellyBubble"), ViewResources.loadShape("kellyBubbleHover"), ViewResources.loadShape("todoIcon"));
 			} else if (item.getType() == "weather") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("yellowBubble"), ViewResources.loadShape("weatherIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("yellowBubble"), ViewResources.loadShape("yellowBubbleHover"), ViewResources.loadShape("weatherIcon"));
 			} else if (item.getType() == "email") {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("mailIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("redBubbleHover"), ViewResources.loadShape("mailIcon"));
 			} else {
-				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("mailIcon"));
+				bubble = new Bubble(item, x, y, r, ViewResources.loadShape("redBubble"), ViewResources.loadShape("redBubbleHover"), ViewResources.loadShape("mailIcon"));
 			}
 
 			this.elements.add(bubble);
@@ -110,11 +110,11 @@ public class ProcessingView extends PApplet {
 
 		image(ViewResources.loadImage("logo"),20,40);
 
-		shape(ViewResources.loadShape("redToggle"),20,600,60,60);
-		shape(ViewResources.loadShape("twitterBlueToggle"),100,600,60,60);
-		shape(ViewResources.loadShape("orangeToggle"),180,600,60,60);
-		shape(ViewResources.loadShape("kellyToggle"),260,600,60,60);
-		shape(ViewResources.loadShape("yellowToggle"),340,600,60,60);
+//		shape(ViewResources.loadShape("redToggle"),20,600,60,60);
+//		shape(ViewResources.loadShape("twitterBlueToggle"),100,600,60,60);
+//		shape(ViewResources.loadShape("orangeToggle"),180,600,60,60);
+//		shape(ViewResources.loadShape("kellyToggle"),260,600,60,60);
+//		shape(ViewResources.loadShape("yellowToggle"),340,600,60,60);
 
 	}
 
@@ -191,7 +191,7 @@ public class ProcessingView extends PApplet {
 	    
 	}
 
-    public void expandBubble(Bubble bubble) {
+    public void maximizeBubble(Bubble bubble) {
     	bubble.setOriginalX(bubble.getX());
     	bubble.setOriginalY(bubble.getY());
     	
@@ -220,7 +220,7 @@ public class ProcessingView extends PApplet {
         this.addBubbleButton(markReadButton);
     }
     
-    public void shrinkBubble(Bubble bubble) {
+    public void minimizeBubble(Bubble bubble) {
     	SequentialAnimation animation = new SequentialAnimation();
     	animation.add(new GrayOutAnimation(bg, false));
     	animation.add(new ShrinkBubbleAnimation(bubble, 100, width, height));

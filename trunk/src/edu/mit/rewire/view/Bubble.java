@@ -34,6 +34,8 @@ public class Bubble implements Drawable, MouseAware {
 
     /** Background image for the bubble */
     private PShape bubble;
+    private final PShape defaultBubble;
+    private final PShape hoverBubble;
 
     /** Fonts for the title and body */
     private PFont titleFont;
@@ -49,10 +51,10 @@ public class Bubble implements Drawable, MouseAware {
     private PShape trashButton;
 
     public Bubble(float x, float y, float r) {
-        this(null, x, y, r, null, null);
+        this(null, x, y, r, null, null, null);
     }
 
-    public Bubble(Item item, float x, float y, float r, PShape backImage, PShape icon) {
+    public Bubble(Item item, float x, float y, float r, PShape backImage, PShape hoverImage, PShape icon) {
         this.item = item;
 
         this.x = x;
@@ -65,6 +67,8 @@ public class Bubble implements Drawable, MouseAware {
         this.dy = 0;
 
         this.bubble = backImage;
+        this.defaultBubble = backImage;
+        this.hoverBubble = hoverImage;
         this.titleFont = ViewResources.loadFont("titleFont");
         this.bodyFont = ViewResources.loadFont("bodyFont");
         this.favIcon = icon;
@@ -215,16 +219,25 @@ public class Bubble implements Drawable, MouseAware {
     
     public void dispatchUp(ProcessingView view, int x, int y) {
         this.r += 4;
-        if (this.state != State.EXPANDED) {
-            view.expandBubble(this);
+        if (this.state != State.EXPANDED && this.state != State.TRANSITIONING) {
+            this.bubble = defaultBubble;
+        	view.maximizeBubble(this);
         }
     }
 
     public void dispatchIn(ProcessingView view, int x, int y) {
+    	
+    	if (this.state != State.EXPANDED && this.state != State.TRANSITIONING) {
+    		this.bubble = hoverBubble;
+    	}
 
     }
     
     public void dispatchOut(ProcessingView view, int x, int y) {
+    	
+    	if (this.state != State.EXPANDED && this.state != State.TRANSITIONING) {
+    		this.bubble = defaultBubble;
+    	}
 
     }
     
