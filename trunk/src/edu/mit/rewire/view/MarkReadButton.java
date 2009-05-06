@@ -7,8 +7,9 @@ public class MarkReadButton extends Button {
     public MarkReadButton(Bubble bubble, float x, float y, float height, float width) {
         super(x, y, height, width);
         this.bubble = bubble;        
-        this.upImage = this.overImage = new Shape("popButton", x, y, height, width);
+        this.upImage = new Shape("popButton", x, y, height, width);
         this.downImage = new Shape("popButtonClick", x, y, height, width);
+        this.overImage = new Shape("popButtonOver", x, y, height, width);
     }
 
     public void execute(ProcessingView view, int x, int y) {
