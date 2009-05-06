@@ -111,13 +111,12 @@ public class Bubble implements Drawable, MouseAware {
             graphics.shape(favIcon, x - r * 1 / 4, y - r * 4 / 5, r * 1 / 2,
                     r * 1 / 2);
             graphics.textFont(titleFont,20);
-            graphics.text(item.getTitle(), x - r * 3 / 5, y - r * 2 / 5,
+            graphics.text(item.getTitle(), x - r * 7 / 10, y - r * 2 / 5,
             	r, r * 2 / 10);
             graphics.textFont(bodyFont);
-            graphics.text(item.getHeader(), x - r * 1 / 2, y - r * 2 / 10, r * 9 / 10, r * 4 / 5);
+            graphics.text(item.getHeader(), x - r * 3 / 5, y - r * 2 / 10, r * 9 / 10, r * 1 / 5);
             graphics.textFont(bodyFont, 12);
-            graphics.text(item.getBody(), x - r * 3 / 5, y - r * 1 / 10, r * 10 / 10, r * 3 / 5);
-
+            graphics.text(item.getBody(), x - r * 7 / 10, y - r * 1 / 10, r * 11 / 10, r * 7 / 10);
             break;
         }
     }
