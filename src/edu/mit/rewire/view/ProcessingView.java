@@ -216,10 +216,10 @@ public class ProcessingView extends PApplet {
     	bg.setBubble(bubble);
     	
     	SequentialAnimation animation = new SequentialAnimation();
-        animation.add(new GrayOutAnimation(bg, true));
     	animation.add(new ExpandBubbleAnimation(bubble, 100, width, height));
         animation.add(new FixedAnimation(bubble));
         
+        this.addAnimation(new GrayOutAnimation(bg, true));
         this.addAnimation(animation);
         
         this.removeDrawable(bubble);
@@ -239,11 +239,9 @@ public class ProcessingView extends PApplet {
     }
     
     public void minimizeBubble(Bubble bubble) {
-    	SequentialAnimation animation = new SequentialAnimation();
-    	animation.add(new GrayOutAnimation(bg, false));
-    	animation.add(new ShrinkBubbleAnimation(bubble, 100, width, height));
-    	
-    	this.addAnimation(animation);
+    	this.addAnimation(new GrayOutAnimation(bg, false));
+    	this.addAnimation(new ShrinkBubbleAnimation(bubble, 100, width, height));
+
         
         this.removeMouseAware(bg);
         
