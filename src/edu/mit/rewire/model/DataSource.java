@@ -46,7 +46,7 @@ public class DataSource {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		// RSS
         try {
         	SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed = input.build(new XmlReader(new URL("http://feeds.boingboing.net/boingboing/iBag")));
@@ -55,7 +55,6 @@ public class DataSource {
 			for (int i=0; i<5; i++) {
 				this.addItem(new RSSItem(entries.get(i)));
 			}
-			
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
@@ -65,16 +64,8 @@ public class DataSource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-        this.addItem(new DummyItem("todo",
-                "Agenda",
-                "4/10/09",
-                "- talk to adam"+
-                "- finish pset\n"+
-                "- read papers\n"+
-                "- tech support emails\n"+
-                "- fill out reimbursement forms\n"+
-        "- taxes"));
+		// AGENDA
+		this.addItem(new AgendaItem());
 		
 	}
 	
