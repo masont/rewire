@@ -209,6 +209,10 @@ public class Bubble implements Drawable, MouseAware {
     public State getDefaultState() {
     	return defaultState;
     }
+    
+    public void setDefaultState(State state) {
+    	this.defaultState = state;
+    }
 
     public void clearState() {
         this.state = defaultState;
