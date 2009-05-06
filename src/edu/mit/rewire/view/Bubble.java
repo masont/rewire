@@ -45,7 +45,7 @@ public class Bubble implements Drawable, MouseAware {
     private PShape popButton;
     private PShape bubbleButton;
     private PShape starButton;
-    private PShape openButton;
+    //private PShape openButton;
     private PShape trashButton;
 
     public Bubble(float x, float y, float r) {
@@ -75,7 +75,7 @@ public class Bubble implements Drawable, MouseAware {
         this.popButton = ViewResources.loadShape("popButton");
         this.bubbleButton = ViewResources.loadShape("bubbleButton");
         this.starButton = ViewResources.loadShape("starButton");
-        this.openButton = ViewResources.loadShape("openButton");
+        //this.openButton = ViewResources.loadShape("openButton");
         this.trashButton = ViewResources.loadShape("trashButton");
     }
 
