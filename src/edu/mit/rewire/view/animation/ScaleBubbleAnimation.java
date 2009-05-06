@@ -11,7 +11,7 @@ public class ScaleBubbleAnimation implements Animation {
 	// VARIABLES TO ADJUST EXPANSION ANIMATION
 	private final float R;		// Radius of expanded bubble
 	private final float thresh = 5;	// Threshold for stopping expansion (x and y direction)
-	private final float expSpeed = 3;	// Speed of expansion (smaller = faster)
+	private final float expSpeed = 8;	// Speed of expansion (smaller = faster)
 
 	private boolean checkR;
 
@@ -24,10 +24,13 @@ public class ScaleBubbleAnimation implements Animation {
 
 	// Recalculable 'distance' values of bubble from desired values 
 	private float rDistance;
+	
+	private State state;
 
 	// Constructor
 	public ScaleBubbleAnimation(Bubble bubble, int frames, State state) {
-		this.bubble = bubble;		
+		this.bubble = bubble;
+		this.state = state;
 		this.R = (state == State.MEDIUM ? 150 : 75);
 
 		// Set initial midpoints between screen center and starting location of bubble for 'slow in' animation
@@ -64,7 +67,7 @@ public class ScaleBubbleAnimation implements Animation {
 		 */
 
 		// EXPAND BUBBLE
-		if (this.bubble.getR() < R) {
+		if (this.R == 150) {
 			if (this.bubble.getR() >= R) {
 				checkR = true;
 			} else {
@@ -103,9 +106,12 @@ public class ScaleBubbleAnimation implements Animation {
 
 		// Check to see if expanded bubble values are met and stop animation if true
 		if (checkR) {
+			System.out.println("truing");
+			this.bubble.setDefaultState(state);
 			this.bubble.clearState();
 			return true;
 		} else {
+			System.out.println("failing");
 			return false;
 		}
 	}

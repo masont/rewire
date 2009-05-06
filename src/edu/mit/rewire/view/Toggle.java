@@ -14,11 +14,14 @@ public class Toggle implements Drawable, MouseAware {
 	
 	private State state;
 	
+	private String type;
+	
 	private final float x, y, width, height;
 	
-	public Toggle(float x, float y, float width, float height, PShape upImage, PShape hoverImage, PShape downImage) {
+	public Toggle(String type, float x, float y, float width, float height, PShape upImage, PShape hoverImage, PShape downImage) {
 		this.x = x;
 		this.y = y;
+		this.type = type;
 		this.width = width;
 		this.height = height;
 		this.upImage = upImage;
@@ -62,9 +65,11 @@ public class Toggle implements Drawable, MouseAware {
 		if (this.state == State.UP) {
 			this.currentImage = downImage;
 			this.state = State.DOWN;
+			view.filterBubbles(type, true);
 		} else {
 			this.currentImage = upImage;
 			this.state = State.UP;
+			view.filterBubbles(type, false);
 		}
 
 	}

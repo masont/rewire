@@ -8,12 +8,14 @@ import java.util.List;
 import processing.core.PApplet;
 import edu.mit.rewire.model.DataSource;
 import edu.mit.rewire.model.Item;
+import edu.mit.rewire.view.Bubble.State;
 import edu.mit.rewire.view.animation.Animation;
 import edu.mit.rewire.view.animation.ExpandBubbleAnimation;
 import edu.mit.rewire.view.animation.FixedAnimation;
 import edu.mit.rewire.view.animation.GrayOutAnimation;
 import edu.mit.rewire.view.animation.PhysicsAnimation;
 import edu.mit.rewire.view.animation.PopBubbleAnimation;
+import edu.mit.rewire.view.animation.ScaleBubbleAnimation;
 import edu.mit.rewire.view.animation.SequentialAnimation;
 import edu.mit.rewire.view.animation.ShrinkBubbleAnimation;
 
@@ -23,22 +25,22 @@ public class ProcessingView extends PApplet {
 
 	private final List<Drawable> elements = new ArrayList<Drawable>();
 	private final List<Animation> animations = new LinkedList<Animation>();
-	
+
 	private final List<Button> bubbleButtons = new LinkedList<Button>();
 
 	private PhysicsAnimation physicsEngine;
 
 	private final List<MouseAware> components = new LinkedList<MouseAware>();
-    
-    private final float width = screen.width;
-    private final float height = screen.height;
-    
-    private MouseAware mouseOver = null;
-    
-    private MouseAware mouseDown = null;
-    
-    private BackgroundOverlay bg = new BackgroundOverlay(null, width, height);;
-	
+
+	private final float width = screen.width;
+	private final float height = screen.height;
+
+	private MouseAware mouseOver = null;
+
+	private MouseAware mouseDown = null;
+
+	private BackgroundOverlay bg = new BackgroundOverlay(null, width, height);;
+
 	private DataSource dataSource;
 
 	private float r = 75;
@@ -47,7 +49,7 @@ public class ProcessingView extends PApplet {
 
 	@Override
 	public void setup() {
-		
+
 		size(screen.width, screen.height);
 		background(0);
 		smooth();
@@ -57,19 +59,19 @@ public class ProcessingView extends PApplet {
 		this.loadItems();
 		this.physicsEngine.init();
 		this.animations.add(physicsEngine);
-		
+
 		this.addDrawable(bg);
 	}
 
 	private void loadItems() {
 		List<Item> items = dataSource.getItems();
 
-		Toggle redToggle = new Toggle(20, screen.height - 100, 60, 80, ViewResources.loadShape("redToggleOn"), ViewResources.loadShape("redToggleHover"), ViewResources.loadShape("redToggleOff"));
-		Toggle twitterBlueToggle = new Toggle(100, screen.height - 100, 60, 80, ViewResources.loadShape("twitterBlueToggleOn"), ViewResources.loadShape("twitterBlueToggleHover"), ViewResources.loadShape("twitterBlueToggleOff"));
-		Toggle orangeToggle = new Toggle(180, screen.height - 100, 60, 80, ViewResources.loadShape("orangeToggleOn"), ViewResources.loadShape("orangeToggleHover"), ViewResources.loadShape("orangeToggleOff"));
-		Toggle kellyToggle = new Toggle(260, screen.height - 100, 60, 80, ViewResources.loadShape("kellyToggleOn"), ViewResources.loadShape("kellyToggleHover"), ViewResources.loadShape("kellyToggleOff"));
-		Toggle yellowToggle = new Toggle(340, screen.height - 100, 60, 80, ViewResources.loadShape("yellowToggleOn"), ViewResources.loadShape("yellowToggleHover"), ViewResources.loadShape("yellowToggleOff"));
-		
+		Toggle redToggle = new Toggle("email", 20, screen.height - 100, 60, 80, ViewResources.loadShape("redToggleOff"), ViewResources.loadShape("redToggleHover"), ViewResources.loadShape("redToggleOn"));
+		Toggle twitterBlueToggle = new Toggle("twitter", 100, screen.height - 100, 60, 80, ViewResources.loadShape("twitterBlueToggleOff"), ViewResources.loadShape("twitterBlueToggleHover"), ViewResources.loadShape("twitterBlueToggleOn"));
+		Toggle orangeToggle = new Toggle("rss", 180, screen.height - 100, 60, 80, ViewResources.loadShape("orangeToggleOff"), ViewResources.loadShape("orangeToggleHover"), ViewResources.loadShape("orangeToggleOn"));
+		Toggle kellyToggle = new Toggle("todo", 260, screen.height - 100, 60, 80, ViewResources.loadShape("kellyToggleOff"), ViewResources.loadShape("kellyToggleHover"), ViewResources.loadShape("kellyToggleOn"));
+		Toggle yellowToggle = new Toggle("weather", 340, screen.height - 100, 60, 80, ViewResources.loadShape("yellowToggleOff"), ViewResources.loadShape("yellowToggleHover"), ViewResources.loadShape("yellowToggleOn"));
+
 		this.elements.add(redToggle);
 		this.components.add(redToggle);
 		this.elements.add(twitterBlueToggle);
@@ -80,7 +82,7 @@ public class ProcessingView extends PApplet {
 		this.components.add(kellyToggle);
 		this.elements.add(yellowToggle);
 		this.components.add(yellowToggle);
-		
+
 		for (Item item : items) {
 
 			// Place bubbles randomly near center of screen - PhysicsAnimation handles spreading bubbles out on screen
@@ -126,13 +128,6 @@ public class ProcessingView extends PApplet {
 		}
 
 		image(ViewResources.loadImage("logo"),20,40);
-		
-		
-//		shape(ViewResources.loadShape("redToggle"),20,600,60,60);
-//		shape(ViewResources.loadShape("twitterBlueToggle"),100,600,60,60);
-//		shape(ViewResources.loadShape("orangeToggle"),180,600,60,60);
-//		shape(ViewResources.loadShape("kellyToggle"),260,600,60,60);
-//		shape(ViewResources.loadShape("yellowToggle"),340,600,60,60);
 
 	}
 
@@ -147,21 +142,21 @@ public class ProcessingView extends PApplet {
 	public void addMouseAware(MouseAware component) {
 		this.components.add(component);
 	}
-	
-    public void addBubbleButton(Button button) {
-        this.bubbleButtons.add(button);
-    }
+
+	public void addBubbleButton(Button button) {
+		this.bubbleButtons.add(button);
+	}
 
 	public void removeDrawable(Drawable drawable) {
 		this.elements.remove(drawable);
 	}
-	
+
 	public void removeMouseAware(MouseAware component) {
-	    this.components.remove(component);
+		this.components.remove(component);
 	}
 
 	private MouseAware hitComponent() {
-	    MouseAware target = null;
+		MouseAware target = null;
 		for (MouseAware component : components) {
 			if (component.hits(mouseX, mouseY)) {
 				target = component;
@@ -173,40 +168,40 @@ public class ProcessingView extends PApplet {
 	public void mousePressed() {
 		MouseAware component = hitComponent();
 		if (component == null) return;
-	    this.mouseDown = component;
+		this.mouseDown = component;
 		component.dispatchDown(this, mouseX, mouseY);
 	}
 
 	public void mouseReleased() {
-	    // FIXME releasing mouse outside of region registers as a click
-	    if (this.mouseDown != null) {
-	        this.mouseDown.dispatchUp(this, mouseX, mouseY);
-	        this.mouseDown = null;
-	        return;
-	    }
+		// FIXME releasing mouse outside of region registers as a click
+		if (this.mouseDown != null) {
+			this.mouseDown.dispatchUp(this, mouseX, mouseY);
+			this.mouseDown = null;
+			return;
+		}
 		MouseAware component = hitComponent();
 		if (component == null) return;
 		component.dispatchUp(this, mouseX, mouseY);
 	}
-	
+
 	public void mouseMoved() {
-	    MouseAware component = hitComponent();
-        if (component == null) {
-            if (mouseOver != null) {
-                this.mouseOver.dispatchOut(this, mouseX, mouseY);
-                this.mouseOver = null;
-            }
-        } else {
-            if (mouseOver == null) {
-                component.dispatchIn(this, mouseX, mouseY);
-                this.mouseOver = component;
-            } else if (mouseOver != component) {
-                component.dispatchIn(this, mouseX, mouseY);
-                this.mouseOver.dispatchOut(this, mouseX, mouseY);
-                this.mouseOver = component;
-            }
-        }
-	    
+		MouseAware component = hitComponent();
+		if (component == null) {
+			if (mouseOver != null) {
+				this.mouseOver.dispatchOut(this, mouseX, mouseY);
+				this.mouseOver = null;
+			}
+		} else {
+			if (mouseOver == null) {
+				component.dispatchIn(this, mouseX, mouseY);
+				this.mouseOver = component;
+			} else if (mouseOver != component) {
+				component.dispatchIn(this, mouseX, mouseY);
+				this.mouseOver.dispatchOut(this, mouseX, mouseY);
+				this.mouseOver = component;
+			}
+		}
+
 	}
 
     public void maximizeBubble(Bubble bubble) {
@@ -237,54 +232,65 @@ public class ProcessingView extends PApplet {
         this.addDrawable(markReadButton);
         this.addBubbleButton(markReadButton);
     }
-    
-    public void minimizeBubble(Bubble bubble) {
-    	this.addAnimation(new GrayOutAnimation(bg, false));
-    	this.addAnimation(new ShrinkBubbleAnimation(bubble, 100, width, height));
 
-        
-        this.removeMouseAware(bg);
-        
-        for (Button button : this.bubbleButtons) {
-            this.removeMouseAware(button);
-            this.removeDrawable(button);
-        }
-        this.bubbleButtons.clear();
-    }
-    
-    public void popBubble(Bubble bubble) {
-        this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeDrawable(bubble);
-        this.removeMouseAware(bubble);
-        this.physicsEngine.remove(bubble);
-        
-        this.addAnimation(new GrayOutAnimation(bg, false));
-        this.removeMouseAware(bg);
-        
-        for (Button button : this.bubbleButtons) {
-            this.removeMouseAware(button);
-            this.removeDrawable(button);
-        }
-        this.bubbleButtons.clear();
-    }
-    
-    public void markRead(Bubble bubble) {
-        this.popBubble(bubble);
-    }
-    
+	public void minimizeBubble(Bubble bubble) {
+		SequentialAnimation animation = new SequentialAnimation();
+		animation.add(new GrayOutAnimation(bg, false));
+		animation.add(new ShrinkBubbleAnimation(bubble, 100, width, height));
 
-    public void handleStarClick(Bubble bubble) {
-        this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeDrawable(bubble);
-    }
-    
-    public void handleOpenClick(Bubble bubble) {
-        this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeDrawable(bubble);
-    }
-    
-    public void handleTrashClick(Bubble bubble) {
-        this.addAnimation(new PopBubbleAnimation(bubble, this));
-        this.removeDrawable(bubble);
-    }
+		this.addAnimation(animation);
+
+		this.removeMouseAware(bg);
+
+		for (Button button : this.bubbleButtons) {
+			this.removeMouseAware(button);
+			this.removeDrawable(button);
+		}
+		this.bubbleButtons.clear();
+	}
+
+	public void filterBubbles(String type, boolean direction) {
+
+		for (Bubble b : this.physicsEngine.getBubbles()) {
+			if (b.getItem().getType() == type) {
+				this.addAnimation(new ScaleBubbleAnimation(b, 100, direction ? State.MEDIUM : State.SMALL));
+			}
+		}
+	}
+
+	public void popBubble(Bubble bubble) {
+		this.addAnimation(new PopBubbleAnimation(bubble, this));
+		this.removeDrawable(bubble);
+		this.removeMouseAware(bubble);
+		this.physicsEngine.remove(bubble);
+
+		this.addAnimation(new GrayOutAnimation(bg, false));
+		this.removeMouseAware(bg);
+
+		for (Button button : this.bubbleButtons) {
+			this.removeMouseAware(button);
+			this.removeDrawable(button);
+		}
+		this.bubbleButtons.clear();
+	}
+
+	public void markRead(Bubble bubble) {
+		this.popBubble(bubble);
+	}
+
+
+	public void handleStarClick(Bubble bubble) {
+		this.addAnimation(new PopBubbleAnimation(bubble, this));
+		this.removeDrawable(bubble);
+	}
+
+	public void handleOpenClick(Bubble bubble) {
+		this.addAnimation(new PopBubbleAnimation(bubble, this));
+		this.removeDrawable(bubble);
+	}
+
+	public void handleTrashClick(Bubble bubble) {
+		this.addAnimation(new PopBubbleAnimation(bubble, this));
+		this.removeDrawable(bubble);
+	}
 }
