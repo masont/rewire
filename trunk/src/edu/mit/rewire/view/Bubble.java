@@ -12,6 +12,8 @@ public class Bubble implements Drawable, MouseAware {
     public enum State {
         SMALL, MEDIUM, EXPANDED, TRANSITIONING
     }
+    
+    public boolean starred;
 
     /** Model instance that this bubble represents */
     private final Item item;
@@ -76,6 +78,7 @@ public class Bubble implements Drawable, MouseAware {
 //        this.state = Math.random() > .4 ? State.SMALL : State.MEDIUM;
         this.defaultState = state;
         this.r = state == State.SMALL ? 75 : 150;
+        this.starred = false;
         
         this.popButton = ViewResources.loadShape("popButton");
         this.bubbleButton = ViewResources.loadShape("bubbleButton");
@@ -208,6 +211,14 @@ public class Bubble implements Drawable, MouseAware {
 
     public void clearState() {
         this.state = defaultState;
+    }
+    
+    public boolean isStarred() {
+    	return starred;
+    }
+    
+    public void setStarred(boolean b) {
+    	this.starred = b;
     }
      
     public void dispatchDown(ProcessingView view, int x, int y) {
