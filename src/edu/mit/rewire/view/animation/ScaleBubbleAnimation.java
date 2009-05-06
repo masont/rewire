@@ -11,7 +11,7 @@ public class ScaleBubbleAnimation implements Animation {
 	// VARIABLES TO ADJUST EXPANSION ANIMATION
 	private final float R;		// Radius of expanded bubble
 	private final float thresh = 5;	// Threshold for stopping expansion (x and y direction)
-	private final float expSpeed = 8;	// Speed of expansion (smaller = faster)
+	private final float expSpeed = 3;	// Speed of expansion (smaller = faster)
 
 	private boolean checkR;
 
